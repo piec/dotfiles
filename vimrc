@@ -13,6 +13,8 @@ set mouse=a
 set hidden
 "set cursorline
 let mapleader = ","
+nnoremap <F1> :GundoToggle<CR>
+let g:qb_hotkey = "<F2>"
 map <F4> :NERDTreeToggle<CR>
 map <F3> :NERDTreeFind<CR>
 
@@ -38,7 +40,7 @@ map <F5> :!clear; ./`make name`<CR>
 
 set pastetoggle=<F1>
 
-map <F2> :read !svn diff<CR>:set syntax=diff buftype=nofile<CR>gg
+"map <F2> :read !svn diff<CR>:set syntax=diff buftype=nofile<CR>gg
 
 syntax on
 
