@@ -4,6 +4,9 @@ call pathogen#helptags()
 set cursorline
 
 if has("gui_running")
+	"set guifont=DejaVu\ Sans\ Mono\ 9
+	"set guifont=Droid\ Sans\ Mono\ 10
+	set guifont=Fixed\ 10
 	colorscheme ir_black
 else
 	hi CursorLine ctermbg=235 cterm=none
