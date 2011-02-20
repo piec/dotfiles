@@ -1,0 +1,19 @@
+# reverse not focused split: %?%F%{-b 0w}%:%{-b w0}%?
+# with flags:
+caption always "%?%F%{-b 0w}%:%{-b w0}%?%H |%?%F%{0w}%? %L=%-Lw%45>%{+b w0}%n%f* %t%{-}%+Lw%-0< %= %l | %D %d.%m.%Y %0c"
+# without flags:
+#caption always "%?%F%{-b 0w}%:%{-b w0}%?%H |%?%F%{0w}%? %L=%-w%45>%{+b w0}%n* %t%{-}%+w%-0< %= %l | %D %d.%m.%Y %0c"
+
+defscrollback 3000
+term screen-256color
+termcapinfo xterm|xterms|xterm-color|xs|rxvt|xterm-256color ti@:te@
+vbell off
+silencewait 6
+activity 'Activity in window %n^G'
+bell_msg 'Bell in window %n^G'
+deflogin off
+
+#attrcolor b ".I"    # allow bold colors - necessary for some reason
+#termcapinfo xterm 'Co#256:AB=\E[48;5;%dm:AF=\E[38;5;%dm'   # tell screen how to set colors. AB = background, AF=foreground
+#defbce on    # use current bg color for erased chars
+
