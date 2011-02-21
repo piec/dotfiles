@@ -5,7 +5,7 @@ set -x
 
 link() {
 	[ -e $1 ] && mv $1 dotfiles_sv/$1
-	ln -s dotfiles/$1
+	ln -s dotfiles/$1 $1
 }
 
 cd ~
