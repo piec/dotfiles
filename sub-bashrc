@@ -1,2 +1,72 @@
 export PATH=$PATH:~/dotfiles/bin
+export EDITOR=vim
+
+case "$TERM" in
+    *-color) color_prompt=yes;;
+    *-256color) color_prompt=yes;;
+    linux*) color_prompt=yes;;
+esac
+
+function hbar()
+{
+    eval printf '%.0s$2' {1..$1}
+}
+
+function prompt_command()
+{
+    local sv=$?
+    local GRAY="\e[1;30m"
+    local LIGHT_GRAY="\e[0;37m"
+    local CYAN="\e[0;36m"
+    local LIGHT_CYAN="\e[1;36m"
+    local RED="\e[1;31m"
+    local NO_COLOUR="\e[0m"
+
+    [[ $1 = yes ]] && echo -en $GRAY
+    local cols=`tput cols`
+    cols=${cols:-50}                                                                                                                  
+    hbar $[ $cols - 5 ] "─"
+    #hbar $[ $cols - 5 ] "_"
+
+    [[ $1 = yes ]] && [ "a$sv" != "a0" ] && echo -en $RED
+
+    printf "% 3d" $sv
+
+    #echo -en $NO_COLOUR
+    #echo -en $CYAN
+}
+
+
+function r()                                                                                                                          
+{
+    history 2 | head -n 1 | sed "s/ *[0-9]* *//" >> ${1-~/cmd.sh}
+}
+
+if [ "$color_prompt" = yes ]; then                                                                                                    
+    #PS1='$(prompt_command yes)\n\[\e[0;36m\]'$PS1'\[\e[0m\]'
+    PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '
+    PS1='$(prompt_command yes)\n'$PS1
+else
+    #PS1='${debian_chroot:+($debian_chroot)}\u@\h:\w\$ '
+    PS1='${debian_chroot:+($debian_chroot)}\u@\h:\w\$ '
+    PS1='$(prompt_command no)\n'$PS1
+fi
+
+# enable color support of ls and also add handy aliases                                                                               
+if [ "$color_prompt" = yes ]; then
+    if [ -x /usr/bin/dircolors ]; then
+        test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
+        alias ls='ls --color=auto'
+        #alias dir='dir --color=auto'
+        #alias vdir='vdir --color=auto'
+
+        alias grep='grep --color=auto'
+        alias fgrep='fgrep --color=auto'
+        alias egrep='egrep --color=auto'
+    fi
+fi
+
+alias l='ls -la'
+
+unset color_prompt force_color_prompt                                                                                                 
 
