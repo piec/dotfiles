@@ -2,6 +2,7 @@ call pathogen#runtime_append_all_bundles()
 call pathogen#helptags()
 
 set cursorline
+set number
 
 if has("gui_running")
 	"set guifont=DejaVu\ Sans\ Mono\ 9
