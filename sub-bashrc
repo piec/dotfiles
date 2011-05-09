@@ -2,6 +2,7 @@ export PATH=$PATH:~/dotfiles/bin
 export EDITOR=vim
 
 case "$TERM" in
+	xterm) color_prompt=yes;;
     *-color) color_prompt=yes;;
     *-256color) color_prompt=yes;;
     linux*) color_prompt=yes;;
