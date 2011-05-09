@@ -26,6 +26,7 @@ link .screenrc
 
 #link .emacs
 [ -e .emacs ] && mv .emacs dotfiles_sv/.emacs
+link .emacs.d
 
 link .toprc
 link .htoprc
