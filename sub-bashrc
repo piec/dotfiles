@@ -1,4 +1,6 @@
 export PATH=$PATH:~/dotfiles/bin
+alias emacs=emacs-screen.sh
+
 export EDITOR=vim
 
 case "$TERM" in
