@@ -4,6 +4,7 @@
 
 ;; Bind newline-and-indent to RET
 (define-key global-map (kbd "RET") 'newline-and-indent)
+(setq-default tab-width 4)
 
 (xterm-mouse-mode t)
 (mouse-wheel-mode t)
