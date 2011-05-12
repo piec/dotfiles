@@ -11,7 +11,8 @@ link() {
 cd ~
 
 [ ! -e dotfiles ]
-git clone --recursive ssh://pierre@serv.thruhere.net/~pierre/git-repos/dotfiles dotfiles
+#git clone --recursive ssh://pierre@serv.thruhere.net/~pierre/git-repos/dotfiles dotfiles
+git clone --recursive git@github.com:piec/dotfiles.git dotfiles
 
 if [ -e dotfiles_sv ]; then
 	[ -d dotfiles_sv ]

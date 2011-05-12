@@ -1,5 +1,5 @@
 export PATH=$PATH:~/dotfiles/bin
-alias emacs=emacs-screen.sh
+alias emacsc=emacs-screen.sh
 
 export EDITOR=vim
 
