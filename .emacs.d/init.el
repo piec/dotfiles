@@ -1,3 +1,7 @@
+(add-to-list 'load-path "~/.emacs.d/")
+(add-to-list 'load-path "~/.emacs.d/apel-10.8")
+;;(server-start)
+
 ;; pour que S-up marche dans putty/screen/emacs avec TERM=xterm-256color
 (define-key input-decode-map "\e[1;2A" [S-up])
 (define-key input-decode-map "\e[4~" [end])
@@ -8,17 +12,20 @@
 
 (xterm-mouse-mode t)
 (mouse-wheel-mode t)
+(setq mouse-wheel-progressive-speed nil)
 
-;;(set-face-font 'default "-misc-fixed-medium-r-normal--13-120-75-75-c-70-iso8859-9")
+(require 'pierre-cursor-shape)
+
+(if (eq window-system 'x)
+	(progn
+	  (set-face-font 'default "-misc-fixed-medium-r-normal--13-120-75-75-c-70-iso8859-9")
+	  )
+  )
 
 ;; C-x, C-c, C-v
 (cua-mode)
 ;; InteractivelyDoThings
 (ido-mode)
-
-(add-to-list 'load-path "~/.emacs.d/")
-(add-to-list 'load-path "~/.emacs.d/apel-10.8")
-;;(server-start)
 
 ;; alt-arrows for window navigation
 (windmove-default-keybindings 'meta)
@@ -94,13 +101,18 @@
 ;; auto-complete-clang
 (require 'auto-complete-clang)
 (setq clang-completion-suppress-error 't)
+;;(setq ac-auto-start t)
 
 (defun my-c-mode-common-hook()
   (setq ac-auto-start nil)
   (setq ac-expand-on-auto-complete nil)
   (setq ac-quick-help-delay 0.3)
-					;(define-key c-mode-base-map (kbd "M-/") 'ac-complete-clang)
-  (define-key c-mode-base-map (kbd "C-@") 'ac-complete-clang)
+  ;;(define-key c-mode-base-map (kbd "M-/") 'ac-complete-clang)
+  ;;(define-key c-mode-base-map (kbd "C-a") 'ac-complete-clang)
+  (if (eq window-system nil)
+	  (define-key c-mode-base-map (kbd "C-@") 'ac-complete-clang)
+	(define-key c-mode-base-map (kbd "C-SPC") 'ac-complete-clang)
+	)
   )
 
 (add-hook 'c-mode-common-hook 'my-c-mode-common-hook)

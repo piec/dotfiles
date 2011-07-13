@@ -1,4 +1,8 @@
+.emacs.d/auto-save-list/*
+.emacs.d/ac-comphist.dat
 .vim/undodir/*
 .vim/.netrwhist
 .vim/doc/tags
 *.elc
+*~
+\#*#
