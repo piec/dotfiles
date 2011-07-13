@@ -16,9 +16,10 @@
 
 (require 'pierre-cursor-shape)
 
+(defconst my-font "-misc-fixed-medium-r-normal-*-13-*-*-*-*-70-iso8859-9")
 (if (eq window-system 'x)
 	(progn
-	  (set-face-font 'default "-misc-fixed-medium-r-normal--13-120-75-75-c-70-iso8859-9")
+	  (set-face-font 'default my-font)
 	  )
   )
 
@@ -64,6 +65,13 @@
 (load-file "~/.emacs.d/cedet-1.0/common/cedet.el")
 (add-to-list 'load-path "~/.emacs.d/ecb-2.40")
 (require 'ecb)
+
+(if (eq window-system 'x)
+	(progn
+	  (set-face-font 'ecb-default-general-face my-font)
+	  (set-face-font 'ecb-bucket-node-face my-font)
+	  )
+  )
 
 ;;(require 'windows)
 ;;(win:startup-with-window)
