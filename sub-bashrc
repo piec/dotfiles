@@ -2,6 +2,7 @@ export PATH=$PATH:~/dotfiles/bin
 alias emacsc=emacs-screen.sh
 
 export EDITOR=vim
+export LESS=-ir
 
 case "$TERM" in
 	xterm) color_prompt=yes;;

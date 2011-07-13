@@ -123,6 +123,16 @@
 	)
   )
 
+;; wrap I-Search automatically
+(defadvice isearch-repeat (after isearch-no-fail activate)
+  (unless isearch-success
+	(ad-disable-advice 'isearch-repeat 'after 'isearch-no-fail)
+	(ad-activate 'isearch-repeat)
+	(isearch-repeat (if isearch-forward 'forward))
+	(ad-enable-advice 'isearch-repeat 'after 'isearch-no-fail)
+	(ad-activate 'isearch-repeat)))
+
+
 (add-hook 'c-mode-common-hook 'my-c-mode-common-hook)
 (custom-set-variables
   ;; custom-set-variables was added by Custom.
