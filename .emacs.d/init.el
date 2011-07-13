@@ -12,7 +12,27 @@
 
 (xterm-mouse-mode t)
 (mouse-wheel-mode t)
-(setq mouse-wheel-progressive-speed nil)
+;;(setq scroll-preserve-screen-position nil)
+(setq mouse-wheel-scroll-amount '(3 ((shift) . 1))) ;; one line at a time
+(setq mouse-wheel-progressive-speed nil) ;; don't accelerate scrolling
+(setq mouse-wheel-follow-mouse 't) ;; scroll window under mouse
+(setq scroll-step 1) ;; keyboard scroll one line at a time
+
+;; visual bookmarks
+(require 'bm)
+(global-set-key [f1] 'bm-toggle)
+(global-set-key [f2] 'bm-next)
+
+;;; This was installed by package-install.el.
+;;; This provides support for the package system and
+;;; interfacing with ELPA, the package archive.
+;;; Move this code earlier if you want to reference
+;;; packages in your .emacs.
+(when
+	(load
+	 (expand-file-name "~/.emacs.d/elpa/package.el"))
+  (package-initialize))
+
 
 (require 'pierre-cursor-shape)
 
@@ -22,6 +42,32 @@
 	  (set-face-font 'default my-font)
 	  )
   )
+
+
+;;(require 'highlight-symbol)
+(setq highlight-symbol-idle-delay 0)
+;;(highlight-symbol-mode t)
+(global-set-key [(control f3)] 'highlight-symbol-at-point)
+;;(global-set-key [f3] 'highlight-symbol-next)
+(defun hl-symbol-and-jump ()
+  (interactive)
+  (let ((symbol (highlight-symbol-get-symbol)))
+	(unless symbol (error "No symbol at point"))
+	(unless hi-lock-mode (hi-lock-mode 1))
+	(if (member symbol highlight-symbol-list)
+		(highlight-symbol-next)
+	  (progn (hl-symbol-cleanup) (highlight-symbol-at-point))
+	  (highlight-symbol-next))))
+(defun hl-symbol-cleanup ()
+  (interactive)
+  (mapc 'hi-lock-unface-buffer highlight-symbol-list)
+  (setq highlight-symbol-list ()))
+(global-set-key [f3] 'hl-symbol-and-jump)
+(global-set-key [C-f3] 'hl-symbol-cleanup)
+(global-set-key [(shift f3)] 'highlight-symbol-prev)
+;;(global-set-key [(meta f3)] 'highlight-symbol-prev)))
+;; (global-set-key [(control meta f3)] 'highlight-symbol-query-replace)
+
 
 ;; C-x, C-c, C-v
 (cua-mode)
@@ -108,9 +154,20 @@
 
 ;; auto-complete-clang
 (require 'auto-complete-clang)
-(setq clang-completion-suppress-error 't)
+(setq clang-completion-suppress-error 'f)
 ;;(setq ac-auto-start t)
 
+;; wrap I-Search automatically
+(defadvice isearch-repeat (after isearch-no-fail activate)
+  (unless isearch-success
+	(ad-disable-advice 'isearch-repeat 'after 'isearch-no-fail)
+	(ad-activate 'isearch-repeat)
+	(isearch-repeat (if isearch-forward 'forward))
+	(ad-enable-advice 'isearch-repeat 'after 'isearch-no-fail)
+	(ad-activate 'isearch-repeat)))
+
+
+;; clang completion
 (defun my-c-mode-common-hook()
   (setq ac-auto-start nil)
   (setq ac-expand-on-auto-complete nil)
@@ -123,17 +180,9 @@
 	)
   )
 
-;; wrap I-Search automatically
-(defadvice isearch-repeat (after isearch-no-fail activate)
-  (unless isearch-success
-	(ad-disable-advice 'isearch-repeat 'after 'isearch-no-fail)
-	(ad-activate 'isearch-repeat)
-	(isearch-repeat (if isearch-forward 'forward))
-	(ad-enable-advice 'isearch-repeat 'after 'isearch-no-fail)
-	(ad-activate 'isearch-repeat)))
-
-
 (add-hook 'c-mode-common-hook 'my-c-mode-common-hook)
+
+;; customize variables
 (custom-set-variables
   ;; custom-set-variables was added by Custom.
   ;; If you edit it by hand, you could mess it up, so be careful.
