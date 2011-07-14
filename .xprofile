@@ -1,0 +1,3 @@
+pactl upload-sample /usr/share/sounds/gnome/default/alerts/glass.ogg bell.ogg
+xset b 100
+
