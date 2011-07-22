@@ -1,5 +1,6 @@
 (add-to-list 'load-path "~/.emacs.d/")
 (add-to-list 'load-path "~/.emacs.d/apel-10.8")
+(add-to-list 'load-path "~/.emacs.d/color-theme-6.6.0")
 ;;(server-start)
 
 ;; pour que S-up marche dans putty/screen/emacs avec TERM=xterm-256color
@@ -40,6 +41,7 @@
 (if (eq window-system 'x)
 	(progn
 	  (set-face-font 'default my-font)
+	  (set-scroll-bar-mode `right)
 	  )
   )
 
