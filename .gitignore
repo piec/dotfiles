@@ -3,6 +3,7 @@
 .vim/undodir/*
 .vim/.netrwhist
 .vim/doc/tags
+*.swp
 *.elc
 *~
 \#*#
