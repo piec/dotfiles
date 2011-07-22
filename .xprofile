@@ -1,3 +1,5 @@
+#!/bin/sh
 pactl upload-sample /usr/share/sounds/gnome/default/alerts/glass.ogg bell.ogg
 xset b 100
+~pierre/dotfiles/bin/mouse.sh
 
