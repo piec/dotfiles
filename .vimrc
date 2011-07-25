@@ -48,7 +48,7 @@ set pastetoggle=<F1>
 
 syntax on
 
-if version >= 730
+if v:version >= 703
 	set undodir=~/.vim/undodir
 	set undofile
 	set undolevels=1000 "maximum number of changes that can be undone
