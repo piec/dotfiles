@@ -110,16 +110,16 @@
 ;;(global-set-key [f11] '(lambda () (interactive) (window-configuration-to-register ?w)))
 ;;(global-set-key [f12] '(lambda () (interactive) (jump-to-register ?w)))
 
-(load-file "~/.emacs.d/cedet-1.0/common/cedet.el")
-(add-to-list 'load-path "~/.emacs.d/ecb-2.40")
-(require 'ecb)
+;;(load-file "~/.emacs.d/cedet-1.0/common/cedet.el")
+;;(add-to-list 'load-path "~/.emacs.d/ecb-2.40")
+;;(require 'ecb)
 
-(if (eq window-system 'x)
-	(progn
-	  (set-face-font 'ecb-default-general-face my-font)
-	  (set-face-font 'ecb-bucket-node-face my-font)
-	  )
-  )
+;;(if (eq window-system 'x)
+;;	(progn
+;;	  (set-face-font 'ecb-default-general-face my-font)
+;;	  (set-face-font 'ecb-bucket-node-face my-font)
+;;	  )
+ ;; )
 
 ;;(require 'windows)
 ;;(win:startup-with-window)

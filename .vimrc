@@ -48,6 +48,10 @@ set pastetoggle=<F1>
 
 syntax on
 
+if !has("ruby")
+	let g:LustyExplorerSuppressRubyWarning = 1
+endif
+
 if v:version >= 703
 	set undodir=~/.vim/undodir
 	set undofile
