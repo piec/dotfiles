@@ -12,6 +12,8 @@
 
 (xterm-mouse-mode t)
 (mouse-wheel-mode t)
+(eldoc-mode t)
+
 ;;(setq scroll-preserve-screen-position nil)
 (setq mouse-wheel-scroll-amount '(3 ((shift) . 1))) ;; one line at a time
 (setq mouse-wheel-progressive-speed nil) ;; don't accelerate scrolling
@@ -44,7 +46,7 @@
   )
 
 
-;;(require 'highlight-symbol)
+(require 'highlight-symbol)
 (setq highlight-symbol-idle-delay 0)
 ;;(highlight-symbol-mode t)
 (global-set-key [(control f3)] 'highlight-symbol-at-point)
