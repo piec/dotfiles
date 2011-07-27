@@ -10,8 +10,8 @@ term xterm-256color #for emacs
 termcapinfo xterm|xterms|xterm-color|xs|rxvt|xterm-256color ti@:te@
 vbell off
 silencewait 6
-activity 'Activity in window %n^G'
-bell_msg 'Bell in window %n^G'
+activity 'Activity in window %n'
+bell_msg 'Bell in window %n'
 deflogin off
 
 #attrcolor b ".I"    # allow bold colors - necessary for some reason
