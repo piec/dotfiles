@@ -1,0 +1,34 @@
+#set prompt="%n@%m:%c%# "
+set black="%{\033[30m%}"
+set red="%{\033[31m%}"
+set green="%{\033[32m%}"
+set yellow="%{\033[33m%}"
+set blue="%{\033[34m%}"
+set magenta="%{\033[35m%}"
+set cyan="%{\033[36m%}"
+set white="%{\033[37m%}"
+
+set lightgray="%{\033[1;30m%}"
+
+set bblack="%{\033[1;30m%}"
+set bred="%{\033[1;31m%}"
+set bgreen="%{\033[1;32m%}"
+set byellow="%{\033[1;33m%}"
+set bblue="%{\033[1;34m%}"
+set bmagenta="%{\033[1;35m%}"
+set bcyan="%{\033[1;36m%}"
+set bwhite="%{\033[1;37m%}"
+
+set no="%{\033[0m%}"
+
+set LIGHT_GRAY="\e[1;30m"
+#alias precmd 'set n=`tput cols`; @ n = $n - 5; echo -n $LIGHT_GRAY; printf "%.0s_" `seq 1 $n`; echo " "$?'
+alias precmd 'set r=$?; set n=`tput cols`; @ n = $n - 5; echo -n $LIGHT_GRAY; printf "%.0s_" `seq 1 $n`; echo " "$r'
+
+#alias precmd "echo '${lightgray}' ; eval printf '%.0s_' {1..`tput cols`} "
+#alias precmd "testf"
+set prompt="$bgreen%n$no@$bgreen%m${no}:$bblue%/$no%# "
+
+alias ls "ls --color"
+alias l "ls -la"
+
