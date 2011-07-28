@@ -1,4 +1,14 @@
+# %-w : all window numbers and names, With '-' qualifier: up to the current window
+# %+w : all window numbers and names, with '+' qualifier: starting with the window after the current one
+# {...} : attribute/color modifier string terminated by the next '}'
+# n : window number 
+# f : flags of the window
+# t : window title
+#caption always "%-Lw%{+b w0}%n%f %t%{-}%+Lw"
+#caption always "%-Lw%n%f %t%+Lw"
+
 # reverse not focused split: %?%F%{-b 0w}%:%{-b w0}%?
+
 # with flags:
 caption always "%?%F%{-b 0w}%:%{-b w0}%?%H |%?%F%{0w}%? %L=%-Lw%45>%{+b w0}%n%f* %t%{-}%+Lw%-0< %= %l | %D %d.%m.%Y %0c"
 # without flags:
@@ -10,8 +20,8 @@ term screen-256color
 termcapinfo xterm|xterms|xterm-color|xs|rxvt|xterm-256color ti@:te@
 vbell off
 silencewait 6
-activity 'Activity in window %n^G'
-bell_msg 'Bell in window %n^G'
+activity 'Activity in window %n'
+bell_msg 'Bell in window %n'
 deflogin off
 
 #attrcolor b ".I"    # allow bold colors - necessary for some reason
