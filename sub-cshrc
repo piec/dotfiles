@@ -31,4 +31,9 @@ set prompt="$bgreen%n$no@$bgreen%m${no}:$bblue%/$no%# "
 
 alias ls "ls --color"
 alias l "ls -la"
+alias grep "grep --color"
+
+setenv LESS "-ir"
+
+setenv PATH ~/dotfiles/bin:$PATH
 
