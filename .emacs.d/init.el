@@ -6,6 +6,10 @@
 ;; pour que S-up marche dans putty/screen/emacs avec TERM=xterm-256color
 (define-key input-decode-map "\e[1;2A" [S-up])
 (define-key input-decode-map "\e[4~" [end])
+(define-key input-decode-map "O3A" [M-up])
+(define-key input-decode-map "O3B" [M-down])
+(define-key input-decode-map "O3C" [M-right])
+(define-key input-decode-map "O3D" [M-left])
 
 ;; Bind newline-and-indent to RET
 (define-key global-map (kbd "RET") 'newline-and-indent)
@@ -39,7 +43,7 @@
 
 (require 'pierre-cursor-shape)
 
-(defconst my-font "-misc-fixed-medium-r-normal-*-13-*-*-*-*-70-iso8859-9")
+(defconst my-font "-misc-fixed-medium-r-semicondensed-*-13-*-*-*-*-60-iso8859-9")
 (if (eq window-system 'x)
 	(progn
 	  (set-face-font 'default my-font)
