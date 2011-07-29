@@ -15,8 +15,8 @@ caption always "%?%F%{-b 0w}%:%{-b w0}%?%H |%?%F%{0w}%? %L=%-Lw%45>%{+b w0}%n%f*
 #caption always "%?%F%{-b 0w}%:%{-b w0}%?%H |%?%F%{0w}%? %L=%-w%45>%{+b w0}%n* %t%{-}%+w%-0< %= %l | %D %d.%m.%Y %0c"
 
 defscrollback 3000
-term screen-256color
-#term xterm-256color #for emacs
+#term screen-256color
+term xterm-256color #for emacs
 termcapinfo xterm|xterms|xterm-color|xs|rxvt|xterm-256color ti@:te@
 vbell off
 silencewait 6
