@@ -37,3 +37,7 @@ setenv LESS "-ir"
 
 setenv PATH ~/dotfiles/bin:$PATH
 
+set history=2000
+set savehist=(2000 merge)
+set histfile=~/.tcsh_history
+
