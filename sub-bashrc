@@ -1,3 +1,4 @@
+#
 export PATH=$PATH:~/dotfiles/bin
 alias emacsc=emacs-screen.sh
 

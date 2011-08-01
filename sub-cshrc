@@ -27,7 +27,9 @@ alias precmd 'set r=$?; set n=`tput cols`; @ n = $n - 5; echo -n $LIGHT_GRAY; pr
 
 #alias precmd "echo '${lightgray}' ; eval printf '%.0s_' {1..`tput cols`} "
 #alias precmd "testf"
-set prompt="$bgreen%n$no@$bgreen%m${no}:$bblue%/$no%# "
+
+#"`echo $PWD`"
+set prompt="$bgreen%n$no@$bgreen%m${no}:$bblue%c05$no%# "
 
 alias ls "ls --color"
 alias l "ls -la"
