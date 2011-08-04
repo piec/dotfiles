@@ -59,3 +59,5 @@ if v:version >= 703
 	set undoreload=10000 "maximum number lines to save for undo on a buffer reload
 endif
 
+set ttymouse=xterm2
+

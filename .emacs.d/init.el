@@ -3,6 +3,10 @@
 (add-to-list 'load-path "~/.emacs.d/color-theme-6.6.0")
 ;;(server-start)
 
+(require 'xcscope)
+
+(setq eval-expression-print-length 50)
+
 ;; pour que S-up marche dans putty/screen/emacs avec TERM=xterm-256color
 (define-key input-decode-map "\e[1;2A" [S-up])
 (define-key input-decode-map "\e[4~" [end])
@@ -14,6 +18,16 @@
 ;; Bind newline-and-indent to RET
 (define-key global-map (kbd "RET") 'newline-and-indent)
 (setq-default tab-width 4)
+
+(global-set-key "\C-a" 'mark-whole-buffer)
+(global-set-key "\C-w" 'delete-window)
+(global-set-key "\C-k"
+				'(lambda ()
+				   (interactive)
+				   (kill-buffer nil)
+				   )
+				)
+
 
 (xterm-mouse-mode t)
 (mouse-wheel-mode t)
@@ -216,3 +230,4 @@
   ;; Your init file should contain only one such instance.
   ;; If there is more than one, they won't work right.
  )
+

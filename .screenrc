@@ -17,7 +17,7 @@ caption always "%?%F%{-b 0w}%:%{-b w0}%?%H |%?%F%{0w}%? %L=%-Lw%45>%{+b w0}%n%f*
 defscrollback 3000
 #term screen-256color
 term xterm-256color #for emacs
-termcapinfo xterm|xterms|xterm-color|xs|rxvt|xterm-256color ti@:te@
+termcapinfo xterm|xterms|xterm-color|xs|rxvt|xterm-256color ti@:te@:XT
 vbell off
 silencewait 6
 activity 'Activity in window %n'
