@@ -43,3 +43,24 @@ set history=2000
 set savehist=(2000 merge)
 set histfile=~/.tcsh_history
 
+# key bindings
+if ($term == "xterm" \
+	|| $term == "xterm-color" \
+	|| $term == "xterm-256color" \
+	|| $term == "screen" \
+	|| $term == "screen-color" \
+	|| $term == "screen-256color" \
+	) then
+## all
+# control-arrow
+bindkey "\e[1;5C" forward-word
+bindkey "\e[1;5D" backward-word
+# alt-arrow
+bindkey "\e[1;3C" forward-word
+bindkey "\e[1;3D" backward-word
+# S-Backspace <- Delete 
+bindkey "\e[3;2~" delete-char
+# M-S-Backspace <- Kill Word
+bindkey "\e[3;4~" delete-word
+
+endif

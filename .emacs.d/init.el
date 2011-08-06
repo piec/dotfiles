@@ -16,11 +16,14 @@
 (define-key input-decode-map "O3C" [M-right])
 (define-key input-decode-map "O3D" [M-left])
 
+;;(define-key input-decode-map "[3;2~" [deletechar])
+(global-set-key [S-delete] 'delete-char)
+
 ;; Bind newline-and-indent to RET
 (define-key global-map (kbd "RET") 'newline-and-indent)
 (setq-default tab-width 4)
 
-(global-set-key "\C-a" 'mark-whole-buffer)
+;;(global-set-key "\C-a" 'mark-whole-buffer)
 (global-set-key "\C-w" 'delete-window)
 (global-set-key "\C-k"
 				'(lambda ()

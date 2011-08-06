@@ -1,0 +1,29 @@
+"": re-read-init-file
+
+## gnome-terminal
+# Home End
+"\eOH": beginning-of-line
+"\eOF": end-of-line
+
+## xterm
+# Home End
+"\e[H": beginning-of-line
+"\e[F": end-of-line
+
+## screen
+#Home End
+"\e[1~": beginning-of-line
+"\e[4~": end-of-line
+
+## all
+# control-arrow
+"\e[1;5C": forward-word
+"\e[1;5D": backward-word
+# alt-arrow
+"\e[1;3C": forward-word
+"\e[1;3D": backward-word
+# S-Backspace <- Delete 
+"\e[3;2~": delete-char
+# M-S-Backspace <- Kill Word
+"\e[3;4~": kill-word
+
