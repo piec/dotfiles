@@ -58,7 +58,9 @@
 
 (require 'pierre-cursor-shape)
 
-(defconst my-font "-misc-fixed-medium-r-semicondensed-*-13-*-*-*-*-60-iso8859-9")
+;(defconst my-font "-misc-fixed-medium-r-semicondensed-*-13-*-*-*-*-60-iso8859-9")
+(defconst my-font "-misc-fixed-medium-r-semicondensed--13-120-75-75-c-60-*")
+
 (if (eq window-system 'x)
 	(progn
 	  (set-face-font 'default my-font)
