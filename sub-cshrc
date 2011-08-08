@@ -50,7 +50,9 @@ set complete=enhance
 bindkey "\es" complete-word-fwd
 bindkey "\eS" complete-word-back
 
+
 # key bindings
+if ($?term) then
 if ($term == "xterm" \
 	|| $term == "xterm-color" \
 	|| $term == "xterm-256color" \
@@ -82,3 +84,5 @@ bindkey "\eO5A" history-search-backward
 bindkey "\eO5B" history-search-forward
 
 endif
+endif
+
