@@ -62,9 +62,13 @@ if ($term == "xterm" \
 # control-arrow
 bindkey "\e[1;5C" forward-word
 bindkey "\e[1;5D" backward-word
+bindkey "\eO5C" forward-word
+bindkey "\eO5D" backward-word
 # alt-arrow
 bindkey "\e[1;3C" forward-word
 bindkey "\e[1;3D" backward-word
+bindkey "\eO3C" forward-word
+bindkey "\eO3D" backward-word
 # S-Backspace <- Delete 
 bindkey "\e[3;2~" delete-char
 # M-Delete <- Kill Word
@@ -74,5 +78,7 @@ bindkey "\e[3;4~" delete-word
 
 bindkey "\e[1;5A" history-search-backward
 bindkey "\e[1;5B" history-search-forward
+bindkey "\eO5A" history-search-backward
+bindkey "\eO5B" history-search-forward
 
 endif
