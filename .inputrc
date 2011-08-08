@@ -1,4 +1,7 @@
+"\e[21~": "mc\C-M"
+
 "": re-read-init-file
+#Space: magic-space
 
 ## gnome-terminal
 # Home End
@@ -24,6 +27,20 @@
 "\e[1;3D": backward-word
 # S-Backspace <- Delete 
 "\e[3;2~": delete-char
-# M-S-Backspace <- Kill Word
+# M-Delete <- Kill Word
+"\e[3;3~": kill-word
+# S-M-Delete / S-M-Backspace <- Kill Word
 "\e[3;4~": kill-word
+
+# C-Up C-Down
+"\e[1;5A": history-search-backward
+"\e[1;5B": history-search-forward
+"\ep": history-search-backward
+"\en": history-search-forward
+
+set completion-ignore-case on
+"\es": menu-complete
+"\eS": menu-complete-backward
+
+set bell-style audible
 

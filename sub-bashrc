@@ -1,4 +1,8 @@
 #
+shopt -s histappend
+
+PROMPT_COMMAND="history -a; $PROMPT_COMMAND"
+export CDPATH="/home/pierre"
 export PATH=$PATH:~/dotfiles/bin
 alias emacsc=emacs-screen.sh
 

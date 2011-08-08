@@ -43,6 +43,13 @@ set history=2000
 set savehist=(2000 merge)
 set histfile=~/.tcsh_history
 
+set correct=cmd
+set autolist
+set complete=enhance
+
+bindkey "\es" complete-word-fwd
+bindkey "\eS" complete-word-back
+
 # key bindings
 if ($term == "xterm" \
 	|| $term == "xterm-color" \
@@ -60,7 +67,12 @@ bindkey "\e[1;3C" forward-word
 bindkey "\e[1;3D" backward-word
 # S-Backspace <- Delete 
 bindkey "\e[3;2~" delete-char
-# M-S-Backspace <- Kill Word
+# M-Delete <- Kill Word
+bindkey "\e[3;3~" delete-word
+# S-M-Delete / S-M-Backspace <- Kill Word
 bindkey "\e[3;4~" delete-word
+
+bindkey "\e[1;5A" history-search-backward
+bindkey "\e[1;5B" history-search-forward
 
 endif
