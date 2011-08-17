@@ -1,0 +1,117 @@
+<?xml version="1.0" ?>
+<a>
+  <!--
+  to be used in rc.xml with:
+  xmlns:xi="http://www.w3.org/2001/XInclude"
+  <keyboard>
+	<xi:include
+		href="/home/pierre/dotfiles/openbox/sub-rc-keyboard.xml#xpointer(//keyboard/*)"
+		parse="xml"
+		/>
+  </keyboard>
+  -->
+  <keyboard id="pierre">
+	<keybind key="W-F5">
+	  <action name="Reconfigure" />
+	</keybind>
+	<keybind key="A-F1">
+	  <action name="execute"><execute>gnome-panel-control --main-menu</execute></action>
+	</keybind>
+	<keybind key="A-F2">
+	  <action name="execute"><execute>gnome-panel-control --run-dialog</execute></action>
+	</keybind>
+	<keybind key="C-A-t">
+	  <action name="Execute">
+		<execute>gnome-terminal</execute>
+	  </action>
+	</keybind>
+  </keyboard>
+  
+  <keyboard id="default">
+	<chainQuitKey>C-g</chainQuitKey>
+
+	<!-- Keybindings for desktop switching -->
+	<keybind key="C-A-Left">
+	  <action name="DesktopLeft"><dialog>no</dialog><wrap>no</wrap></action>
+	</keybind>
+	<keybind key="C-A-Right">
+	  <action name="DesktopRight"><dialog>no</dialog><wrap>no</wrap></action>
+	</keybind>
+	<keybind key="C-A-Up">
+	  <action name="DesktopUp"><dialog>no</dialog><wrap>no</wrap></action>
+	</keybind>
+	<keybind key="C-A-Down">
+	  <action name="DesktopDown"><dialog>no</dialog><wrap>no</wrap></action>
+	</keybind>
+	<keybind key="S-A-Left">
+	  <action name="SendToDesktopLeft"><dialog>no</dialog><wrap>no</wrap></action>
+	</keybind>
+	<keybind key="S-A-Right">
+	  <action name="SendToDesktopRight"><dialog>no</dialog><wrap>no</wrap></action>
+	</keybind>
+	<keybind key="S-A-Up">
+	  <action name="SendToDesktopUp"><dialog>no</dialog><wrap>no</wrap></action>
+	</keybind>
+	<keybind key="S-A-Down">
+	  <action name="SendToDesktopDown"><dialog>no</dialog><wrap>no</wrap></action>
+	</keybind>
+	<keybind key="W-F1">
+	  <action name="Desktop"><desktop>1</desktop></action>
+	</keybind>
+	<keybind key="W-F2">
+	  <action name="Desktop"><desktop>2</desktop></action>
+	</keybind>
+	<keybind key="W-F3">
+	  <action name="Desktop"><desktop>3</desktop></action>
+	</keybind>
+	<keybind key="W-F4">
+	  <action name="Desktop"><desktop>4</desktop></action>
+	</keybind>
+	<keybind key="W-d">
+	  <action name="ToggleShowDesktop"/>
+	</keybind>
+
+	<!-- Keybindings for windows -->
+	<keybind key="A-F4">
+	  <action name="Close"/>
+	</keybind>
+	<keybind key="A-Escape">
+	  <action name="Lower"/>
+	  <action name="FocusToBottom"/>
+	  <action name="Unfocus"/>
+	</keybind>
+	<keybind key="A-space">
+	  <action name="ShowMenu"><menu>client-menu</menu></action>
+	</keybind>
+	<keybind key="Print">
+	  <action name="Execute"><execute>gnome-screenshot</execute></action>
+	</keybind>
+	<keybind key="A-Print">
+	  <action name="Execute"><execute>gnome-screenshot -w</execute></action>
+	</keybind>
+
+	<!-- Keybindings for window switching -->
+	<keybind key="A-Tab">
+	  <action name="NextWindow"/>
+	</keybind>
+	<keybind key="A-S-Tab">
+	  <action name="PreviousWindow"/>
+	</keybind>
+	<keybind key="C-A-Tab">
+	  <action name="NextWindow">
+		<panels>yes</panels><desktop>yes</desktop>
+	  </action>
+	</keybind>
+
+	<!-- Keybindings for running applications -->
+	<keybind key="W-e">
+	  <action name="Execute">
+		<startupnotify>
+		  <enabled>true</enabled>
+		  <name>Konqueror</name>
+		</startupnotify>
+		<command>kfmclient openProfile filemanagement</command>
+	  </action>
+	</keybind>
+  </keyboard>
+</a>
