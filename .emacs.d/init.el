@@ -37,6 +37,17 @@
 (mouse-wheel-mode t)
 (eldoc-mode t)
 
+(show-paren-mode t)
+
+(global-set-key "%" 'match-paren)
+
+(defun match-paren (arg)
+  "Go to the matching paren if on a paren; otherwise insert %."
+  (interactive "p")
+  (cond ((looking-at "\\s\(") (forward-list 1) (backward-char 1))
+        ((looking-at "\\s\)") (forward-char 1) (backward-list 1))
+        (t (self-insert-command (or arg 1)))))
+
 ;;(setq scroll-preserve-screen-position nil)
 (setq mouse-wheel-scroll-amount '(3 ((shift) . 1))) ;; one line at a time
 (setq mouse-wheel-progressive-speed nil) ;; don't accelerate scrolling
@@ -196,6 +207,12 @@
   )
 (add-hook 'c-mode-common-hook 'my-ac-cc-mode-setup)
 
+(add-hook 'tcl-mode-hook
+      (function (lambda ()
+                  (setq indent-tabs-mode nil)
+                  (setq tcl-indent-level 4))))
+
+
 ;;(setq clang-completion-suppress-error 'f)
 ;;(setq ac-auto-start t)
 
@@ -229,7 +246,9 @@
   ;; If you edit it by hand, you could mess it up, so be careful.
   ;; Your init file should contain only one such instance.
   ;; If there is more than one, they won't work right.
- '(ecb-options-version "2.40"))
+ '(ecb-options-version "2.40")
+ '(indent-tabs-mode nil)
+ '(tab-stop-list (quote (4 8 12 16 40 48 56 64 72 80 88 96 104 112 120))))
 (custom-set-faces
   ;; custom-set-faces was added by Custom.
   ;; If you edit it by hand, you could mess it up, so be careful.
