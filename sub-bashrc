@@ -2,7 +2,7 @@
 shopt -s histappend
 
 PROMPT_COMMAND="history -a; $PROMPT_COMMAND"
-export CDPATH="/home/pierre"
+export CDPATH=".:/home/pierre"
 export PATH=$PATH:~/dotfiles/bin
 alias emacsc=emacs-screen.sh
 
@@ -11,19 +11,19 @@ export LESS=-ir
 
 case "$TERM" in
 	xterm) color_prompt=yes;;
-    *-color) color_prompt=yes;;
-    *-256color) color_prompt=yes;;
-    linux*) color_prompt=yes;;
+	*-color) color_prompt=yes;;
+	*-256color) color_prompt=yes;;
+	linux*) color_prompt=yes;;
 esac
 
 function hbar()
 {
-    eval printf '%.0s$2' {1..$1}
+	eval printf '%.0s$2' {1..$1}
 }
 
 function prompt_command()
 {
-    local sv=$?
+	local sv=$?
 
 	local GRAY='\033[1;30m'
 	local LIGHT_GRAY='\033[0;37m'
@@ -32,23 +32,23 @@ function prompt_command()
 	local RED='\033[1;31m'
 	local NO_COLOUR='\033[0m'
 
-    [[ $1 = yes ]] && echo -en $GRAY
-    local cols=`tput cols`
-    cols=${cols:-50}                                                                                                                  
-    hbar $[ $cols - 5 ] "─"
-    #hbar $[ $cols - 5 ] "_"
+	[[ $1 = yes ]] && echo -en $GRAY
+	local cols=`tput cols`
+	cols=${cols:-50}
+	hbar $[ $cols - 5 ] "─"
+	#hbar $[ $cols - 5 ] "_"
 
-    [[ $1 = yes ]] && [ "a$sv" != "a0" ] && echo -en $RED
+	[[ $1 = yes ]] && [ "a$sv" != "a0" ] && echo -en $RED
 
-    printf "% 3d" $sv
+	printf "% 3d" $sv
 
-    #echo -en $NO_COLOUR
-    #echo -en $CYAN
+	#echo -en $NO_COLOUR
+	#echo -en $CYAN
 }
 
-function r()                                                                                                                          
+function r()
 {
-    history 2 | head -n 1 | sed "s/ *[0-9]* *//" >> ${1-~/cmd.sh}
+	history 2 | head -n 1 | sed "s/ *[0-9]* *//" >> ${1-~/cmd.sh}
 }
 
 function host_color()
@@ -67,37 +67,37 @@ function host_color()
 	xHOST=$GREEN
 }
 
-if [ "$color_prompt" = yes ]; then                                                                                                    
+if [ "$color_prompt" = yes ]; then
 	xUSER='\[\033[1;32m\]'
 	host_color `hostname`
 	#xHOST='\033[1;33m'
 	xDIRECTORY='\[\033[1;34m\]'
 	xNO='\[\033[0m\]'
 	MYPS='$(echo -n "${PWD/#$HOME/~}" | awk -F "/" '"'"'{if (length($0) > 30) { if (NF>4) print $1 "/" $2 "/.../" $(NF-1) "/" $NF; else if (NF>3) print $1 "/" $2 "/.../" $NF; else print $1 "/.../" $NF; } else print $0;}'"'"')'
-    #PS1="${debian_chroot:+($debian_chroot)}$xUSER\u$xNO@$xHOST\h$xNO:$xDIRECTORY\w$xNO\$ "
-    PS1="${debian_chroot:+($debian_chroot)}$xUSER\u$xNO@$xHOST\h$xNO:$xDIRECTORY"'$(eval "echo ${MYPS}")'"$xNO\$ "
-    PS1='$(prompt_command yes)\n'$PS1
+	#PS1="${debian_chroot:+($debian_chroot)}$xUSER\u$xNO@$xHOST\h$xNO:$xDIRECTORY\w$xNO\$ "
+	PS1="${debian_chroot:+($debian_chroot)}$xUSER\u$xNO@$xHOST\h$xNO:$xDIRECTORY"'$(eval "echo ${MYPS}")'"$xNO\$ "
+	PS1='$(prompt_command yes)\n'$PS1
 else
-    #PS1='${debian_chroot:+($debian_chroot)}\u@\h:\w\$ '
-    PS1='${debian_chroot:+($debian_chroot)}\u@\h:\w\$ '
-    PS1='$(prompt_command no)\n'$PS1
+	#PS1='${debian_chroot:+($debian_chroot)}\u@\h:\w\$ '
+	PS1='${debian_chroot:+($debian_chroot)}\u@\h:\w\$ '
+	PS1='$(prompt_command no)\n'$PS1
 fi
 
-# enable color support of ls and also add handy aliases                                                                               
+# enable color support of ls and also add handy aliases
 if [ "$color_prompt" = yes ]; then
-    if [ -x /usr/bin/dircolors ]; then
-        test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
-        alias ls='ls --color=auto'
-        #alias dir='dir --color=auto'
-        #alias vdir='vdir --color=auto'
+	if [ -x /usr/bin/dircolors ]; then
+		test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
+		alias ls='ls --color=auto'
+		#alias dir='dir --color=auto'
+		#alias vdir='vdir --color=auto'
 
-        alias grep='grep --color=auto'
-        alias fgrep='fgrep --color=auto'
-        alias egrep='egrep --color=auto'
-    fi
+		alias grep='grep --color=auto'
+		alias fgrep='fgrep --color=auto'
+		alias egrep='egrep --color=auto'
+	fi
 fi
 
 alias l='ls -la'
 
-unset color_prompt force_color_prompt                                                                                                 
+unset color_prompt force_color_prompt
 

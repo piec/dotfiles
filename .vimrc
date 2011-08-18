@@ -37,6 +37,11 @@ set ruler
 set tabstop=4
 set wildmenu
 
+"set expandtab "tabs -> spaces
+
+set listchars=eol:$,tab:>-,trail:~,extends:>,precedes:<
+map <F6> :set list!<CR>
+
 map <F7> :w<CR>:make<CR><CR><CR>:cc<CR>
 map <F8> :cp<CR>
 map <F9> :cn<CR>

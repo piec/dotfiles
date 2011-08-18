@@ -248,7 +248,7 @@
   ;; If there is more than one, they won't work right.
  '(ecb-options-version "2.40")
  '(indent-tabs-mode nil)
- '(tab-stop-list (quote (4 8 12 16 40 48 56 64 72 80 88 96 104 112 120))))
+ '(tab-stop-list (quote (4 8 12 16 20 24 28 32 36 40 44 48 52 56 60))))
 (custom-set-faces
   ;; custom-set-faces was added by Custom.
   ;; If you edit it by hand, you could mess it up, so be careful.

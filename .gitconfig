@@ -1,0 +1,9 @@
+[color]
+	ui = auto
+[user]
+	name = Pierre
+	email = pierre.carru@gmail.com
+[alias]
+	st = status -s
+	co = checkout
+
