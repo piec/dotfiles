@@ -34,6 +34,10 @@
 "\eO3D": backward-word
 "\e[3C": forward-word
 "\e[3D": backward-word
+# putty
+"\e\e[C": forward-word
+"\e\e[D": backward-word
+
 # S-Backspace <- Delete 
 "\e[3;2~": delete-char
 # M-Delete <- Kill Word
@@ -51,6 +55,9 @@
 "\e[5B": history-search-forward
 "\ep": history-search-backward
 "\en": history-search-forward
+# putty A-up A-down
+"\e\e[A": history-search-backward
+"\e\e[B": history-search-forward
 
 set completion-ignore-case on
 "\es": menu-complete
