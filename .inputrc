@@ -24,11 +24,16 @@
 "\e[1;5D": backward-word
 "\eO5C": forward-word
 "\eO5D": backward-word
+"\e[5C": forward-word
+"\e[5D": backward-word
+
 # alt-arrow
 "\e[1;3C": forward-word
 "\e[1;3D": backward-word
 "\eO3C": forward-word
 "\eO3D": backward-word
+"\e[3C": forward-word
+"\e[3D": backward-word
 # S-Backspace <- Delete 
 "\e[3;2~": delete-char
 # M-Delete <- Kill Word
@@ -42,6 +47,8 @@
 "\e[1;5B": history-search-forward
 "\eO5A": history-search-backward
 "\eO5B": history-search-forward
+"\e[5A": history-search-backward
+"\e[5B": history-search-forward
 "\ep": history-search-backward
 "\en": history-search-forward
 

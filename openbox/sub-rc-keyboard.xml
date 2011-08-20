@@ -1,0 +1,81 @@
+<?xml version="1.0" ?>
+<a>
+  <keyboard id="pierre">
+    <keybind key="W-F5">
+      <action name="Reconfigure" />
+    </keybind>
+    <keybind key="A-F1">
+      <action name="execute"><execute>gnome-panel-control --main-menu</execute></action>
+    </keybind>
+    <keybind key="A-F2">
+      <action name="execute"><execute>gnome-panel-control --run-dialog</execute></action>
+    </keybind>
+
+    <keybind key="C-A-Up">
+      <action name="Execute">
+        <command>amixer set Master 5%+ unmute</command>
+      </action>
+    </keybind>
+    <keybind key="C-A-Down">
+      <action name="Execute">
+        <command>amixer set Master 5%- unmute</command>
+      </action>
+    </keybind>
+    <keybind key="C-A-m">
+      <action name="Execute">
+        <command>amixer set Master toggle</command>
+      </action>
+    </keybind>
+
+    <keybind key="C-A-t">
+      <action name="Execute">
+        <command>gnome-terminal</command>
+      </action>
+    </keybind>
+    <keybind key="W-a">
+      <action name="Execute">
+        <command>/work/bin/gt</command>
+      </action>
+    </keybind>
+
+    <keybind key="W-less">
+      <action name="Execute">
+        <command>xdotool search --all --onlyvisible --name Firefox windowactivate</command>
+      </action>
+    </keybind>
+    <keybind key="W-ampersand">
+      <action name="Execute">
+        <command>xdotool search --name term1 windowactivate</command>
+      </action>
+    </keybind>
+    <keybind key="W-eacute">
+      <action name="Execute">
+        <command>xdotool search --name term2 windowactivate</command>
+      </action>
+    </keybind>
+    <keybind key="W-quotedbl">
+      <action name="Execute">
+        <command>xdotool search --all --onlyvisible --name emacs windowactivate</command>
+      </action>
+    </keybind>
+
+    <keybind key="W-Left">
+      <action name="UnMaximize"/>
+      <action name="Execute">
+        <command>xdotool getactivewindow windowmove 0 25 windowsize 839 977</command>
+      </action>
+    </keybind>
+    <keybind key="W-Right">
+      <action name="UnMaximize"/>
+      <action name="Execute">
+        <command>xdotool getactivewindow windowmove 840 25 windowsize 838 977</command>
+      </action>
+    </keybind>
+    <keybind key="W-Up">
+      <action name="ToggleMaximize"/>
+    </keybind>
+  </keyboard>
+
+  <keyboard id="default">
+  </keyboard>
+</a>
