@@ -6,6 +6,8 @@ export CDPATH=".:/home/pierre"
 export PATH=$PATH:~/dotfiles/bin
 alias emacsc=emacs-screen.sh
 
+export HISTSIZE=5000
+export HISTFILESIZE=50000
 export EDITOR=vim
 export LESS=-ir
 

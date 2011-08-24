@@ -11,6 +11,13 @@
       <action name="execute"><execute>gnome-panel-control --run-dialog</execute></action>
     </keybind>
 
+    <keybind key="C-S-A-Left">
+      <action name="SendToDesktop"><to>left</to><wrap>no</wrap></action>
+    </keybind>
+    <keybind key="C-S-A-Right">
+      <action name="SendToDesktop"><to>right</to><wrap>no</wrap></action>
+    </keybind>
+
     <keybind key="C-A-Up">
       <action name="Execute">
         <command>amixer set Master 5%+ unmute</command>
@@ -40,7 +47,7 @@
 
     <keybind key="W-less">
       <action name="Execute">
-        <command>xdotool search --all --onlyvisible --name Firefox windowactivate</command>
+        <command>xdotool search --all --onlyvisible --name emacs windowactivate</command>
       </action>
     </keybind>
     <keybind key="W-ampersand">
@@ -55,10 +62,9 @@
     </keybind>
     <keybind key="W-quotedbl">
       <action name="Execute">
-        <command>xdotool search --all --onlyvisible --name emacs windowactivate</command>
+        <command>xdotool search --name term3 windowactivate</command>
       </action>
     </keybind>
-
     <keybind key="W-Left">
       <action name="UnMaximize"/>
       <action name="Execute">
@@ -78,4 +84,10 @@
 
   <keyboard id="default">
   </keyboard>
+
+  <mouse id="pierre">
+    <context />
+    <!--
+    -->
+  </mouse>
 </a>
