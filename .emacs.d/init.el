@@ -4,9 +4,15 @@
 (add-to-list 'load-path "~/.emacs.d/cscope")
 ;;(server-start)
 
+(savehist-mode 't)
 (require 'xcscope)
 
 (setq eval-expression-print-length 50)
+(setq mouse-autoselect-window t)
+
+;; C-j
+(global-set-key "\C-j" 'eval-print-last-sexp)
+(global-set-key [f6] 'whitespace-mode)
 
 ;; pour que S-up marche dans putty/screen/emacs avec TERM=xterm-256color
 (define-key input-decode-map "\e[1;2A" [S-up])
@@ -26,12 +32,11 @@
 ;;(global-set-key "\C-a" 'mark-whole-buffer)
 (global-set-key "\C-w" 'delete-window)
 (global-set-key "\C-k"
-				'(lambda ()
-				   (interactive)
-				   (kill-buffer nil)
-				   )
-				)
-
+                '(lambda ()
+                   (interactive)
+                   (kill-buffer nil)
+                   )
+                )
 
 (xterm-mouse-mode t)
 (mouse-wheel-mode t)
@@ -65,8 +70,8 @@
 ;;; Move this code earlier if you want to reference
 ;;; packages in your .emacs.
 (when
-	(load
-	 (expand-file-name "~/.emacs.d/elpa/package.el"))
+    (load
+     (expand-file-name "~/.emacs.d/elpa/package.el"))
   (package-initialize))
 
 
@@ -76,10 +81,10 @@
 (defconst my-font "-misc-fixed-medium-r-semicondensed--13-120-75-75-c-60-*")
 
 (if (eq window-system 'x)
-	(progn
-	  (set-face-font 'default my-font)
-	  (set-scroll-bar-mode `right)
-	  )
+    (progn
+      (set-face-font 'default my-font)
+      (set-scroll-bar-mode `right)
+      )
   )
 
 
@@ -91,12 +96,12 @@
 (defun hl-symbol-and-jump ()
   (interactive)
   (let ((symbol (highlight-symbol-get-symbol)))
-	(unless symbol (error "No symbol at point"))
-	(unless hi-lock-mode (hi-lock-mode 1))
-	(if (member symbol highlight-symbol-list)
-		(highlight-symbol-next)
-	  (progn (hl-symbol-cleanup) (highlight-symbol-at-point))
-	  (highlight-symbol-next))))
+    (unless symbol (error "No symbol at point"))
+    (unless hi-lock-mode (hi-lock-mode 1))
+    (if (member symbol highlight-symbol-list)
+        (highlight-symbol-next)
+      (progn (hl-symbol-cleanup) (highlight-symbol-at-point))
+      (highlight-symbol-next))))
 (defun hl-symbol-cleanup ()
   (interactive)
   (mapc 'hi-lock-unface-buffer highlight-symbol-list)
@@ -139,11 +144,13 @@
 (when (fboundp 'winner-mode)
   (winner-mode 1))
 
-(desktop-save-mode 1)
+(setq desktop-path '("."))
+(desktop-save-mode t)
 
-(require 'layout-restore)
-(global-set-key [f11] 'layout-save-current)
-(global-set-key [f12] 'layout-restore)
+;;(require 'layout-restore)
+;;(global-set-key [f11] 'layout-save-current)
+;;(global-set-key [f12] 'layout-restore)
+
 ;;(global-set-key [f11] '(lambda () (interactive) (window-configuration-to-register ?w)))
 ;;(global-set-key [f12] '(lambda () (interactive) (jump-to-register ?w)))
 
@@ -194,7 +201,7 @@
 
 ;; auto-complete-clang
 (require 'auto-complete-clang)
-(setq ac-clang-auto-save nil) ; do not save automatically
+(setq ac-clang-auto-save 't)
 (if (eq window-system nil) ; custom key (ctrl-space)
 	(define-key ac-mode-map (kbd "C-@") 'auto-complete)
   (define-key ac-mode-map (kbd "C-SPC") 'auto-complete))
@@ -212,6 +219,12 @@
                   (setq indent-tabs-mode nil)
                   (setq tcl-indent-level 4))))
 
+(add-hook 'emacs-lisp-mode-hook
+          (lambda ()
+            (progn
+              (setq ac-sources '(ac-source-words-in-buffer ac-source-symbols))
+              (auto-complete-mode t)
+              )))
 
 ;;(setq clang-completion-suppress-error 'f)
 ;;(setq ac-auto-start t)
