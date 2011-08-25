@@ -4,7 +4,7 @@
 (add-to-list 'load-path "~/.emacs.d/cscope")
 ;;(server-start)
 
-(savehist-mode 't)
+(savehist-mode t)
 (require 'xcscope)
 
 (setq eval-expression-print-length 50)
@@ -17,6 +17,8 @@
 ;; pour que S-up marche dans putty/screen/emacs avec TERM=xterm-256color
 (define-key input-decode-map "\e[1;2A" [S-up])
 (define-key input-decode-map "\e[4~" [end])
+(define-key input-decode-map "[1~" [home])
+(define-key input-decode-map "[4~" [end])
 (define-key input-decode-map "O3A" [M-up])
 (define-key input-decode-map "O3B" [M-down])
 (define-key input-decode-map "O3C" [M-right])
@@ -40,7 +42,6 @@
 
 (xterm-mouse-mode t)
 (mouse-wheel-mode t)
-(eldoc-mode t)
 
 (show-paren-mode t)
 
@@ -56,7 +57,7 @@
 ;;(setq scroll-preserve-screen-position nil)
 (setq mouse-wheel-scroll-amount '(3 ((shift) . 1))) ;; one line at a time
 (setq mouse-wheel-progressive-speed nil) ;; don't accelerate scrolling
-(setq mouse-wheel-follow-mouse 't) ;; scroll window under mouse
+(setq mouse-wheel-follow-mouse t) ;; scroll window under mouse
 (setq scroll-step 1) ;; keyboard scroll one line at a time
 
 ;; visual bookmarks
@@ -118,9 +119,6 @@
 ;; InteractivelyDoThings
 (ido-mode)
 
-;; alt-arrows for window navigation
-(windmove-default-keybindings 'meta)
-
 ;;
 (require 'line-num)
 (linum-mode)
@@ -142,7 +140,11 @@
 
 ;; windown configuration undo: C-c <left>, C-c <right>
 (when (fboundp 'winner-mode)
-  (winner-mode 1))
+  (progn
+    (winner-mode t)
+    ;; alt-arrows for window navigation
+    (windmove-default-keybindings 'meta)
+    ))
 
 (setq desktop-path '("."))
 (desktop-save-mode t)
@@ -201,7 +203,7 @@
 
 ;; auto-complete-clang
 (require 'auto-complete-clang)
-(setq ac-clang-auto-save 't)
+(setq ac-clang-auto-save t)
 (if (eq window-system nil) ; custom key (ctrl-space)
 	(define-key ac-mode-map (kbd "C-@") 'auto-complete)
   (define-key ac-mode-map (kbd "C-SPC") 'auto-complete))
@@ -224,6 +226,7 @@
             (progn
               (setq ac-sources '(ac-source-words-in-buffer ac-source-symbols))
               (auto-complete-mode t)
+              (eldoc-mode t)
               )))
 
 ;;(setq clang-completion-suppress-error 'f)
