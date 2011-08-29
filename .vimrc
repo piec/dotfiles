@@ -64,5 +64,11 @@ if v:version >= 703
 	set undoreload=10000 "maximum number lines to save for undo on a buffer reload
 endif
 
+if &diff
+	map < :diffget<CR>
+	map > :diffput<CR>
+endif
+
+
 set ttymouse=xterm2
 

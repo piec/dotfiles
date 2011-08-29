@@ -9,13 +9,21 @@
 (add-to-list 'load-path "~/.emacs.d/cscope")
 ;;(server-start)
 
+(savehist-mode t)
 (require 'xcscope)
 
 (setq eval-expression-print-length 50)
+(setq mouse-autoselect-window t)
+
+;; C-j
+(global-set-key "\C-j" 'eval-print-last-sexp)
+(global-set-key [f6] 'whitespace-mode)
 
 ;; pour que S-up marche dans putty/screen/emacs avec TERM=xterm-256color
 (define-key input-decode-map "\e[1;2A" [S-up])
+(define-key input-decode-map "\e[1~" [home])
 (define-key input-decode-map "\e[4~" [end])
+
 (define-key input-decode-map "\eO3A" [M-up])
 (define-key input-decode-map "\eO3B" [M-down])
 (define-key input-decode-map "\eO3C" [M-right])
@@ -36,21 +44,30 @@
 ;;(global-set-key "\C-a" 'mark-whole-buffer)
 (global-set-key "\C-w" 'delete-window)
 (global-set-key "\C-k"
-				'(lambda ()
-				   (interactive)
-				   (kill-buffer nil)
-				   )
-				)
-
+                '(lambda ()
+                   (interactive)
+                   (kill-buffer nil)
+                   )
+                )
 
 (xterm-mouse-mode t)
 (mouse-wheel-mode t)
-(eldoc-mode t)
+
+(show-paren-mode t)
+
+(global-set-key "%" 'match-paren)
+
+(defun match-paren (arg)
+  "Go to the matching paren if on a paren; otherwise insert %."
+  (interactive "p")
+  (cond ((looking-at "\\s\(") (forward-list 1) (backward-char 1))
+        ((looking-at "\\s\)") (forward-char 1) (backward-list 1))
+        (t (self-insert-command (or arg 1)))))
 
 ;;(setq scroll-preserve-screen-position nil)
 (setq mouse-wheel-scroll-amount '(3 ((shift) . 1))) ;; one line at a time
 (setq mouse-wheel-progressive-speed nil) ;; don't accelerate scrolling
-(setq mouse-wheel-follow-mouse 't) ;; scroll window under mouse
+(setq mouse-wheel-follow-mouse t) ;; scroll window under mouse
 (setq scroll-step 1) ;; keyboard scroll one line at a time
 
 ;; visual bookmarks
@@ -64,8 +81,8 @@
 ;;; Move this code earlier if you want to reference
 ;;; packages in your .emacs.
 (when
-	(load
-	 (expand-file-name "~/.emacs.d/elpa/package.el"))
+    (load
+     (expand-file-name "~/.emacs.d/elpa/package.el"))
   (package-initialize))
 
 
@@ -75,10 +92,10 @@
 (defconst my-font "-misc-fixed-medium-r-semicondensed--13-120-75-75-c-60-*")
 
 (if (eq window-system 'x)
-	(progn
-	  (set-face-font 'default my-font)
-	  (set-scroll-bar-mode `right)
-	  )
+    (progn
+      (set-face-font 'default my-font)
+      (set-scroll-bar-mode `right)
+      )
   )
 
 
@@ -90,12 +107,12 @@
 (defun hl-symbol-and-jump ()
   (interactive)
   (let ((symbol (highlight-symbol-get-symbol)))
-	(unless symbol (error "No symbol at point"))
-	(unless hi-lock-mode (hi-lock-mode 1))
-	(if (member symbol highlight-symbol-list)
-		(highlight-symbol-next)
-	  (progn (hl-symbol-cleanup) (highlight-symbol-at-point))
-	  (highlight-symbol-next))))
+    (unless symbol (error "No symbol at point"))
+    (unless hi-lock-mode (hi-lock-mode 1))
+    (if (member symbol highlight-symbol-list)
+        (highlight-symbol-next)
+      (progn (hl-symbol-cleanup) (highlight-symbol-at-point))
+      (highlight-symbol-next))))
 (defun hl-symbol-cleanup ()
   (interactive)
   (mapc 'hi-lock-unface-buffer highlight-symbol-list)
@@ -111,9 +128,6 @@
 (cua-mode)
 ;; InteractivelyDoThings
 (ido-mode)
-
-;; alt-arrows for window navigation
-(windmove-default-keybindings 'meta)
 
 ;;
 ;;(require 'line-num)
@@ -138,13 +152,19 @@
 
 ;; windown configuration undo: C-c <left>, C-c <right>
 (when (fboundp 'winner-mode)
-  (winner-mode 1))
+  (progn
+    (winner-mode t)
+    ;; alt-arrows for window navigation
+    (windmove-default-keybindings 'meta)
+    ))
 
-(desktop-save-mode 1)
+(setq desktop-path '("."))
+(desktop-save-mode t)
 
-(require 'layout-restore)
-(global-set-key [f11] 'layout-save-current)
-(global-set-key [f12] 'layout-restore)
+;;(require 'layout-restore)
+;;(global-set-key [f11] 'layout-save-current)
+;;(global-set-key [f12] 'layout-restore)
+
 ;;(global-set-key [f11] '(lambda () (interactive) (window-configuration-to-register ?w)))
 ;;(global-set-key [f12] '(lambda () (interactive) (jump-to-register ?w)))
 
@@ -195,7 +215,7 @@
 
 ;; auto-complete-clang
 (require 'auto-complete-clang)
-(setq ac-clang-auto-save nil) ; do not save automatically
+(setq ac-clang-auto-save t)
 (if (eq window-system nil) ; custom key (ctrl-space)
 	(progn
       ;;(define-key ac-mode-map (kbd "C-@") 'auto-complete)
@@ -209,6 +229,19 @@
   ;;(setq ac-clang-flags (split-string "-I. -I/home/pierre/chromium/src/chrome/browser/ui/views/tabs/ -I/home/pierre/chromium/src/ -I/usr/include/gtk-2.0/ -I/usr/lib/gtk-2.0/include/ -I/usr/include/glib-2.0 -I/usr/lib/x86_64-linux-gnu/glib-2.0/include/ -I/usr/include/cairo/ -I/usr/include/pango-1.0/ -I/usr/include/gdk-pixbuf-2.0/ -I/usr/include/atk-1.0/ -I/home/pierre/chromium/src/third_party/skia/include/config/ -I/home/pierre/chromium/src/out/Debug/obj/gen/chrome/"))
   )
 (add-hook 'c-mode-common-hook 'my-ac-cc-mode-setup)
+
+(add-hook 'tcl-mode-hook
+      (function (lambda ()
+                  (setq indent-tabs-mode nil)
+                  (setq tcl-indent-level 4))))
+
+(add-hook 'emacs-lisp-mode-hook
+          (lambda ()
+            (progn
+              (setq ac-sources '(ac-source-words-in-buffer ac-source-symbols))
+              (auto-complete-mode t)
+              (eldoc-mode t)
+              )))
 
 ;;(setq clang-completion-suppress-error 'f)
 ;;(setq ac-auto-start t)
