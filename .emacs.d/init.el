@@ -1,3 +1,8 @@
+(setq message-log-max t)
+(require 'cl)
+(message "init.el start")
+(defvar *emacs-load-start* (current-time))
+
 (add-to-list 'load-path "~/.emacs.d/")
 (add-to-list 'load-path "~/.emacs.d/apel-10.8")
 (add-to-list 'load-path "~/.emacs.d/color-theme-6.6.0")
@@ -11,13 +16,18 @@
 ;; pour que S-up marche dans putty/screen/emacs avec TERM=xterm-256color
 (define-key input-decode-map "\e[1;2A" [S-up])
 (define-key input-decode-map "\e[4~" [end])
-(define-key input-decode-map "O3A" [M-up])
-(define-key input-decode-map "O3B" [M-down])
-(define-key input-decode-map "O3C" [M-right])
-(define-key input-decode-map "O3D" [M-left])
+(define-key input-decode-map "\eO3A" [M-up])
+(define-key input-decode-map "\eO3B" [M-down])
+(define-key input-decode-map "\eO3C" [M-right])
+(define-key input-decode-map "\eO3D" [M-left])
+;; putty
+(define-key input-decode-map "\e\eOA" [M-up])
+(define-key input-decode-map "\e\eOB" [M-down])
+(define-key input-decode-map "\e\eOC" [M-right])
+(define-key input-decode-map "\e\eOD" [M-left])
 
 ;;(define-key input-decode-map "[3;2~" [deletechar])
-(global-set-key [S-delete] 'delete-char)
+;;(global-set-key [S-delete] 'delete-char)
 
 ;; Bind newline-and-indent to RET
 (define-key global-map (kbd "RET") 'newline-and-indent)
@@ -106,15 +116,17 @@
 (windmove-default-keybindings 'meta)
 
 ;;
-(require 'line-num)
-(linum-mode)
+;;(require 'line-num)
+;;(linum-mode)
 
 ;; theme
 (require 'color-theme)
 (eval-after-load "color-theme"
   '(progn
      (color-theme-initialize)
-     (color-theme-hober)))
+     (color-theme-hober)
+	 )
+  )
 
 ;; Bind newline-and-indent to RET
 (define-key global-map (kbd "RET") 'newline-and-indent)
@@ -185,7 +197,9 @@
 (require 'auto-complete-clang)
 (setq ac-clang-auto-save nil) ; do not save automatically
 (if (eq window-system nil) ; custom key (ctrl-space)
-	(define-key ac-mode-map (kbd "C-@") 'auto-complete)
+	(progn
+      ;;(define-key ac-mode-map (kbd "C-@") 'auto-complete)
+      )
   (define-key ac-mode-map (kbd "C-SPC") 'auto-complete))
 (defun my-ac-cc-mode-setup ()
   (setq ac-sources '(ac-source-filename))
@@ -238,4 +252,7 @@
   ;; Your init file should contain only one such instance.
   ;; If there is more than one, they won't work right.
  )
+
+(message "My .emacs loaded in %ds" (destructuring-bind (hi lo ms) (current-time)
+                                     (- (+ hi lo) (+ (first *emacs-load-start*) (second *emacs-load-start*)))))
 
