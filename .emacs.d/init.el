@@ -63,12 +63,12 @@
 
 ;;(global-set-key "\C-a" 'mark-whole-buffer)
 (global-set-key "\C-w" 'delete-window)
-(global-set-key "\C-k"
-                '(lambda ()
-                   (interactive)
-                   (kill-buffer nil)
-                   )
-                )
+;; (global-set-key "\C-k"
+;;                 '(lambda ()
+;;                    (interactive)
+;;                    (kill-buffer nil)
+;;                    )
+;;                 )
 
 (xterm-mouse-mode t)
 (mouse-wheel-mode t)
