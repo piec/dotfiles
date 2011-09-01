@@ -28,6 +28,26 @@
 (define-key input-decode-map "\eO3B" [M-down])
 (define-key input-decode-map "\eO3C" [M-right])
 (define-key input-decode-map "\eO3D" [M-left])
+
+(define-key input-decode-map "\eO4A" [M-S-up])
+(define-key input-decode-map "\eO4B" [M-S-down])
+(define-key input-decode-map "\eO4C" [M-S-right])
+(define-key input-decode-map "\eO4D" [M-S-left])
+
+(define-key input-decode-map "\eO6A" [C-S-up])
+(define-key input-decode-map "\eO6B" [C-S-down])
+(define-key input-decode-map "\eO6C" [C-S-right])
+(define-key input-decode-map "\eO6D" [C-S-left])
+
+(define-key input-decode-map "\eO7A" [M-C-up])
+(define-key input-decode-map "\eO7B" [M-C-down])
+(define-key input-decode-map "\eO7C" [M-C-right])
+(define-key input-decode-map "\eO7D" [M-C-left])
+
+(define-key input-decode-map "\eO8A" [M-C-S-up])
+(define-key input-decode-map "\eO8B" [M-C-S-down])
+(define-key input-decode-map "\eO8C" [M-C-S-right])
+(define-key input-decode-map "\eO8D" [M-C-S-left])
 ;; putty
 (define-key input-decode-map "\e\eOA" [M-up])
 (define-key input-decode-map "\e\eOB" [M-down])
