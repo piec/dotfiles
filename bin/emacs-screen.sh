@@ -36,8 +36,8 @@ isParentShell() {
 }
 
 runEmacsClient() {
-  emacsclient "$@" > /dev/null
-  selectScreenWindow $WINDOW
+  emacsclient -n "$@" > /dev/null
+  #selectScreenWindow $WINDOW
 }
 
 runRegularEmacs() {

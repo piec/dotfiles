@@ -238,8 +238,7 @@
 (setq ac-clang-auto-save t)
 (if (eq window-system nil) ; custom key (ctrl-space)
 	(progn
-      ;;(define-key ac-mode-map (kbd "C-@") 'auto-complete)
-      )
+      (define-key ac-mode-map (kbd "M-TAB") 'auto-complete))
   (define-key ac-mode-map (kbd "C-SPC") 'auto-complete))
 (defun my-ac-cc-mode-setup ()
   (setq ac-sources '(ac-source-filename))
