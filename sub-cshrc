@@ -22,27 +22,33 @@ set bwhite="%{\033[1;37m%}"
 set no="%{\033[0m%}"
 
 set LIGHT_GRAY="\e[1;30m"
+set NO="\e[0m"
 #alias precmd 'set n=`tput cols`; @ n = $n - 5; echo -n $LIGHT_GRAY; printf "%.0s_" `seq 1 $n`; echo " "$?'
-#alias precmd 'set r=$?; set n=`tput cols`; @ n = $n - 5; echo -n $LIGHT_GRAY; printf "%.0s_" `seq 1 $n`; echo " "$r'
-alias precmd 'set r=$?; set n=`tput cols`; @ n = $n - 5; printf "%.0s_" `seq 1 $n`; echo " "$r'
+#alias precmd 'set r=$?; set n=`tput cols`; @ n = $n - 5; echo -n $LIGHT_GRAY; printf "%.0s_" `seq 1 $n`; echo " "$r$NO'
+alias precmd 'set r=$?; set n=`tput cols`; @ n = $n - 5; echo -n $LIGHT_GRAY; printf "%.0s─" `seq 1 $n`; echo " "$r$NO'
+#alias precmd 'set r=$?; set n=`tput cols`; @ n = $n - 5; printf "%.0s_" `seq 1 $n`; echo " "$r'
 
 #alias precmd "echo '${lightgray}' ; eval printf '%.0s_' {1..`tput cols`} "
 #alias precmd "testf"
 
 #"`echo $PWD`"
-#set prompt="$bgreen%n$no@$bgreen%m${no}:$bblue%c05$no%# "
-set prompt="%n@%m:%c05%# "
+set prompt="$bgreen%n$no@$bgreen%m${no}:$bblue%c05$no%# "
+#set prompt="%n@%m:%c05%# "
 
 alias ls "ls --color"
 alias l "ls -la"
 alias grep "grep --color"
+alias r '( set history= ( 2 "%R\n" ) ; history ) | head -n 1 >> ~/cmd.sh'
+
+bindkey -c "\e[20~" '(set history=( 1 "%R\\n" ) ; history) | head -n 1 >> ~/cmd.sh && echo saved || echo error'
+bindkey -c "\e[21~" "mc"
 
 setenv LESS "-ir"
 
 setenv PATH ~/dotfiles/bin:$PATH
 
-set history=10000
-set savehist=(2000 merge)
+set history=50000
+set savehist=(50000 merge)
 set histfile=~/.tcsh_history
 
 set correct=cmd
