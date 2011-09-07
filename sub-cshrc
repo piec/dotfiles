@@ -88,3 +88,10 @@ bindkey "\eO5B" history-search-forward
 endif
 endif
 
+set svn_cmds=(add annotate blame cat checkout cleanup commit \
+	copy delete diff export help import info list log merge mkdir move \
+	pdel pedit pget plist praise propdel propedit propget proplist \
+	propset pset remove rename resolved revert status stat switch \
+	update)
+complete svn p/1/\$svn_cmds/
+

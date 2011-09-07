@@ -249,14 +249,22 @@
   )
 (add-hook 'c-mode-common-hook 'my-ac-cc-mode-setup)
 
+(defun linum-mode-fn ()
+  (linum-mode 't))
+(add-hook 'c-mode-common-hook 'linum-mode-fn)
+(add-hook 'asm-mode-hook 'linum-mode-fn)
+(add-hook 'verilog-mode-hook 'linum-mode-fn)
+
 (add-hook 'tcl-mode-hook
       (function (lambda ()
+                  (linum-mode-fn)
                   (setq indent-tabs-mode nil)
                   (setq tcl-indent-level 4))))
 
 (add-hook 'emacs-lisp-mode-hook
           (lambda ()
             (progn
+              (linum-mode-fn)
               (setq ac-sources '(ac-source-words-in-buffer ac-source-symbols))
               (auto-complete-mode t)
               (eldoc-mode t)
@@ -296,6 +304,7 @@
   ;; Your init file should contain only one such instance.
   ;; If there is more than one, they won't work right.
  '(ecb-options-version "2.40")
+ '(global-hl-line-mode t)
  '(indent-tabs-mode nil)
  '(tab-stop-list (quote (4 8 12 16 20 24 28 32 36 40 44 48 52 56 60))))
 (custom-set-faces
@@ -303,7 +312,7 @@
   ;; If you edit it by hand, you could mess it up, so be careful.
   ;; Your init file should contain only one such instance.
   ;; If there is more than one, they won't work right.
- )
+ '(hl-line ((t (:background "#101010" )))))
 
 (message "My .emacs loaded in %ds" (destructuring-bind (hi lo ms) (current-time)
                                      (- (+ hi lo) (+ (first *emacs-load-start*) (second *emacs-load-start*)))))
