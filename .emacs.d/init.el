@@ -23,6 +23,7 @@
 (define-key input-decode-map "\e[1;2A" [S-up])
 (define-key input-decode-map "\e[1~" [home])
 (define-key input-decode-map "\e[4~" [end])
+(define-key input-decode-map "\e[25~" [S-f3])
 
 (define-key input-decode-map "\eO3A" [M-up])
 (define-key input-decode-map "\eO3B" [M-down])
@@ -139,7 +140,7 @@
   (setq highlight-symbol-list ()))
 (global-set-key [f3] 'hl-symbol-and-jump)
 (global-set-key [C-f3] 'hl-symbol-cleanup)
-(global-set-key [(shift f3)] 'highlight-symbol-prev)
+(global-set-key [S-f3] 'highlight-symbol-prev)
 ;;(global-set-key [(meta f3)] 'highlight-symbol-prev)))
 ;; (global-set-key [(control meta f3)] 'highlight-symbol-query-replace)
 

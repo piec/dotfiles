@@ -39,6 +39,9 @@ source $ZSH/oh-my-zsh.sh
 #compinit
 #promptinit; prompt gentoo
 
+export LESS=-ir
+export EDITOR=vim
+
 bindkey "\e[1~" beginning-of-line
 bindkey "\e[4~" end-of-line
 bindkey "\eOH" beginning-of-line

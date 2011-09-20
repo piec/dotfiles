@@ -6,4 +6,6 @@
 [alias]
 	st = status -s
 	co = checkout
-
+	d = diff --word-diff=color --ignore-all-space
+	b = branch -av
+	r = remote -v
