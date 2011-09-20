@@ -44,25 +44,30 @@
         <command>/work/bin/gt</command>
       </action>
     </keybind>
+    <keybind key="W-e">
+      <action name="Execute">
+        <command>~/dotfiles/bin/focus_minimize.sh emacs</command>
+      </action>
+    </keybind>
 
     <keybind key="W-less">
       <action name="Execute">
-        <command>xdotool search --all --onlyvisible --name emacs windowactivate</command>
+        <command>~/dotfiles/bin/focus_minimize.sh firefox</command>
       </action>
     </keybind>
     <keybind key="W-ampersand">
       <action name="Execute">
-        <command>xdotool search --name term1 windowactivate</command>
+        <command>~/dotfiles/bin/focus_minimize.sh term1</command>
       </action>
     </keybind>
     <keybind key="W-eacute">
       <action name="Execute">
-        <command>xdotool search --name term2 windowactivate</command>
+        <command>~/dotfiles/bin/focus_minimize.sh term2</command>
       </action>
     </keybind>
     <keybind key="W-quotedbl">
       <action name="Execute">
-        <command>xdotool search --name term3 windowactivate</command>
+        <command>~/dotfiles/bin/focus_minimize.sh term3</command>
       </action>
     </keybind>
     <keybind key="W-Left">
