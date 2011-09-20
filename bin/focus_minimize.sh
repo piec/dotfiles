@@ -1,17 +1,22 @@
-#/usr/bin/env bash
+#/bin/bash
 set -x
 set -e
-touch /tmp/mdrlol
-echo $* > /tmp/mdrlol
-[ a$1 != a ] || (echo "\$1 empty"; exit 1)
+
+err () {
+	echo "$1"
+	exit 1
+}
+
+[ a$1 != a ] || err "\$1 empty"
+
 active=`xdotool getactivewindow` 
 if [[ $1 =~ (^[[:digit:]]*$) ]]; then
 	window_id=$1
 else
-	window_id=`xdotool search --all --desktop 0 --name $1`
+	window_id=`xdotool search --all --desktop 0 --name $1 | head -n 1`
 fi
 
-if [ a$active == a$window_id ]; then
+if [ "a$active" == "a$window_id" ]; then
 	xdotool windowminimize $active
 else
 	xdotool windowactivate $window_id
