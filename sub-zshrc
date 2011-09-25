@@ -30,7 +30,8 @@ fi
 
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
 # Example format: plugins=(rails git textmate ruby lighthouse)
-plugins=(git vi-mode)
+plugins=(git history-substring-search zsh-syntax-highlighting)
+#plugins=(git vi-mode)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -41,6 +42,11 @@ source $ZSH/oh-my-zsh.sh
 
 export LESS=-ir
 export EDITOR=vim
+
+if false; then
+bindkey "\e[3~" delete-char
+bindkey "\e[A" up-line-or-history
+bindkey "\e[B" down-line-or-history
 
 bindkey "\e[1~" beginning-of-line
 bindkey "\e[4~" end-of-line
@@ -74,6 +80,12 @@ bindkey "\e[1;5A" history-search-backward
 bindkey "\e[1;5B" history-search-forward
 
 bindkey "^R" history-incremental-search-backward
+fi
+
+bindkey -M isearch "\e[A" history-incremental-search-backward
+bindkey -M isearch "\e[B" history-incremental-search-forward
+bindkey '\ee' edit-command-line
+
 
 #bindkey "\e" self-insert
 #bindkey "^[" self-insert
