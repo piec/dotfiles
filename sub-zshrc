@@ -43,7 +43,6 @@ source $ZSH/oh-my-zsh.sh
 export LESS=-ir
 export EDITOR=vim
 
-if false; then
 bindkey "\e[3~" delete-char
 bindkey "\e[A" up-line-or-history
 bindkey "\e[B" down-line-or-history
@@ -55,22 +54,23 @@ bindkey "\eOF" end-of-line
 bindkey "\e[H" beginning-of-line
 bindkey "\e[F" end-of-line
 
-bindkey "\e[1;5C" vi-forward-word
-bindkey "\e[1;5D" vi-backward-word
-bindkey "\eO5D" vi-backward-word
-bindkey "\eO5C" vi-forward-word
-bindkey "\e[5D" vi-backward-word
-bindkey "\e[5C" vi-forward-word
+bindkey "\e[1;5C" forward-word
+bindkey "\e[1;5D" backward-word
+bindkey "\eO5D" backward-word
+bindkey "\eO5C" forward-word
+bindkey "\e[5D" backward-word
+bindkey "\e[5C" forward-word
 
-bindkey "\e[1;3C" vi-forward-word
-bindkey "\e[1;3D" vi-backward-word
-bindkey "\eO3D" vi-backward-word
-bindkey "\eO3C" vi-forward-word
-bindkey "\e[3D" vi-backward-word
-bindkey "\e[3C" vi-forward-word
+bindkey "\e[1;3C" forward-word
+bindkey "\e[1;3D" backward-word
+bindkey "\eO3D" backward-word
+bindkey "\eO3C" forward-word
+bindkey "\e[3D" backward-word
+bindkey "\e[3C" forward-word
 
 bindkey "\e" backward-delete-word
 
+if false; then
 bindkey "\ep" history-search-backward
 bindkey "\en" history-search-forward
 
