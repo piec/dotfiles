@@ -10,7 +10,10 @@ if has("gui_running")
 	set guifont=Fixed\ 10
 	colorscheme ir_black
 else
-	hi CursorLine ctermbg=235 cterm=none
+	if &t_Co == 256
+		colorscheme tir_black
+		hi CursorLine ctermbg=235 cterm=none
+	endif
 endif
 
 set mouse=a
