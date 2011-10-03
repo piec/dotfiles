@@ -158,8 +158,10 @@
 (require 'color-theme)
 (eval-after-load "color-theme"
   '(progn
+     (require 'color-theme-ir-black)
      (color-theme-initialize)
-     (color-theme-hober)
+     ;; (color-theme-hober)
+     (color-theme-ir-black)
 	 )
   )
 
