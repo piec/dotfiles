@@ -92,9 +92,35 @@
 (setq scroll-step 1) ;; keyboard scroll one line at a time
 
 ;; visual bookmarks
+(setq bm-restore-repository-on-load t)
 (require 'bm)
 (global-set-key [f1] 'bm-toggle)
 (global-set-key [f2] 'bm-next)
+
+(setq-default bm-buffer-persistence t)
+;; Loading the repository from file when on start up.
+(add-hook' after-init-hook 'bm-repository-load)
+
+;; Restoring bookmarks when on file find.
+(add-hook 'find-file-hooks 'bm-buffer-restore)
+
+;; Saving bookmark data on killing a buffer
+(add-hook 'kill-buffer-hook 'bm-buffer-save)
+
+;; Saving the repository to file when on exit.
+;; kill-buffer-hook is not called when Emacs is killed, so we
+;; must save all bookmarks first.
+(add-hook 'kill-emacs-hook '(lambda nil
+                              (bm-buffer-save-all)
+                              (bm-repository-save)))
+
+;; Update bookmark repository when saving the file.
+(add-hook 'after-save-hook 'bm-buffer-save)
+
+;; Restore bookmarks when buffer is reverted.
+(add-hook 'after-revert-hook 'bm-buffer-restore)
+
+
 
 ;;; This was installed by package-install.el.
 ;;; This provides support for the package system and
@@ -315,7 +341,8 @@
   ;; If you edit it by hand, you could mess it up, so be careful.
   ;; Your init file should contain only one such instance.
   ;; If there is more than one, they won't work right.
- '(hl-line ((t (:background "#101010" )))))
+ '(hl-line ((t (:background "#101010"))))
+ '(linum ((t (:inherit (shadow default) :background "color-233" :foreground "color-238" :underline nil)))))
 
 (message "My .emacs loaded in %ds" (destructuring-bind (hi lo ms) (current-time)
                                      (- (+ hi lo) (+ (first *emacs-load-start*) (second *emacs-load-start*)))))
