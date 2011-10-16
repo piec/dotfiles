@@ -200,12 +200,16 @@
   (interactive)
   (mapc 'hi-lock-unface-buffer highlight-symbol-list)
   (setq highlight-symbol-list ()))
+
+
+(global-set-key [f11] 'kmacro-start-macro-or-insert-counter)
+(global-set-key [f12] 'kmacro-end-or-call-macro)
+
 (global-set-key [f3] 'hl-symbol-and-jump)
 (global-set-key [C-f3] 'hl-symbol-cleanup)
 (global-set-key [S-f3] 'highlight-symbol-prev)
-;;(global-set-key [(meta f3)] 'highlight-symbol-prev)))
-;; (global-set-key [(control meta f3)] 'highlight-symbol-query-replace)
 
+(global-set-key [f4] 'align-entire)
 
 ;; C-x, C-c, C-v
 (cua-mode)
@@ -233,6 +237,8 @@
 ;;(global-set-key [f4] 'speedbar-get-focus)
 
 (require 'smarttabs)
+(setq-default tab-width 4)
+
 (require 'whitespace) ; for whitespace-mode
 
 ;; windown configuration undo: C-c <left>, C-c <right>
@@ -292,6 +298,8 @@
 ;;	    (when server-buffer-clients
 ;;	      (local-set-key (kbd "C-x k") 'server-edit))))
 
+;;(require 'guess-offset)
+
 (add-to-list 'load-path "~/.emacs.d")
 (require 'auto-complete-config)
 (add-to-list 'ac-dictionary-directories "/home/pierre/.emacs.d/ac-dict")
@@ -313,6 +321,8 @@
   ;;(setq ac-clang-flags (split-string "-I. -I/home/pierre/chromium/src/chrome/browser/ui/views/tabs/ -I/home/pierre/chromium/src/ -I/usr/include/gtk-2.0/ -I/usr/lib/gtk-2.0/include/ -I/usr/include/glib-2.0 -I/usr/lib/x86_64-linux-gnu/glib-2.0/include/ -I/usr/include/cairo/ -I/usr/include/pango-1.0/ -I/usr/include/gdk-pixbuf-2.0/ -I/usr/include/atk-1.0/ -I/home/pierre/chromium/src/third_party/skia/include/config/ -I/home/pierre/chromium/src/out/Debug/obj/gen/chrome/"))
   )
 (add-hook 'c-mode-common-hook 'my-ac-cc-mode-setup)
+(setq c-default-style "linux"
+	  c-basic-offset 4)
 
 (defun linum-mode-fn ()
   (linum-mode 't))
@@ -379,6 +389,16 @@
 
 (add-to-list 'command-switch-alist '("diff" . command-line-diff))
 
+;; align rules
+(add-hook 'align-load-hook
+		  (function (lambda ()
+					  (add-to-list 'align-rules-list
+								   '(make-assignment-pierre
+									 (regexp . "^\\s-*\\w+\\(\\s-*\\)\\(:\\|\\+\\)?=\\(\\s-*\\)\\([^	 \\\\]\\|$\\)")
+									 (group 1 3)
+									 (modes quote (makefile-mode))
+									 (tab-stop))))))
+
 ;; customize variables
 (custom-set-variables
   ;; custom-set-variables was added by Custom.
@@ -387,8 +407,9 @@
   ;; If there is more than one, they won't work right.
  '(ecb-options-version "2.40")
  '(global-hl-line-mode t)
- '(indent-tabs-mode nil)
- '(tab-stop-list (quote (4 8 12 16 20 24 28 32 36 40 44 48 52 56 60))))
+ ;;'(indent-tabs-mode nil)
+ ;;'(tab-stop-list (quote (4 8 12 16 20 24 28 32 36 40 44 48 52 56 60)))
+ )
 (custom-set-faces
   ;; custom-set-faces was added by Custom.
   ;; If you edit it by hand, you could mess it up, so be careful.
