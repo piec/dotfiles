@@ -109,9 +109,15 @@ function run-ls-la {
 bindkey "\e[21~" run-mc
 zle -N run-mc
 function run-mc {
-	#mc
 	source /usr/share/mc/bin/mc-wrapper.sh
 	zle clear-screen
 	zle redisplay
+}
+
+bindkey "\eO5A" cd-up
+zle -N cd-up
+function cd-up {
+	cd ..
+	zle -I
 }
 
