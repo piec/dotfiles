@@ -121,3 +121,10 @@ function cd-up {
 	zle -I
 }
 
+bindkey "\eh" cd-home
+zle -N cd-home
+function cd-home {
+	cd
+	zle -I
+}
+
