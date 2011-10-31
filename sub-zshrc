@@ -70,7 +70,7 @@ bindkey "\e[3C" forward-word
 
 bindkey "\e" backward-delete-word
 
-if false; then
+if true; then
 bindkey "\ep" history-search-backward
 bindkey "\en" history-search-forward
 
@@ -89,4 +89,29 @@ bindkey '\ee' edit-command-line
 
 #bindkey "\e" self-insert
 #bindkey "^[" self-insert
+
+bindkey "^P" run-pwd
+zle -N run-pwd
+function run-pwd {
+	echo
+	pwd
+	zle redisplay
+}
+
+bindkey "^[l" run-ls-la
+zle -N run-ls-la
+function run-ls-la {
+	echo
+	ls -la
+	zle redisplay
+}
+
+bindkey "\e[21~" run-mc
+zle -N run-mc
+function run-mc {
+	#mc
+	source /usr/share/mc/bin/mc-wrapper.sh
+	zle clear-screen
+	zle redisplay
+}
 
