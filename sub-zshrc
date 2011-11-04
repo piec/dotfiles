@@ -129,3 +129,8 @@ function cd-home {
 	zle -I
 }
 
+if [[ a$VENDOR == a"apple" ]]; then
+	bindkey "^p" history-search-backward
+	bindkey "^n" history-search-forward
+fi
+

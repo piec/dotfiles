@@ -108,7 +108,8 @@
 ;;                 )
 
 (xterm-mouse-mode t)
-(mouse-wheel-mode t)
+(when (boundp 'mouse-wheel-mode)
+  (mouse-wheel-mode t))
 
 (show-paren-mode t)
 
