@@ -4,10 +4,15 @@ call pathogen#helptags()
 set cursorline
 set number
 
+
 if has("gui_running")
 	"set guifont=DejaVu\ Sans\ Mono\ 9
 	"set guifont=Droid\ Sans\ Mono\ 10
-	set guifont=Fixed\ 10
+	if has("mac")
+		set guifont=Monaco:h10
+	elseif has("unix")
+		set guifont=Fixed\ 10
+	endif
 	colorscheme ir_black
 else
 	if &t_Co == 256
