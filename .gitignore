@@ -1,5 +1,7 @@
 .emacs.d/auto-save-list/*
 .emacs.d/ac-comphist.dat
+.emacs.desktop
+.revive.el
 .vim/undodir/*
 .vim/.netrwhist
 .vim/doc/tags
