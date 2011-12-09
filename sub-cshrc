@@ -25,7 +25,8 @@ set LIGHT_GRAY="\e[1;30m"
 set NO="\e[0m"
 #alias precmd 'set n=`tput cols`; @ n = $n - 5; echo -n $LIGHT_GRAY; printf "%.0s_" `seq 1 $n`; echo " "$?'
 #alias precmd 'set r=$?; set n=`tput cols`; @ n = $n - 5; echo -n $LIGHT_GRAY; printf "%.0s_" `seq 1 $n`; echo " "$r$NO'
-alias precmd 'set r=$?; set n=`tput cols`; @ n = $n - 5; echo -n $LIGHT_GRAY; printf "%.0s─" `seq 1 $n`; echo " "$r$NO'
+#alias precmd 'set r=$?; set n=`tput cols`; @ n = $n - 5; echo -n $LIGHT_GRAY; printf "%.0s─" `seq 1 $n`; echo " "$r$NO'
+alias precmd 'set r=$?; set n=`tput cols`; @ n = $n - 5; echo -n $LIGHT_GRAY; printf "%.0s_" `seq 1 $n`; echo " "$r$NO'
 #alias precmd 'set r=$?; set n=`tput cols`; @ n = $n - 5; printf "%.0s_" `seq 1 $n`; echo " "$r'
 
 #alias precmd "echo '${lightgray}' ; eval printf '%.0s_' {1..`tput cols`} "
@@ -42,6 +43,8 @@ alias r '( set history= ( 2 "%R\n" ) ; history ) | head -n 1 >> ~/cmd.sh'
 
 bindkey -c "\e[20~" '(set history=( 1 "%R\\n" ) ; history) | head -n 1 >> ~/cmd.sh && echo saved || echo error'
 bindkey -c "\e[21~" "mc"
+bindkey -c "\el" "ls -la"
+bindkey -c "\eO5A" "cd .. && pwd"
 
 setenv LESS "-ir"
 
