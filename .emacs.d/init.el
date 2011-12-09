@@ -7,6 +7,7 @@
 (add-to-list 'load-path "~/.emacs.d/apel-10.8")
 (add-to-list 'load-path "~/.emacs.d/color-theme-6.6.0")
 (add-to-list 'load-path "~/.emacs.d/cscope")
+(add-to-list 'load-path "~/.emacs.d/php-mode")
 ;;(server-start)
 
 (savehist-mode t)
@@ -117,6 +118,8 @@
   (defun track-mouse (e))
   )
 
+(when window-system 
+	(tool-bar-mode 0))
 (show-paren-mode t)
 
 (global-set-key "%" 'match-paren)
@@ -400,6 +403,8 @@
     (ediff file1 file2)))
 
 (add-to-list 'command-switch-alist '("diff" . command-line-diff))
+
+(require 'php-mode)
 
 ;; align rules
 (add-hook 'align-load-hook
