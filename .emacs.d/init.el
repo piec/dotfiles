@@ -99,7 +99,7 @@
 (setq-default tab-width 4)
 
 ;;(global-set-key "\C-a" 'mark-whole-buffer)
-(global-set-key "\C-w" 'delete-window)
+;;(global-set-key "\C-w" 'delete-window)
 ;; (global-set-key "\C-k"
 ;;                 '(lambda ()
 ;;                    (interactive)
@@ -260,8 +260,8 @@
 (desktop-save-mode t)
 
 ;;(require 'layout-restore)
-;;(global-set-key [f11] 'layout-save-current)
-;;(global-set-key [f12] 'layout-restore)
+;;(global-set-key [f8] 'layout-save-current)
+;;(global-set-key [f9] 'layout-restore)
 
 ;;(global-set-key [f11] '(lambda () (interactive) (window-configuration-to-register ?w)))
 ;;(global-set-key [f12] '(lambda () (interactive) (jump-to-register ?w)))
@@ -282,10 +282,13 @@
 ;;(define-key ctl-x-map "C" 'see-you-again)
 
 ;; revive
-;;(require 'revive)
-;;(autoload 'save-current-configuration "revive" "Save status" t)
-;;(autoload 'resume "revive" "Resume Emacs" t)
-;;(autoload 'wipe "revive" "Wipe Emacs" t)
+(require 'revive)
+(setq revive:configuration-file "./.revive.el")
+(autoload 'save-current-configuration "revive" "Save status" t)
+(autoload 'resume "revive" "Resume Emacs" t)
+(autoload 'wipe "revive" "Wipe Emacs" t)
+(global-set-key [f8] 'save-current-configuration)
+(global-set-key [f9] 'resume)
 ;;(define-key ctl-x-map "S" 'save-current-configuration)
 ;;(define-key ctl-x-map "F" 'resume)
 ;;(define-key ctl-x-map "K" 'wipe)
