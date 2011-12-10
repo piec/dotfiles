@@ -3,6 +3,14 @@
 (message "init.el start")
 (defvar *emacs-load-start* (current-time))
 
+(defmacro require-maybe (feature &optional file)
+    "*Try to require FEATURE, but don't signal an error if `require' fails."
+	  `(require ,feature ,file 'noerror))
+
+(defmacro when-available (func foo)
+    "*Do something if FUNCTION is available."
+	  `(when (fboundp ,func) ,foo))
+
 (add-to-list 'load-path "~/.emacs.d/")
 (add-to-list 'load-path "~/.emacs.d/apel-10.8")
 (add-to-list 'load-path "~/.emacs.d/color-theme-6.6.0")
@@ -404,7 +412,7 @@
 
 (add-to-list 'command-switch-alist '("diff" . command-line-diff))
 
-(require 'php-mode)
+(require-maybe 'php-mode)
 
 ;; align rules
 (add-hook 'align-load-hook
