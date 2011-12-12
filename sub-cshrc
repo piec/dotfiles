@@ -25,15 +25,15 @@ set LIGHT_GRAY="\e[1;30m"
 set NO="\e[0m"
 #alias precmd 'set n=`tput cols`; @ n = $n - 5; echo -n $LIGHT_GRAY; printf "%.0s_" `seq 1 $n`; echo " "$?'
 #alias precmd 'set r=$?; set n=`tput cols`; @ n = $n - 5; echo -n $LIGHT_GRAY; printf "%.0s_" `seq 1 $n`; echo " "$r$NO'
-#alias precmd 'set r=$?; set n=`tput cols`; @ n = $n - 5; echo -n $LIGHT_GRAY; printf "%.0s─" `seq 1 $n`; echo " "$r$NO'
-alias precmd 'set r=$?; set n=`tput cols`; @ n = $n - 5; echo -n $LIGHT_GRAY; printf "%.0s_" `seq 1 $n`; echo " "$r$NO'
+alias precmd 'set r=$?; set n=`tput cols`; @ n = $n - 5; echo -n $LIGHT_GRAY; printf "%.0s─" `seq 1 $n`; echo " "$r$NO'
+#alias precmd 'set r=$?; set n=`tput cols`; @ n = $n - 5; echo -n $LIGHT_GRAY; printf "%.0s_" `seq 1 $n`; echo " "$r$NO'
 #alias precmd 'set r=$?; set n=`tput cols`; @ n = $n - 5; printf "%.0s_" `seq 1 $n`; echo " "$r'
 
 #alias precmd "echo '${lightgray}' ; eval printf '%.0s_' {1..`tput cols`} "
 #alias precmd "testf"
 
 #"`echo $PWD`"
-set prompt="$bgreen%n$no@$bgreen%m${no}:$bblue%c05$no%# "
+set prompt="$bgreen%n$no $bcyan%m${no} $bblue%c05$no %# "
 #set prompt="%n@%m:%c05%# "
 
 alias ls "ls --color"
