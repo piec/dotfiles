@@ -3,14 +3,6 @@
 (message "init.el start")
 (defvar *emacs-load-start* (current-time))
 
-(defmacro require-maybe (feature &optional file)
-    "*Try to require FEATURE, but don't signal an error if `require' fails."
-	  `(require ,feature ,file 'noerror))
-
-(defmacro when-available (func foo)
-    "*Do something if FUNCTION is available."
-	  `(when (fboundp ,func) ,foo))
-
 (add-to-list 'load-path "~/.emacs.d/")
 (add-to-list 'load-path "~/.emacs.d/apel-10.8")
 (add-to-list 'load-path "~/.emacs.d/color-theme-6.6.0")
@@ -19,7 +11,7 @@
 ;;(server-start)
 
 (savehist-mode t)
-(require 'xcscope)
+(require 'xcscope nil t)
 
 (setq eval-expression-print-length 50)
 (setq mouse-autoselect-window t)
@@ -189,16 +181,17 @@
 
 (require 'pierre-cursor-shape)
 
-;(defconst my-font "-misc-fixed-medium-r-semicondensed-*-13-*-*-*-*-60-iso8859-9")
-(defconst my-font "-misc-fixed-medium-r-semicondensed--13-120-75-75-c-60-*")
 
-(if (eq window-system 'x)
-    (progn
-      (set-face-font 'default my-font)
-      (set-scroll-bar-mode `right)
-      )
+(case window-system 
+  ('x
+   (defconst my-font "-misc-fixed-medium-r-semicondensed--13-120-75-75-c-60-*")
+   (set-face-font 'default my-font)
+   (set-scroll-bar-mode `right))
+  ('w32
+   (defconst my-font "Consolas")
+   (set-face-font 'default my-font)
+   (set-scroll-bar-mode `right))
   )
-
 
 (require 'highlight-symbol)
 (setq highlight-symbol-idle-delay 0)
@@ -234,19 +227,17 @@
 ;; InteractivelyDoThings
 (ido-mode)
 
-;;
-;;(require 'line-num)
-;;(linum-mode)
-
 ;; theme
-(require 'color-theme)
-(eval-after-load "color-theme"
-  '(progn
-     (require 'color-theme-ir-black)
-     (color-theme-initialize)
-     ;; (color-theme-hober)
-     (color-theme-ir-black)
-	 )
+(if (require 'color-theme nil t)
+	(eval-after-load "color-theme"
+	  '(progn
+		 (require 'color-theme-ir-black)
+		 (color-theme-initialize)
+		 ;; (color-theme-hober)
+		 (color-theme-ir-black)
+		 )
+	  )
+  (message "No color-theme found")
   )
 
 ;; Bind newline-and-indent to RET
@@ -412,7 +403,7 @@
 
 (add-to-list 'command-switch-alist '("diff" . command-line-diff))
 
-(require-maybe 'php-mode)
+(require 'php-mode nil t)
 
 ;; align rules
 (add-hook 'align-load-hook
