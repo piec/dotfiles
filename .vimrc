@@ -26,7 +26,8 @@ set hidden
 "set cursorline
 let mapleader = ","
 nnoremap <F1> :GundoToggle<CR>
-let g:qb_hotkey = "<F2>"
+let g:qb_hotkey = "<S-F2>"
+map <F2> :vertical wincmd f<CR>
 map <F4> :NERDTreeToggle<CR>
 map <F3> :NERDTreeFind<CR>
 
