@@ -31,6 +31,11 @@
 (define-key input-decode-map "\e[1;5C" [C-right])
 (define-key input-decode-map "\e[1;5D" [C-left])
 
+(define-key input-decode-map "\e[A" [C-up])
+(define-key input-decode-map "\e[B" [C-down])
+(define-key input-decode-map "\e[C" [C-right])
+(define-key input-decode-map "\e[D" [C-left])
+
 (define-key input-decode-map "\e[1;2A" [S-up])
 (define-key input-decode-map "\e[1;2B" [S-down])
 (define-key input-decode-map "\e[1;2C" [S-right])

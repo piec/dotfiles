@@ -69,6 +69,11 @@ bindkey "\eO3C" forward-word
 bindkey "\e[3D" backward-word
 bindkey "\e[3C" forward-word
 
+bindkey "\eOD" backward-word
+bindkey "\eOC" forward-word
+bindkey "\e\e[D" backward-word
+bindkey "\e\e[C" forward-word
+
 bindkey "\e" backward-delete-word
 
 if true; then
