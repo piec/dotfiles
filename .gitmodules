@@ -7,3 +7,6 @@
 [submodule ".emacs.d/php-mode"]
 	path = .emacs.d/php-mode
 	url = https://github.com/ejmr/php-mode
+[submodule ".vim/bundle/powerline"]
+	path = .vim/bundle/powerline
+	url = https://github.com/Lokaltog/vim-powerline.git
