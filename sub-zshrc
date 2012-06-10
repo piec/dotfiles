@@ -139,3 +139,6 @@ if [[ a$VENDOR == a"apple" ]]; then
 	bindkey "^n" history-search-forward
 fi
 
+alias ls="LC_COLLATE=C ls --color=tty --group-directories-first"
+alias l="ls -la"
+
