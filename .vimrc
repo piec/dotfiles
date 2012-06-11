@@ -11,7 +11,8 @@ if has("gui_running")
 	if has("mac")
 		set guifont=Monaco:h10
 	elseif has("unix")
-		set guifont=MiscFixed\ Semi-Condensed\ 10
+		set guifont=Fixed\ Medium\ Semi-Condensed\ 10
+		"set guifont=MiscFixed\ Semi-Condensed\ 10
 	endif
 	colorscheme ir_black
 else
@@ -80,4 +81,6 @@ endif
 
 
 set ttymouse=xterm2
+
+set noicon "don't change the window icon title
 
