@@ -92,7 +92,6 @@ bindkey -M isearch "\e[A" history-incremental-search-backward
 bindkey -M isearch "\e[B" history-incremental-search-forward
 bindkey '\ee' edit-command-line
 
-
 #bindkey "\e" self-insert
 #bindkey "^[" self-insert
 
@@ -134,10 +133,27 @@ function cd-home {
 	zle -I
 }
 
+bindkey '\e[23~' tmux-mouse-off
+zle -N tmux-mouse-off
+function tmux-mouse-off {
+     tmux setw -g mode-mouse off > /dev/null
+}
+
+bindkey '\e[24~' tmux-mouse-on
+zle -N tmux-mouse-on
+function tmux-mouse-on {
+    tmux setw -g mode-mouse on > /dev/null
+}
+
 if [[ a$VENDOR == a"apple" ]]; then
 	bindkey "^p" history-search-backward
 	bindkey "^n" history-search-forward
 fi
+
+function set_title { print -Pn "\e]0;$1\a" }
+function get_title { print -Pn "\e[21t" }
+function save_title { print -Pn '\e[22;0t' }
+function restore_title { print -Pn '\e[23;0t' }
 
 alias ls="LC_COLLATE=C ls --color=tty --group-directories-first"
 alias l="ls -la"
