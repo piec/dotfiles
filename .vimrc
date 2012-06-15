@@ -4,6 +4,13 @@ call pathogen#helptags()
 set cursorline
 set number
 
+if !empty($KERNELDIR)
+    set path=.,$KERNELDIR/include " ^= to prepend
+    if !empty($ARCH)
+        set path+=$KERNELDIR/include/asm-$ARCH
+        set path+=$KERNELDIR/arch/$ARCH/include
+    endif
+endif
 
 if has("gui_running")
 	"set guifont=DejaVu\ Sans\ Mono\ 9
@@ -82,5 +89,13 @@ endif
 
 set ttymouse=xterm2
 
+set expandtab
 set noicon "don't change the window icon title
+
+if &term =~ '^screen'
+    execute "set <xUp>=\e[1;*A"
+    execute "set <xDown>=\e[1;*B"
+    execute "set <xRight>=\e[1;*C"
+    execute "set <xLeft>=\e[1;*D"
+endif
 
