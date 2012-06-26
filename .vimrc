@@ -64,6 +64,8 @@ map <F8> :cp<CR>
 map <F9> :cn<CR>
 map <F5> :!clear; ./`make name`<CR>
 
+map <F10> :!git diff %:p<CR>
+
 set pastetoggle=<F1>
 
 "map <F2> :read !svn diff<CR>:set syntax=diff buftype=nofile<CR>gg
@@ -99,3 +101,4 @@ if &term =~ '^screen'
     execute "set <xLeft>=\e[1;*D"
 endif
 
+set modeline

@@ -158,3 +158,16 @@ function restore_title { print -Pn '\e[23;0t' }
 alias ls="LC_COLLATE=C ls --color=tty --group-directories-first"
 alias l="ls -la"
 
+export GREP_OPTIONS="$GREP_OPTIONS --exclude-dir=\.svn --exclude-dir=\.hg --exclude-dir=\.git"
+
+unalias g
+f() {
+    find ${2-.} -type d -name .git -prune -o -type d -name .hg -prune -o -type d -name .svn -prune -o -iname "*$1*" -print | grep -i "$1"
+}
+g() {
+    [ x$1 != x ] || return 1
+    local dir=${2-.}
+    [ -d $dir ] || return 1
+    grep -i "$1" -R $dir
+}
+

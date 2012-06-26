@@ -38,8 +38,11 @@ function prompt_command()
 	[[ $1 = yes ]] && echo -en $GRAY
 	local cols=`tput cols`
 	cols=${cols:-50}
-	hbar $[ $cols - 5 ] "─"
-	#hbar $[ $cols - 5 ] "_"
+	if echo "$LANG" | grep "UTF-8" > /dev/null; then
+		hbar $[ $cols - 5 ] "─"
+	else
+		hbar $[ $cols - 5 ] "-"
+	fi
 
 	[[ $1 = yes ]] && [ "a$sv" != "a0" ] && echo -en $RED
 
@@ -54,8 +57,18 @@ function r()
 	history 2 | head -n 1 | sed "s/ *[0-9]* *//" >> ${1-~/cmd.sh}
 }
 
+function user_color()
+{
+	#echo user $1
+	local GREEN='\[\033[1;32m\]'
+	local RED='\[\033[1;31m\]'
+	[[ "a$1" = a"root" ]] && xUSER=$RED && return
+	xUSER=$GREEN
+}
+
 function host_color()
 {
+	#echo host $1
 	local GREEN='\[\033[1;32m\]'
 	local GRAY='\[\033[1;30m\]'
 	local LIGHT_GRAY='\[\033[0;37m\]'
@@ -66,19 +79,21 @@ function host_color()
 	#echo "host_colo("$1")"
 	[[ "a$1" = "a" ]] && xHOST=$GRAY && return
 	[[ "a$1" = a"lechuck" ]] && xHOST=$RED && return
-	[[ "a$1" = a"e103245-lin.nice.arm.com" ]] && xHOST=$CYAN && return
-	xHOST=$GREEN
+	xHOST=$CYAN
 }
 
 if [ "$color_prompt" = yes ]; then
-	xUSER='\[\033[1;32m\]'
 	host_color `hostname`
+	user_color `whoami`
 	#xHOST='\033[1;33m'
+	#xUSER='\[\033[1;32m\]'
 	xDIRECTORY='\[\033[1;34m\]'
 	xNO='\[\033[0m\]'
-	MYPS='$(echo -n "${PWD/#$HOME/~}" | awk -F "/" '"'"'{if (length($0) > 30) { if (NF>4) print $1 "/" $2 "/.../" $(NF-1) "/" $NF; else if (NF>3) print $1 "/" $2 "/.../" $NF; else print $1 "/.../" $NF; } else print $0;}'"'"')'
+	xGRAY='\[\033[0;37m\]'
+	#MYPS='$(echo -n "${PWD/#$HOME/~}" | awk -F "/" '"'"'{if (length($0) > 30) { if (NF>4) print $1 "/" $2 "/.../" $(NF-1) "/" $NF; else if (NF>3) print $1 "/" $2 "/.../" $NF; else print $1 "/.../" $NF; } else print $0;}'"'"')'
 	#PS1="${debian_chroot:+($debian_chroot)}$xUSER\u$xNO@$xHOST\h$xNO:$xDIRECTORY\w$xNO\$ "
-	PS1="${debian_chroot:+($debian_chroot)}$xUSER\u$xNO@$xHOST\h$xNO:$xDIRECTORY"'$(eval "echo ${MYPS}")'"$xNO\$ "
+	xPRE_TEXT=bash
+	PS1="${xGRAY}\$xPRE_TEXT $xNO${debian_chroot:+($debian_chroot)}$xUSER\u$xNO $xHOST\h$xNO $xDIRECTORY\w$xNO \\$ "
 	PS1='$(prompt_command yes)\n'$PS1
 else
 	#PS1='${debian_chroot:+($debian_chroot)}\u@\h:\w\$ '
@@ -100,7 +115,8 @@ if [ "$color_prompt" = yes ]; then
 	fi
 fi
 
-alias l='ls -la'
+alias ls="LC_COLLATE=C ls --group-directories-first --color=auto"
+alias l="ls -la"
 
 unset color_prompt force_color_prompt
 
@@ -134,4 +150,20 @@ popd()
 
 alias cd='pushd'
 
+set_title()
+{
+	echo -ne "\e]0;$1\a"
+}
+
+export GREP_OPTIONS="$GREP_OPTIONS --exclude-dir=\.svn --exclude-dir=\.hg --exclude-dir=\.git"
+
+f() {
+    find ${2-.} -type d -name .git -prune -o -type d -name .hg -prune -o -type d -name .svn -prune -o -iname "*$1*" -print | grep -i "$1"
+}
+g() {
+    [ x$1 != x ] || return 1
+    local dir=${2-.}
+    [ -d $dir ] || return 1
+    grep -i "$1" -R $dir
+}
 
