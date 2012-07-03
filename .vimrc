@@ -1,6 +1,10 @@
-call pathogen#runtime_append_all_bundles()
+"call pathogen#runtime_append_all_bundles()
+call pathogen#infect()
 call pathogen#helptags()
+let g:pymode_folding = 0
+let g:pymode_lint_write = 0
 
+filetype plugin indent on
 set cursorline
 set number
 
