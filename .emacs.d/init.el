@@ -8,6 +8,39 @@
 (add-to-list 'load-path "~/.emacs.d/color-theme-6.6.0")
 (add-to-list 'load-path "~/.emacs.d/cscope")
 (add-to-list 'load-path "~/.emacs.d/php-mode")
+
+;; pylookup
+(setq pylookup-dir "~/.emacs.d/pylookup")
+(add-to-list 'load-path pylookup-dir)
+(eval-when-compile (require 'pylookup nil t))
+;; set executable file and db file
+(setq pylookup-program (concat pylookup-dir "/pylookup.py")
+	  pylookup-db-file (concat pylookup-dir "/pylookup.db"))
+
+;; pymacs
+;;(require 'pymacs nil t)
+(autoload 'pymacs-apply "pymacs")
+(autoload 'pymacs-call "pymacs")
+(autoload 'pymacs-eval "pymacs" nil t)
+(autoload 'pymacs-exec "pymacs" nil t)
+(autoload 'pymacs-load "pymacs" nil t)
+(autoload 'pymacs-autoload "pymacs")
+(pymacs-load "ropemacs" "rope-")
+(setenv "PYTHONPATH" ".")
+
+(require 'shift-region)
+
+;; browse-url
+(setq browse-url-browser-function 'browse-url-generic
+ 	  browse-url-generic-program "chromium-browser")
+
+;; buffer-move
+;; (require 'buffer-move)
+;; (global-set-key (kbd "<C-s-up>")     'buf-move-up)
+;; (global-set-key (kbd "<C-s-down>")   'buf-move-down)
+;; (global-set-key (kbd "<C-s-left>")   'buf-move-left)
+;; (global-set-key (kbd "<C-s-right>")  'buf-move-right)
+
 ;;(server-start)
 
 (savehist-mode t)
@@ -19,6 +52,30 @@
 ;; C-j
 (global-set-key "\C-j" 'eval-print-last-sexp)
 (global-set-key [f6] 'whitespace-mode)
+
+;; F5: make run
+(defun make-run-in-eshell ()
+  (interactive)
+  (let ((win (selected-window))
+		(buffer0 (get-buffer "*eshell*<0>"))
+		(wd default-directory))
+	
+	(eshell 0)
+	(let ((inhibit-read-only t))
+	  (erase-buffer))
+	(end-of-buffer)
+	(when (not buffer0)
+	  (insert (format "cd %s" wd)))
+	;;(switch-to-buffer-other-window "*eshell*")
+	(eshell-queue-input)
+	(insert "make run")
+	(eshell-queue-input)
+	(eshell-show-output)
+	(select-window win)
+  ))
+
+(global-set-key [f5] 'make-run-in-eshell)
+
 
 ;; pour que S-up marche dans putty/screen/emacs avec TERM=xterm-256color
 (define-key input-decode-map "\e[1;2A" [S-up])
@@ -198,6 +255,9 @@
    (set-scroll-bar-mode `right))
   )
 
+(add-to-list 'default-frame-alist
+             '(font . "-misc-fixed-medium-r-semicondensed--13-120-75-75-c-60-*"))
+
 (require 'highlight-symbol)
 (setq highlight-symbol-idle-delay 0)
 (highlight-symbol-mode nil)
@@ -263,9 +323,6 @@
     (windmove-default-keybindings 'meta)
     ))
 
-(setq desktop-path '("."))
-(desktop-save-mode t)
-
 ;;(require 'layout-restore)
 ;;(global-set-key [f8] 'layout-save-current)
 ;;(global-set-key [f9] 'layout-restore)
@@ -289,13 +346,14 @@
 ;;(define-key ctl-x-map "C" 'see-you-again)
 
 ;; revive
-(require 'revive)
-(setq revive:configuration-file "./.revive.el")
-(autoload 'save-current-configuration "revive" "Save status" t)
-(autoload 'resume "revive" "Resume Emacs" t)
-(autoload 'wipe "revive" "Wipe Emacs" t)
-(global-set-key [f8] 'save-current-configuration)
-(global-set-key [f9] 'resume)
+;; (require 'revive)
+;; (setq revive:configuration-file "./.revive.el")
+;; (autoload 'save-current-configuration "revive" "Save status" t)
+;; (autoload 'resume "revive" "Resume Emacs" t)
+;; (autoload 'wipe "revive" "Wipe Emacs" t)
+;; (global-set-key [f8] 'save-current-configuration)
+;; (global-set-key [f9] 'resume)
+
 ;;(define-key ctl-x-map "S" 'save-current-configuration)
 ;;(define-key ctl-x-map "F" 'resume)
 ;;(define-key ctl-x-map "K" 'wipe)
@@ -336,12 +394,15 @@
   (setq ac-sources '(ac-source-filename))
   (setq ac-sources (append '(ac-source-clang ac-source-yasnippet) ac-sources))
   (auto-complete-mode)
+  (setq indent-tabs-mode nil)
   ;;chromium
   ;;(setq ac-clang-flags (split-string "-I. -I/home/pierre/chromium/src/chrome/browser/ui/views/tabs/ -I/home/pierre/chromium/src/ -I/usr/include/gtk-2.0/ -I/usr/lib/gtk-2.0/include/ -I/usr/include/glib-2.0 -I/usr/lib/x86_64-linux-gnu/glib-2.0/include/ -I/usr/include/cairo/ -I/usr/include/pango-1.0/ -I/usr/include/gdk-pixbuf-2.0/ -I/usr/include/atk-1.0/ -I/home/pierre/chromium/src/third_party/skia/include/config/ -I/home/pierre/chromium/src/out/Debug/obj/gen/chrome/"))
   )
 (add-hook 'c-mode-common-hook 'my-c-mode-setup)
 (setq c-default-style "linux"
 	  c-basic-offset 4)
+
+(require 'pierre-python-config)
 
 (defun linum-mode-fn ()
   (linum-mode 't))
@@ -363,6 +424,13 @@
               (auto-complete-mode t)
               (eldoc-mode t)
               )))
+(setq desktop-path '("."))
+(desktop-save-mode t)
+(require 'winsav)
+(setq winsav-dirname ".")
+(setq winsav-handle-also-desktop t)
+(winsav-save-mode t)
+
 
 ;;(setq clang-completion-suppress-error 'f)
 ;;(setq ac-auto-start t)
@@ -426,8 +494,11 @@
   ;; If you edit it by hand, you could mess it up, so be careful.
   ;; Your init file should contain only one such instance.
   ;; If there is more than one, they won't work right.
+ '(browse-url-browser-function (quote browse-url-text-emacs))
+ '(browse-url-text-browser "elinks")
  '(ecb-options-version "2.40")
- '(global-hl-line-mode t))
+ '(global-hl-line-mode t)
+ '(winsav-frame-parameters-to-save (quote (alpha auto-lower auto-raise background-color background-mode border-color border-width buffer-predicate cursor-color cursor-type foreground-color fullscreen icon-name icon-type icon-left icon-top internal-border-width left-fringe line-spacing menu-bar-lines modeline mouse-color right-fringe screen-gamma scroll-bar-width tool-bar-lines top left width height tty-color-mode unsplittable user-position user-size vertical-scroll-bars visibility))))
 (custom-set-faces
   ;; custom-set-faces was added by Custom.
   ;; If you edit it by hand, you could mess it up, so be careful.
