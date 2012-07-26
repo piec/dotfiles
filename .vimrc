@@ -63,12 +63,32 @@ set wildmenu
 set listchars=eol:$,tab:>-,trail:~,extends:>,precedes:<
 map <F6> :set list!<CR>
 
-map <F7> :w<CR>:make<CR><CR><CR>:cc<CR>
+
+func! WriteIfModified()
+    if &modified
+        write
+    endif
+endfunc
+
+map <F7> :call WriteIfModified()<CR>:make<CR><CR><CR>:cc<CR>
 map <F8> :cp<CR>
 map <F9> :cn<CR>
-map <F5> :!clear; ./`make name`<CR>
+map <F5> :!clear; make run<CR>
 
-map <F10> :!git diff %:p<CR>
+map <F10> :!git diff %:p \|\| hg diff %:p<CR>
+
+func! Gotodefinition()
+    ":map <F6> :vs<CR><C-w>w:csc find g <cword><CR>
+    let found = globpath(&path, expand('<cfile>'))
+    if empty(found)
+        ":vs
+        ":wincmd w
+        csc find g <cword>
+    else
+        normal gf
+    endif
+endfunc
+"map <F5> :call Gotodefinition()<CR>
 
 set pastetoggle=<F1>
 
