@@ -128,3 +128,10 @@ hi link javaScriptNumber Number
 
 " Special for CSharp
 hi link csXmlTag Keyword 
+
+"M
+hi ShowMarksHLl cterm=bold ctermfg=235 ctermbg=12
+hi link ShowMarksHLu ShowMarksHLl
+hi ShowMarksHLo cterm=none ctermfg=242 ctermbg=242
+hi link ShowMarksHLm ShowMarksHLo
+

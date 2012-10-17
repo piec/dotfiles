@@ -9,12 +9,16 @@ set cursorline
 set number
 
 if !empty($KERNELDIR)
-    set path=.,$KERNELDIR/include " ^= to prepend
+    set path=$KERNELDIR/include " ^= to prepend
     if !empty($ARCH)
         set path+=$KERNELDIR/include/asm-$ARCH
         set path+=$KERNELDIR/arch/$ARCH/include
     endif
 endif
+if isdirectory("/usr/targets/current/root/usr/include")
+    set path+=/usr/targets/current/root/usr/include
+    set path+=/usr/targets/current/root/usr/include/nexus
+end
 
 if has("gui_running")
 	"set guifont=DejaVu\ Sans\ Mono\ 9
@@ -31,14 +35,14 @@ else
 		colorscheme tir_black
 		hi CursorLine ctermbg=235 cterm=none
 	endif
+
+    inoremap <C-@> <C-x><C-o>
 endif
 
 set mouse=a
 set hidden
-"set cursorline
 let mapleader = ","
 nnoremap <F1> :GundoToggle<CR>
-let g:qb_hotkey = "<S-F2>"
 map <F2> :vertical wincmd f<CR>
 map <F4> :NERDTreeToggle<CR>
 map <F3> :NERDTreeFind<CR>
@@ -57,8 +61,8 @@ set showbreak=@-->
 set ruler
 set tabstop=4
 set wildmenu
+set expandtab "tabs -> spaces
 
-"set expandtab "tabs -> spaces
 
 set listchars=eol:$,tab:>-,trail:~,extends:>,precedes:<
 map <F6> :set list!<CR>
@@ -70,28 +74,43 @@ func! WriteIfModified()
     endif
 endfunc
 
-map <F7> :call WriteIfModified()<CR>:make<CR><CR><CR>:cc<CR>
+map <F7> :call WriteIfModified()<CR>:make<CR><CR><CR>:cc<CR><CR>
+"map <F7> :make<CR><CR><CR>:cc<CR>
 map <F8> :cp<CR>
 map <F9> :cn<CR>
 map <F5> :!clear; make run<CR>
 
-map <F10> :!git diff %:p \|\| hg diff %:p<CR>
+"map <F10> :!git diff %:p \|\| hg diff %:p<CR>
+map <F10> :!(cd %:h; (git d %:t \|\| hg diff %:t))<CR>
 
 func! Gotodefinition()
     ":map <F6> :vs<CR><C-w>w:csc find g <cword><CR>
     let found = globpath(&path, expand('<cfile>'))
     if empty(found)
-        ":vs
-        ":wincmd w
-        csc find g <cword>
+        let file_path = expand('%:h')."/".expand('<cfile>')
+        if filereadable(file_path)
+            exec "e ".file_path
+        else
+            ":vs
+            ":wincmd w
+            csc find g <cword>
+        endif
     else
-        normal gf
+        normal gF
     endif
 endfunc
 "map <F5> :call Gotodefinition()<CR>
+map gf :call Gotodefinition()<CR>
 
 set pastetoggle=<F1>
 
+func! ReloadCscope()
+    "!cscope -Rb
+    !rm -f cscope.out && (make cscope.out || cscope -Rb)
+    cscope reset
+endfunc
+
+map <F2> :call ReloadCscope()<CR><CR><CR>
 "map <F2> :read !svn diff<CR>:set syntax=diff buftype=nofile<CR>gg
 
 syntax on
@@ -115,8 +134,8 @@ endif
 
 set ttymouse=xterm2
 
-set expandtab
 set noicon "don't change the window icon title
+set notitle
 
 if &term =~ '^screen'
     execute "set <xUp>=\e[1;*A"
@@ -125,4 +144,15 @@ if &term =~ '^screen'
     execute "set <xLeft>=\e[1;*D"
 endif
 
+func! Tab()
+    set shiftwidth=8
+    set tabstop=8
+    set noexpandtab
+endfunc
+
+command -nargs=0 Tab :call Tab()
+
 set modeline
+
+"let showmarks_ignore_type="hqprm"
+let showmarks_textlower="\t"
