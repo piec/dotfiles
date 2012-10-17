@@ -235,11 +235,10 @@
 ;;; interfacing with ELPA, the package archive.
 ;;; Move this code earlier if you want to reference
 ;;; packages in your .emacs.
-(when
-    (load
-     (expand-file-name "~/.emacs.d/elpa/package.el"))
-  (package-initialize))
-
+(unless (fboundp 'package-initialize)
+  (load (expand-file-name "~/.emacs.d/elpa/package.el")))
+(when (fboundp 'package-initialize)
+	(package-initialize))
 
 (require 'pierre-cursor-shape)
 
