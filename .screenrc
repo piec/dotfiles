@@ -25,8 +25,11 @@ bell_msg 'Bell in window %n'
 deflogin off
 #do not use window title zone for messages
 hardstatus off
+#use xterm title line as hardline
+#termcapinfo"hs:ts=\E]0;:fs=\007:ds=\E]0;screen\007"
+#hardstatus string "screen %n (%t)%? [%h]%?"
 
 #attrcolor b ".I"    # allow bold colors - necessary for some reason
 #termcapinfo xterm 'Co#256:AB=\E[48;5;%dm:AF=\E[38;5;%dm'   # tell screen how to set colors. AB = background, AF=foreground
 #defbce on    # use current bg color for erased chars
-
+#shelltitle sh

@@ -63,5 +63,14 @@ set completion-ignore-case on
 "\es": menu-complete
 "\eS": menu-complete-backward
 
-set bell-style audible
+set bell-style visible
+set input-meta on
+set output-meta on
+set convert-meta off
+set enable-meta-key off
+
+"\et": dump-functions
+"\ed": dump-macros
+#"\ed": dump-variables
+#"\ed": "dump-variables; dump-variables"
 

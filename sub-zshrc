@@ -114,24 +114,19 @@ function run-ls-la {
 bindkey "\e[21~" run-mc
 zle -N run-mc
 function run-mc {
-	source /usr/share/mc/bin/mc-wrapper.sh
+    source /usr/lib/mc/mc-wrapper.sh
 	zle clear-screen
 	zle redisplay
 }
 
 bindkey "\eO5A" cd-up
+bindkey "\e[1;5A" cd-up
 zle -N cd-up
 function cd-up {
 	cd ..
 	zle -I
 }
 
-bindkey "\eh" cd-home
-zle -N cd-home
-function cd-home {
-	cd
-	zle -I
-}
 
 bindkey '\e[23~' tmux-mouse-off
 zle -N tmux-mouse-off
@@ -149,6 +144,14 @@ if [[ a$VENDOR == a"apple" ]]; then
 	bindkey "^p" history-search-backward
 	bindkey "^n" history-search-forward
 fi
+
+rerun-with-sudo () {
+  LBUFFER="sudo !!"
+  zle accept-line
+}
+zle -N rerun-with-sudo
+bindkey '^Xx' rerun-with-sudo
+
 
 function set_title { print -Pn "\e]0;$1\a" }
 function get_title { print -Pn "\e[21t" }
@@ -170,4 +173,6 @@ g() {
     [ -d $dir ] || return 1
     grep -i "$1" -R $dir
 }
+
+unsetopt correct_all
 

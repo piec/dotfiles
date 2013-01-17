@@ -17,16 +17,17 @@
 (setq pylookup-program (concat pylookup-dir "/pylookup.py")
 	  pylookup-db-file (concat pylookup-dir "/pylookup.db"))
 
-;; pymacs
-;;(require 'pymacs nil t)
-(autoload 'pymacs-apply "pymacs")
-(autoload 'pymacs-call "pymacs")
-(autoload 'pymacs-eval "pymacs" nil t)
-(autoload 'pymacs-exec "pymacs" nil t)
-(autoload 'pymacs-load "pymacs" nil t)
-(autoload 'pymacs-autoload "pymacs")
-(pymacs-load "ropemacs" "rope-")
-(setenv "PYTHONPATH" ".")
+
+;; ;; pymacs
+;; ;;(require 'pymacs nil t)
+;; (autoload 'pymacs-apply "pymacs")
+;; (autoload 'pymacs-call "pymacs")
+;; (autoload 'pymacs-eval "pymacs" nil t)
+;; (autoload 'pymacs-exec "pymacs" nil t)
+;; (autoload 'pymacs-load "pymacs" nil t)
+;; (autoload 'pymacs-autoload "pymacs")
+;; (pymacs-load "ropemacs" "rope-")
+;; (setenv "PYTHONPATH" ".")
 
 (require 'shift-region)
 
@@ -76,6 +77,8 @@
 
 (global-set-key [f5] 'make-run-in-eshell)
 
+(define-key input-decode-map "\e[1;5R" [C-f3])
+(define-key input-decode-map "\e[1;2R" [S-f3])
 
 ;; pour que S-up marche dans putty/screen/emacs avec TERM=xterm-256color
 (define-key input-decode-map "\e[1;2A" [S-up])
@@ -275,6 +278,10 @@
   (interactive)
   (mapc 'hi-lock-unface-buffer highlight-symbol-list)
   (setq highlight-symbol-list ()))
+
+(defadvice hi-lock-set-pattern (around use-overlays activate)
+  (let ((font-lock-fontified nil))
+	ad-do-it))
 
 
 (global-set-key [f11] 'kmacro-start-macro-or-insert-counter)

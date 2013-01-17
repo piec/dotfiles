@@ -54,7 +54,7 @@
 
     <keybind key="W-twosuperior">
       <action name="Execute">
-        <command>~/dotfiles/bin/focus_minimize.sh Chromium</command>
+        <command>~/dotfiles/bin/focus_minimize.sh Chrom</command>
       </action>
     </keybind>
     <keybind key="W-ampersand">
@@ -70,6 +70,21 @@
     <keybind key="W-quotedbl">
       <action name="Execute">
         <command>~/dotfiles/bin/focus_minimize.sh term3</command>
+      </action>
+    </keybind>
+    <keybind key="W-apostrophe">
+      <action name="Execute">
+        <command>~/dotfiles/bin/focus_minimize.sh term4</command>
+      </action>
+    </keybind>
+    <keybind key="W-parenleft">
+      <action name="Execute">
+        <command>~/dotfiles/bin/focus_minimize.sh term5</command>
+      </action>
+    </keybind>
+    <keybind key="W-minus">
+      <action name="Execute">
+        <command>~/dotfiles/bin/focus_minimize.sh term6</command>
       </action>
     </keybind>
 

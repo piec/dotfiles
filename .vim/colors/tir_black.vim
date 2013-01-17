@@ -133,5 +133,5 @@ hi link csXmlTag Keyword
 hi ShowMarksHLl cterm=bold ctermfg=235 ctermbg=12
 hi link ShowMarksHLu ShowMarksHLl
 hi ShowMarksHLo cterm=none ctermfg=242 ctermbg=242
-hi link ShowMarksHLm ShowMarksHLo
+hi ShowMarksHLm cterm=bold ctermfg=1 ctermbg=12
 

@@ -16,3 +16,12 @@
 [submodule ".emacs.d/pylookup"]
 	path = .emacs.d/pylookup
 	url = git://github.com/tsgates/pylookup.git
+[submodule ".vim/bundle/nerdcommenter"]
+	path = .vim/bundle/nerdcommenter
+	url = git://github.com/scrooloose/nerdcommenter.git
+[submodule ".vim/bundle/vim-fugitive"]
+	path = .vim/bundle/vim-fugitive
+	url = git://github.com/tpope/vim-fugitive.git
+[submodule ".vim/bundle/taglist.vim"]
+	path = .vim/bundle/taglist.vim
+	url = git://github.com/vim-scripts/taglist.vim.git
