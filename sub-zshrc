@@ -44,6 +44,8 @@ source $ZSH/oh-my-zsh.sh
 export LESS=-ir
 export EDITOR=vim
 
+bindkey "^U" backward-kill-line
+
 bindkey "\e[3~" delete-char
 bindkey "\e[A" up-line-or-history
 bindkey "\e[B" down-line-or-history
@@ -88,9 +90,13 @@ bindkey "\e[1;5B" history-search-forward
 bindkey "^R" history-incremental-search-backward
 fi
 
-bindkey -M isearch "\e[A" history-incremental-search-backward
-bindkey -M isearch "\e[B" history-incremental-search-forward
+
+bindkey -M isearch "\e[A" history-beginning-search-backward
+bindkey -M isearch "\e[B" history-beginning-search-forward
 bindkey '\ee' edit-command-line
+
+bindkey "\ep" history-beginning-search-backward
+bindkey "\en" history-beginning-search-forward
 
 #bindkey "\e" self-insert
 #bindkey "^[" self-insert

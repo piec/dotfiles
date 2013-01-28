@@ -1,8 +1,7 @@
-#
+[ -e ~/.bashrc.local ] && . ~/.bashrc.local
 shopt -s histappend
 
 PROMPT_COMMAND="history -a; $PROMPT_COMMAND"
-export CDPATH=".:/home/pierre"
 export PATH=$PATH:~/dotfiles/bin
 alias emacsc=emacs-screen.sh
 
@@ -93,7 +92,10 @@ if [ "$color_prompt" = yes ]; then
 	#MYPS='$(echo -n "${PWD/#$HOME/~}" | awk -F "/" '"'"'{if (length($0) > 30) { if (NF>4) print $1 "/" $2 "/.../" $(NF-1) "/" $NF; else if (NF>3) print $1 "/" $2 "/.../" $NF; else print $1 "/.../" $NF; } else print $0;}'"'"')'
 	#PS1="${debian_chroot:+($debian_chroot)}$xUSER\u$xNO@$xHOST\h$xNO:$xDIRECTORY\w$xNO\$ "
 	xPRE_TEXT=bash
-	PS1="${xGRAY}\$xPRE_TEXT $xNO${debian_chroot:+($debian_chroot)}$xUSER\u$xNO $xHOST\h$xNO $xDIRECTORY\w$xNO \\$ "
+	ps1_end() {
+        :
+	}
+	PS1="${xGRAY}\$xPRE_TEXT $xNO${debian_chroot:+($debian_chroot)}$xUSER\u$xNO $xHOST\h$xNO $xDIRECTORY\w$xNO"'$(ps1_end)'" \\$ "
 	PS1='$(prompt_command yes)\n'$PS1
 else
 	#PS1='${debian_chroot:+($debian_chroot)}\u@\h:\w\$ '
