@@ -209,4 +209,7 @@ map <silent>  :call ReadMan()<CR>
 runtime! ftplugin/man.vim
 let $GROFF_NO_SGR=1
 
-source ~/.vimrc.local
+if filereadable("~/.vimrc.local")
+    source ~/.vimrc.local
+endif
+
