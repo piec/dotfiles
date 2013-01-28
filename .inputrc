@@ -74,3 +74,7 @@ set enable-meta-key off
 #"\ed": dump-variables
 #"\ed": "dump-variables; dump-variables"
 
+set input-meta   on
+set output-meta  on
+set convert-meta off
+
