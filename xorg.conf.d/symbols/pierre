@@ -1,0 +1,14 @@
+partial alphanumeric_keys
+xkb_symbols "noppoo" {
+    key <TLDE> {
+        type= "FOUR_LEVEL",
+        symbols[Group1]= [            less,         greater,        NoSymbol,        NoSymbol ]
+    };
+    key <SCLK> {         [          Insert ] };
+    key <DELE> {         [             End ] };
+    key <PAUS> {
+        type= "PC_CONTROL_LEVEL2",
+        symbols[Group1]= [            Home,        NoSymbol ]
+    };
+};
+
