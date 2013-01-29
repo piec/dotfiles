@@ -1,15 +1,97 @@
 let mapleader = ","
 
-"call pathogen#runtime_append_all_bundles()
+syntax on
+
+set viminfo=!,'100,<100,s10,h,%
+
+set showcmd
+set laststatus=2
+set display+=lastline
+
+set hidden
+set mouse=a
+
+set ignorecase
+set incsearch
+set hlsearch
+
+set backspace=2
+set wildmenu
+set wildmode=longest:full
+set ruler
+
+set cursorline
+set number
+set numberwidth=3
+
+set autoindent
+set smarttab
+set smartindent
+set shiftwidth=4
+set tabstop=4
+set softtabstop=4
+set expandtab "tabs -> spaces
+set shiftround
+
+set showmatch
+set showbreak=@-->
+
+set listchars=eol:$,tab:>-,trail:~,extends:>,precedes:<
+map <F6> :set list!<CR>
+
+set pastetoggle=<F1>
+
+"------------------------------------------------
+
+if v:version >= 703
+    set undodir=~/.vim/undodir
+    set undofile
+    set undolevels=1000 "maximum number of changes that can be undone
+    set undoreload=10000 "maximum number lines to save for undo on a buffer reload
+endif
+
+if &diff
+    map < :diffget<CR>
+    map > :diffput<CR>
+endif
+
+set ttyfast
+set ttymouse=xterm2
+set noicon "don't change the window icon title
+set notitle
+set modeline
+
+if &term =~ '^screen'
+    execute "set <xUp>=\e[1;*A"
+    execute "set <xDown>=\e[1;*B"
+    execute "set <xRight>=\e[1;*C"
+    execute "set <xLeft>=\e[1;*D"
+endif
+
+"------------------------------------------------
+
+func! Tab()
+    set shiftwidth=8
+    set tabstop=8
+    set noexpandtab
+endfunc
+
+command -nargs=0 Tab :call Tab()
+
+"------------------------------------------------
+
+let g:pathogen_disabled = []
+call add(g:pathogen_disabled, 'python-mode')
+
 call pathogen#infect()
 call pathogen#helptags()
+
+"------------------------------------------------
 
 let g:pymode_folding = 0
 let g:pymode_lint_write = 0
 
 filetype plugin indent on
-set cursorline
-set number
 
 if !empty($KERNELDIR)
     set path=$KERNELDIR/include " ^= to prepend
@@ -24,50 +106,28 @@ if isdirectory("/usr/targets/current/root/usr/include")
 end
 
 if has("gui_running")
-	"set guifont=DejaVu\ Sans\ Mono\ 9
-	"set guifont=Droid\ Sans\ Mono\ 10
-	if has("mac")
-		set guifont=Monaco:h10
-	elseif has("unix")
-		set guifont=Fixed\ Medium\ Semi-Condensed\ 10
-		"set guifont=MiscFixed\ Semi-Condensed\ 10
-	endif
-	colorscheme ir_black
+    "set guifont=DejaVu\ Sans\ Mono\ 9
+    "set guifont=Droid\ Sans\ Mono\ 10
+    if has("mac")
+        set guifont=Monaco:h10
+    elseif has("unix")
+        set guifont=Fixed\ Medium\ Semi-Condensed\ 10
+        "set guifont=MiscFixed\ Semi-Condensed\ 10
+    endif
+    colorscheme ir_black
 else
-	if &t_Co == 256
-		colorscheme tir_black
-		hi CursorLine ctermbg=235 cterm=none
-	endif
+    if &t_Co == 256
+        colorscheme tir_black
+        hi CursorLine ctermbg=235 cterm=none
+    endif
 
     inoremap <C-@> <C-x><C-o>
 endif
-
-set mouse=a
-set hidden
 nnoremap <F1> :GundoToggle<CR>
 map <F2> :vertical wincmd f<CR>
 map <F4> :NERDTreeToggle<CR>
 map <F3> :NERDTreeFind<CR>
 
-set ignorecase
-set incsearch
-set hlsearch
-
-set autoindent
-set smartindent
-set shiftwidth=4
-set ttyfast
-set backspace=2
-set numberwidth=3
-set showbreak=@-->
-set ruler
-set tabstop=4
-set wildmenu
-set expandtab "tabs -> spaces
-
-
-set listchars=eol:$,tab:>-,trail:~,extends:>,precedes:<
-map <F6> :set list!<CR>
 
 
 func! WriteIfModified()
@@ -104,8 +164,6 @@ endfunc
 "map <F5> :call Gotodefinition()<CR>
 map gf :call Gotodefinition()<CR>
 
-set pastetoggle=<F1>
-
 func! ReloadCscope()
     "!cscope -Rb
     !rm -f cscope.out && (make cscope.out || cscope -Rb)
@@ -116,46 +174,10 @@ endfunc
 map <F2> :call ReloadCscope()<CR><CR><CR>
 "map <F2> :read !svn diff<CR>:set syntax=diff buftype=nofile<CR>gg
 
-syntax on
 
 if !has("ruby")
-	let g:LustyExplorerSuppressRubyWarning = 1
+    let g:LustyExplorerSuppressRubyWarning = 1
 endif
-
-if v:version >= 703
-	set undodir=~/.vim/undodir
-	set undofile
-	set undolevels=1000 "maximum number of changes that can be undone
-	set undoreload=10000 "maximum number lines to save for undo on a buffer reload
-endif
-
-if &diff
-	map < :diffget<CR>
-	map > :diffput<CR>
-endif
-
-
-set ttymouse=xterm2
-
-set noicon "don't change the window icon title
-set notitle
-
-if &term =~ '^screen'
-    execute "set <xUp>=\e[1;*A"
-    execute "set <xDown>=\e[1;*B"
-    execute "set <xRight>=\e[1;*C"
-    execute "set <xLeft>=\e[1;*D"
-endif
-
-func! Tab()
-    set shiftwidth=8
-    set tabstop=8
-    set noexpandtab
-endfunc
-
-command -nargs=0 Tab :call Tab()
-
-set modeline
 
 "let showmarks_ignore_type="hqprm"
 let showmarks_textlower="\t"
@@ -212,4 +234,3 @@ let $GROFF_NO_SGR=1
 if filereadable("~/.vimrc.local")
     source ~/.vimrc.local
 endif
-
