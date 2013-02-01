@@ -2,6 +2,8 @@ let mapleader = ","
 
 syntax on
 
+set exrc
+set secure
 set viminfo=!,'100,<100,s10,h,%
 
 set showcmd
@@ -17,7 +19,7 @@ set hlsearch
 
 set backspace=2
 set wildmenu
-set wildmode=longest:full
+"set wildmode=longest:full
 set ruler
 
 set cursorline
@@ -27,9 +29,9 @@ set numberwidth=3
 set autoindent
 set smarttab
 set smartindent
-set shiftwidth=4
 set tabstop=4
-set softtabstop=4
+set shiftwidth=0 " =tabstop
+set softtabstop=-1 " =shiftwidth
 set expandtab "tabs -> spaces
 set shiftround
 
@@ -79,6 +81,12 @@ endfunc
 command -nargs=0 Tab :call Tab()
 
 "------------------------------------------------
+
+let g:detectindent_verbosity = 0
+let g:detectindent_preferred_indent = 4
+let g:detectindent_preferred_expandtab = 1
+
+autocmd BufReadPost * :DetectIndent
 
 let g:pathogen_disabled = []
 call add(g:pathogen_disabled, 'python-mode')
