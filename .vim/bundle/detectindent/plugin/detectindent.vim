@@ -129,22 +129,23 @@ fun! <SID>DetectIndent()
         let l:verbose_msg = "Detected tabs only and no spaces"
         setl noexpandtab
         if exists("g:detectindent_preferred_indent")
-            let &l:shiftwidth  = g:detectindent_preferred_indent
-            let &l:tabstop     = g:detectindent_preferred_indent
+            "let &l:shiftwidth  = g:detectindent_preferred_indent
         endif
 
     elseif l:has_leading_spaces && ! l:has_leading_tabs
         " spaces only, no tabs
         let l:verbose_msg = "Detected spaces only and no tabs"
         setl expandtab
-        let &l:shiftwidth  = l:shortest_leading_spaces_run
-        let &l:softtabstop = l:shortest_leading_spaces_run
+        let &l:tabstop     = l:shortest_leading_spaces_run
+        "let &l:shiftwidth  = l:shortest_leading_spaces_run
+        "let &l:softtabstop = l:shortest_leading_spaces_run
 
     elseif l:has_leading_spaces && l:has_leading_tabs
         " spaces and tabs
         let l:verbose_msg = "Detected spaces and tabs"
         setl noexpandtab
-        let &l:shiftwidth = l:shortest_leading_spaces_run
+        "let &l:shiftwidth = l:shortest_leading_spaces_run
+        let &l:tabstop = l:shortest_leading_spaces_run
 
         " mmmm, time to guess how big tabs are
         if l:longest_leading_spaces_run <= 2
