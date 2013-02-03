@@ -25,3 +25,6 @@
 [submodule ".vim/bundle/taglist.vim"]
 	path = .vim/bundle/taglist.vim
 	url = git://github.com/vim-scripts/taglist.vim.git
+[submodule ".vim/bundle/tabular"]
+	path = .vim/bundle/tabular
+	url = git://github.com/godlygeek/tabular.git
