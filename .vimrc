@@ -4,10 +4,9 @@ syntax on
 
 set exrc
 set secure
-set viminfo=!,'100,<100,s10,h,%
+set viminfo=!,'100,\"100,:100,<100,s10,h,%
 
 set showcmd
-set laststatus=2
 set display+=lastline
 
 set hidden
@@ -36,12 +35,37 @@ set expandtab "tabs -> spaces
 set shiftround
 
 set showmatch
-set showbreak=@-->
+"set showbreak=@-->
+set showbreak=…
 
 set listchars=eol:$,tab:>-,trail:~,extends:>,precedes:<
 map <F6> :set list!<CR>
+set laststatus=2
 
 set pastetoggle=<F1>
+set formatprg=par\ -w80q
+
+"------------------------------------------------
+
+function! RestoreCursor()
+    if line("'z") > 0
+        normal 'zz
+    endif
+    if line("'\"") <= line("$")
+        normal! g'"
+        return 1
+    endif
+endfunction
+
+function! SaveCursor()
+    exec line("w0")."mark z"
+endfunction
+
+augroup RestoreCursor
+    autocmd!
+    autocmd BufWinEnter * call RestoreCursor()
+    autocmd BufWinLeave * call SaveCursor()
+augroup END
 
 "------------------------------------------------
 
@@ -82,7 +106,7 @@ command -nargs=0 Tab :call Tab()
 
 "------------------------------------------------
 
-let g:detectindent_verbosity = 0
+"let g:detectindent_verbosity = 0
 let g:detectindent_preferred_indent = 4
 let g:detectindent_preferred_expandtab = 1
 
