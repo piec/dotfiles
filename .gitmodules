@@ -28,3 +28,6 @@
 [submodule ".vim/bundle/tabular"]
 	path = .vim/bundle/tabular
 	url = git://github.com/godlygeek/tabular.git
+[submodule ".vim/bundle/sessionman.vim"]
+	path = .vim/bundle/sessionman.vim
+	url = https://github.com/vim-scripts/sessionman.vim

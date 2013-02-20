@@ -104,6 +104,8 @@ endfunc
 
 command -nargs=0 Tab :call Tab()
 
+command -nargs=1 -complete=help H :vert :h <args>
+
 "------------------------------------------------
 
 "let g:detectindent_verbosity = 0
@@ -172,7 +174,7 @@ map <F7> :call WriteIfModified()<CR>:make<CR><CR><CR>:cc<CR><CR>
 "map <F7> :make<CR><CR><CR>:cc<CR>
 map <F8> :cp<CR>
 map <F9> :cn<CR>
-map <F5> :!clear; make run<CR><CR>
+"map <F5> :!clear; make run<CR><CR>
 
 "map <F10> :!git diff %:p \|\| hg diff %:p<CR>
 map <F10> :!(cd %:h; (git d %:t \|\| hg diff %:t))<CR>
@@ -213,7 +215,6 @@ endif
 
 "let showmarks_ignore_type="hqprm"
 let showmarks_textlower="\t"
-let g:Tlist_Show_One_File=1
 filetype plugin on
 
 fun! ReadMan()
@@ -263,6 +264,16 @@ map <silent>  :call ReadMan()<CR>
 runtime! ftplugin/man.vim
 let $GROFF_NO_SGR=1
 
-if filereadable("~/.vimrc.local")
-    source ~/.vimrc.local
+" Taglist
+map <F5> :TlistToggle<CR>
+imap <F5> :TlistToggle<CR>
+vmap <F5> :TlistToggle<CR>
+
+let g:Tlist_Show_One_File=1
+let g:Tlist_Auto_Open=1
+set updatetime=250
+"autocmd VimEnter * :TlistToggle
+
+if filereadable($HOME . "/.vimrc.local")
+    source $HOME/.vimrc.local
 endif
