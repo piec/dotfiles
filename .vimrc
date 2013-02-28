@@ -63,7 +63,7 @@ endfunction
 
 augroup RestoreCursor
     autocmd!
-    autocmd BufWinEnter * call RestoreCursor()
+    autocmd BufReadPost * call RestoreCursor()
     autocmd BufWinLeave * call SaveCursor()
 augroup END
 
