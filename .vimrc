@@ -82,7 +82,7 @@ if &diff
 endif
 
 set ttyfast
-set ttymouse=xterm2
+"set ttymouse=xterm2
 set noicon "don't change the window icon title
 set notitle
 set modeline
@@ -92,6 +92,7 @@ if &term =~ '^screen'
     execute "set <xDown>=\e[1;*B"
     execute "set <xRight>=\e[1;*C"
     execute "set <xLeft>=\e[1;*D"
+    set ttymouse=sgr
 endif
 
 "------------------------------------------------
