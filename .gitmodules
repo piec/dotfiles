@@ -31,3 +31,6 @@
 [submodule ".vim/bundle/sessionman.vim"]
 	path = .vim/bundle/sessionman.vim
 	url = https://github.com/vim-scripts/sessionman.vim
+[submodule ".vim/bundle/vim-visual-star-search"]
+	path = .vim/bundle/vim-visual-star-search
+	url = git@github.com:nelstrom/vim-visual-star-search.git
