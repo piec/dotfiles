@@ -2,6 +2,7 @@ let mapleader = ","
 
 syntax on
 
+
 set exrc
 set secure
 set viminfo=!,'100,\"100,:100,<100,s10,h,%
@@ -115,11 +116,28 @@ let g:detectindent_preferred_expandtab = 1
 
 autocmd BufReadPost * :DetectIndent
 
-let g:pathogen_disabled = []
-call add(g:pathogen_disabled, 'python-mode')
+"let g:pathogen_disabled = []
+"call add(g:pathogen_disabled, 'python-mode')
 
-call pathogen#infect()
-call pathogen#helptags()
+"call pathogen#infect()
+"call pathogen#helptags()
+
+set runtimepath+=~/.vim/bundle/vundle
+call vundle#rc()
+Bundle 'gmarik/vundle'
+Bundle 'sjl/gundo.vim'
+Bundle 'scrooloose/nerdcommenter'
+Bundle 'Lokaltog/vim-powerline'
+"Bundle 'Lokaltog/powerline'
+"Bundle 'klen/python-mode'
+Bundle 'sessionman.vim'
+Bundle 'godlygeek/tabular'
+Bundle 'taglist.vim'
+Bundle 'tpope/vim-fugitive'
+Bundle 'bronson/vim-visual-star-search'
+Bundle 'piec/detectindent.vim'
+Bundle 'vim-scripts/ShowMarks'
+Bundle 'Rip-Rip/clang_complete.git'
 
 "------------------------------------------------
 
@@ -214,8 +232,9 @@ if !has("ruby")
     let g:LustyExplorerSuppressRubyWarning = 1
 endif
 
-"let showmarks_ignore_type="hqprm"
+let showmarks_ignore_type="hqprm"
 let showmarks_textlower="\t"
+let showmarks_include="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
 filetype plugin on
 
 fun! ReadMan()
