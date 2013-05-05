@@ -2,7 +2,6 @@ let mapleader = ","
 
 syntax on
 
-
 set exrc
 set secure
 set viminfo=!,'100,\"100,:100,<100,s10,h,%
@@ -116,16 +115,11 @@ let g:detectindent_preferred_expandtab = 1
 
 autocmd BufReadPost * :DetectIndent
 
-"let g:pathogen_disabled = []
-"call add(g:pathogen_disabled, 'python-mode')
-
-"call pathogen#infect()
-"call pathogen#helptags()
-
 set runtimepath+=~/.vim/bundle/vundle
 call vundle#rc()
 Bundle 'gmarik/vundle'
 Bundle 'sjl/gundo.vim'
+Bundle 'scrooloose/nerdtree'
 Bundle 'scrooloose/nerdcommenter'
 Bundle 'Lokaltog/vim-powerline'
 "Bundle 'Lokaltog/powerline'
@@ -138,6 +132,11 @@ Bundle 'bronson/vim-visual-star-search'
 Bundle 'piec/detectindent.vim'
 Bundle 'vim-scripts/ShowMarks'
 Bundle 'Rip-Rip/clang_complete.git'
+Bundle 'vim-scripts/a.vim'
+Bundle 'safetydank/vim-gitgutter'
+Bundle 'sjbach/lusty'
+Bundle 'L9'
+Bundle 'FuzzyFinder'
 
 "------------------------------------------------
 
@@ -182,7 +181,6 @@ map <F4> :NERDTreeToggle<CR>
 map <F3> :NERDTreeFind<CR>
 
 
-
 func! WriteIfModified()
     if &modified
         write
@@ -195,8 +193,11 @@ map <F8> :cp<CR>
 map <F9> :cn<CR>
 "map <F5> :!clear; make run<CR><CR>
 
-"map <F10> :!git diff %:p \|\| hg diff %:p<CR>
 map <F10> :!(cd %:h; (git d %:t \|\| hg diff %:t))<CR>
+"map <F11> :GitGutterLineHighlightsToggle<CR>
+"imap <F11> <C-O>:GitGutterLineHighlightsToggle<CR>
+vmap <Tab> >gv
+vmap <S-Tab> <gv
 
 func! Gotodefinition()
     ":map <F6> :vs<CR><C-w>w:csc find g <cword><CR>
@@ -214,7 +215,6 @@ func! Gotodefinition()
         normal gF
     endif
 endfunc
-"map <F5> :call Gotodefinition()<CR>
 map gf :call Gotodefinition()<CR>
 
 func! ReloadCscope()
