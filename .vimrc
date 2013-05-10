@@ -1,3 +1,36 @@
+" Vundle ----------------------------------------
+
+set nocompatible
+filetype off
+
+set runtimepath+=~/.vim/bundle/vundle
+call vundle#rc()
+
+Bundle 'gmarik/vundle'
+Bundle 'sjl/gundo.vim'
+Bundle 'scrooloose/nerdtree'
+Bundle 'scrooloose/nerdcommenter'
+Bundle 'Lokaltog/vim-powerline'
+"Bundle 'Lokaltog/powerline'
+"Bundle 'klen/python-mode'
+Bundle 'sessionman.vim'
+Bundle 'godlygeek/tabular'
+Bundle 'taglist.vim'
+Bundle 'tpope/vim-fugitive'
+Bundle 'bronson/vim-visual-star-search'
+"Bundle 'piec/detectindent.vim'
+Bundle 'vim-scripts/ShowMarks'
+Bundle 'Rip-Rip/clang_complete.git'
+Bundle 'vim-scripts/a.vim'
+Bundle 'safetydank/vim-gitgutter'
+Bundle 'sjbach/lusty'
+Bundle 'L9'
+Bundle 'FuzzyFinder'
+
+filetype plugin indent on
+
+"------------------------------------------------
+
 let mapleader = ","
 
 syntax on
@@ -112,38 +145,13 @@ command -nargs=1 -complete=help H :vert :h <args>
 "let g:detectindent_verbosity = 0
 let g:detectindent_preferred_indent = 4
 let g:detectindent_preferred_expandtab = 1
-
-autocmd BufReadPost * :DetectIndent
-
-set runtimepath+=~/.vim/bundle/vundle
-call vundle#rc()
-Bundle 'gmarik/vundle'
-Bundle 'sjl/gundo.vim'
-Bundle 'scrooloose/nerdtree'
-Bundle 'scrooloose/nerdcommenter'
-Bundle 'Lokaltog/vim-powerline'
-"Bundle 'Lokaltog/powerline'
-"Bundle 'klen/python-mode'
-Bundle 'sessionman.vim'
-Bundle 'godlygeek/tabular'
-Bundle 'taglist.vim'
-Bundle 'tpope/vim-fugitive'
-Bundle 'bronson/vim-visual-star-search'
-Bundle 'piec/detectindent.vim'
-Bundle 'vim-scripts/ShowMarks'
-Bundle 'Rip-Rip/clang_complete.git'
-Bundle 'vim-scripts/a.vim'
-Bundle 'safetydank/vim-gitgutter'
-Bundle 'sjbach/lusty'
-Bundle 'L9'
-Bundle 'FuzzyFinder'
+autocmd BufReadPost * if exists("loaded_detectindent") | :DetectIndent | endif
 
 "------------------------------------------------
 
 let g:pymode_folding = 0
 let g:pymode_lint_write = 0
 
-filetype plugin indent on
 
 if !empty($KERNELDIR)
     set path=$KERNELDIR/include " ^= to prepend
@@ -297,3 +305,4 @@ set updatetime=250
 if filereadable($HOME . "/.vimrc.local")
     source $HOME/.vimrc.local
 endif
+
