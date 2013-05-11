@@ -13,19 +13,19 @@ Bundle 'scrooloose/nerdcommenter'
 Bundle 'Lokaltog/vim-powerline'
 "Bundle 'Lokaltog/powerline'
 "Bundle 'klen/python-mode'
-Bundle 'sessionman.vim'
+"Bundle 'sessionman.vim'
 Bundle 'godlygeek/tabular'
 Bundle 'taglist.vim'
 Bundle 'tpope/vim-fugitive'
 Bundle 'bronson/vim-visual-star-search'
-"Bundle 'piec/detectindent.vim'
+Bundle 'piec/detectindent.vim'
 Bundle 'vim-scripts/ShowMarks'
 Bundle 'Rip-Rip/clang_complete.git'
 Bundle 'vim-scripts/a.vim'
 Bundle 'safetydank/vim-gitgutter'
 Bundle 'sjbach/lusty'
-Bundle 'L9'
-Bundle 'FuzzyFinder'
+"Bundle 'L9'
+"Bundle 'FuzzyFinder'
 
 filetype plugin indent on
 
@@ -145,7 +145,7 @@ command -nargs=1 -complete=help H :vert :h <args>
 "let g:detectindent_verbosity = 0
 let g:detectindent_preferred_indent = 4
 let g:detectindent_preferred_expandtab = 1
-autocmd BufReadPost * if exists("loaded_detectindent") | :DetectIndent | endif
+autocmd BufReadPost * if exists("loaded_detectindent") | exe "DetectIndent" | endif
 
 "------------------------------------------------
 
