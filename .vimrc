@@ -26,6 +26,7 @@ Bundle 'safetydank/vim-gitgutter'
 Bundle 'sjbach/lusty'
 "Bundle 'L9'
 "Bundle 'FuzzyFinder'
+Bundle "piec/man.vim"
 
 filetype plugin indent on
 
@@ -54,6 +55,7 @@ set wildmenu
 "set wildmode=longest:full
 set ruler
 
+set splitright
 set cursorline
 set number
 set numberwidth=3
@@ -245,57 +247,17 @@ let showmarks_textlower="\t"
 let showmarks_include="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
 filetype plugin on
 
-fun! ReadMan()
-    let s:man_word = expand('<cword>')
-    " Open a new window:
-    ":exe ":wincmd n"
-    "
-    let scr_bufnum = bufnr("__man__")
-    if scr_bufnum == -1
-        silent exe "vnew __man__"
-    else
-        " Scratch buffer is already created. Check whether it is open
-        " in one of the windows
-        let scr_winnum = bufwinnr(scr_bufnum)
-        if scr_winnum != -1
-            " Jump to the window which has the scratch buffer if we are not
-            " already in that window
-            if winnr() != scr_winnum
-                exe scr_winnum . "wincmd w"
-            endif
-        else
-            " Create a new scratch buffer
-            exe "vsplit +buffer" . scr_bufnum
-        endif
-    endif
-
-    ":vnew __man__
-    " Assign current word under cursor to a script variable:
-    :set buftype=nofile
-    :set bufhidden=hide
-    :setlocal noswapfile
-    :setlocal nobuflisted
-    :setlocal nowrap
-    :map <buffer> q :bd<CR>
-    :map <buffer> p p
-
-    let $GROFF_NO_SGR=1
-    " Read in the manpage for man_word (col -b is for formatting):
-    :silent exe ":r!env man " . s:man_word . " | col -b"
-    " Goto first line...
-    :exe ":goto"
-    " and delete it:
-    :exe ":delete"
-endfun
-" Map the K key to the ReadMan function:
-map <silent>  :call ReadMan()<CR>
-runtime! ftplugin/man.vim
-let $GROFF_NO_SGR=1
-
 " Taglist
 map <F5> :TlistToggle<CR>
 imap <F5> :TlistToggle<CR>
 vmap <F5> :TlistToggle<CR>
+
+nnoremap n nzz
+nnoremap N Nzz
+nnoremap * *zz
+nnoremap # #zz
+nnoremap g* g*zz
+nnoremap g# g#zz
 
 let g:Tlist_Show_One_File=1
 let g:Tlist_Auto_Open=1
@@ -305,4 +267,7 @@ set updatetime=250
 if filereadable($HOME . "/.vimrc.local")
     source $HOME/.vimrc.local
 endif
+
+map <space> f 
+vmap <space> f 
 
