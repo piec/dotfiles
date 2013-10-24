@@ -1,6 +1,7 @@
 "\e[21~": "mc\C-M"
 
-"": re-read-init-file
+"": yank
+"": re-read-init-file
 #Space: magic-space
 
 ## gnome-terminal
