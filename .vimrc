@@ -26,6 +26,7 @@ Bundle 'safetydank/vim-gitgutter'
 Bundle 'sjbach/lusty'
 "Bundle 'L9'
 "Bundle 'FuzzyFinder'
+Bundle "scrooloose/syntastic"
 Bundle "piec/man.vim"
 
 filetype plugin indent on
