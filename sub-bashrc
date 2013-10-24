@@ -166,6 +166,8 @@ g() {
     [ x$1 != x ] || return 1
     local dir=${2-.}
     [ -d $dir ] || return 1
-    grep -i "$1" -R $dir
+    grep -i "$1" -R $dir --exclude cscope.out
 }
+
+[ -e ~/.bashrc.local ] && . ~/.bashrc.local
 
