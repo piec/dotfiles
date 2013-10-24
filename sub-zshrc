@@ -180,5 +180,9 @@ g() {
     grep -i "$1" -R $dir
 }
 
+gw() {
+    g "\<$1\>"
+}
+
 unsetopt correct_all
 
