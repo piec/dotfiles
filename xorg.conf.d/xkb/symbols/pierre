@@ -1,0 +1,38 @@
+partial alphanumeric_keys
+xkb_symbols "noppoo" {
+    key <TLDE> {
+        type= "FOUR_LEVEL",
+        symbols[Group1]= [            less,         greater,        NoSymbol,        NoSymbol ]
+    };
+    key <SCLK> {         [          Insert ] };
+    key <DELE> {         [             End ] };
+    key <PAUS> {
+        type= "PC_CONTROL_LEVEL2",
+        symbols[Group1]= [            Home,        NoSymbol ]
+    };
+
+    key <AE01>	{ [ ampersand,          1,  onesuperior, XF86_Switch_VT_1 ]	};
+    key <AE02>	{ [    eacute,          2,   asciitilde, XF86_Switch_VT_2 ]	};
+    key <AE03>	{ [  quotedbl,          3,   numbersign, XF86_Switch_VT_3 ]	};
+    key <AE04>	{ [apostrophe,          4,    braceleft, XF86_Switch_VT_4 ]	};
+    key <AE05>	{ [ parenleft,          5,  bracketleft, XF86_Switch_VT_5 ]	};
+    key <AE06>	{ [     minus,          6,          bar, XF86_Switch_VT_6 ]	};
+    key <AE07>	{ [    egrave,          7,        grave, XF86_Switch_VT_7 ]	};
+    key <AE08>	{ [underscore,          8,    backslash, XF86_Switch_VT_8 ]	};
+    key <AE09>	{ [  ccedilla,          9,  asciicircum, XF86_Switch_VT_9 ]	};
+    key <AE10>	{ [    agrave,          0,           at, XF86_Switch_VT_10 ]	};
+
+    key <AD01>	{ [         a,          A,           ae,           Terminate_Server ]	};
+    key <AD02>	{ [         z,          Z, guillemotleft,        XF86_Switch_VT_1 ]	};
+    key <AD03>	{ [         e,          E,     EuroSign,         XF86_Switch_VT_2 ]	};
+    key <AD04>	{ [         r,          R,    paragraph,   XF86_Switch_VT_3 ]	};
+};
+
+xkb_symbols "pedal" {
+    //key <PED0>	{ [         1,     exclam,  onesuperior,   exclamdown ]	};
+    //key <PED1>	{ [         2,         at,  twosuperior,    oneeighth ]	};
+    //key <PED2>	{ [         3, Terminate_Server, threesuperior,    sterling ]	};
+    key <PED0>	{ [U2044,     exclam,  onesuperior,   exclamdown ]	};
+    key <PED1>	{ [U2045,         at,  twosuperior,    oneeighth ]	};
+    key <PED2>	{ [U2046, Terminate_Server, threesuperior,    sterling ]	};
+};
