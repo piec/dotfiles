@@ -20,7 +20,9 @@ Bundle 'tpope/vim-fugitive'
 Bundle 'bronson/vim-visual-star-search'
 Bundle 'piec/detectindent.vim'
 Bundle 'vim-scripts/ShowMarks'
+"Bundle 'Valloric/YouCompleteMe'
 Bundle 'Rip-Rip/clang_complete.git'
+"Bundle 'rhysd/vim-clang-format'
 Bundle 'vim-scripts/a.vim'
 Bundle 'safetydank/vim-gitgutter'
 Bundle 'sjbach/lusty'
@@ -28,6 +30,8 @@ Bundle 'sjbach/lusty'
 "Bundle 'FuzzyFinder'
 Bundle "scrooloose/syntastic"
 Bundle "piec/man.vim"
+Bundle "christoomey/vim-tmux-navigator"
+Bundle "kien/ctrlp.vim"
 
 filetype plugin indent on
 
