@@ -15,13 +15,14 @@ Bundle 'Lokaltog/vim-powerline'
 "Bundle 'klen/python-mode'
 "Bundle 'sessionman.vim'
 Bundle 'godlygeek/tabular'
+Bundle 'junegunn/vim-easy-align'
 Bundle 'taglist.vim'
 Bundle 'tpope/vim-fugitive'
 Bundle 'bronson/vim-visual-star-search'
 Bundle 'piec/detectindent.vim'
 Bundle 'vim-scripts/ShowMarks'
-"Bundle 'Valloric/YouCompleteMe'
-Bundle 'Rip-Rip/clang_complete.git'
+Bundle 'Valloric/YouCompleteMe'
+"Bundle 'Rip-Rip/clang_complete.git'
 "Bundle 'rhysd/vim-clang-format'
 Bundle 'vim-scripts/a.vim'
 Bundle 'safetydank/vim-gitgutter'
@@ -276,3 +277,9 @@ endif
 map <space> f 
 vmap <space> f 
 
+" Start interactive EasyAlign in visual mode (e.g. vip<Enter>)
+vmap <Enter> <Plug>(LiveEasyAlign)
+" Start interactive EasyAlign for a motion/text object (e.g. <Leader>aip)
+nmap <Leader>a <Plug>(LiveEasyAlign)
+
+map dn ]c
