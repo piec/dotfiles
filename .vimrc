@@ -33,6 +33,7 @@ Bundle "scrooloose/syntastic"
 Bundle "piec/man.vim"
 Bundle "christoomey/vim-tmux-navigator"
 Bundle "kien/ctrlp.vim"
+Bundle "tpope/vim-surround"
 
 filetype plugin indent on
 
@@ -282,4 +283,4 @@ vmap <Enter> <Plug>(LiveEasyAlign)
 " Start interactive EasyAlign for a motion/text object (e.g. <Leader>aip)
 nmap <Leader>a <Plug>(LiveEasyAlign)
 
-map dn ]c
+"map dn ]c
