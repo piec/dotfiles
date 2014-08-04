@@ -1,3 +1,4 @@
+#:vim:set ft=sh:
 [ -e ~/.bashrc.local ] && . ~/.bashrc.local
 shopt -s histappend
 
@@ -9,7 +10,7 @@ export HISTCONTROL=ignoredups
 export HISTSIZE=5000
 export HISTFILESIZE=50000
 export EDITOR=vim
-export LESS=-ir
+export LESS=-Ir
 
 case "$TERM" in
 	xterm) color_prompt=yes;;
@@ -152,9 +153,14 @@ popd()
 
 alias cd='pushd'
 
-set_title()
-{
+set_title() {
 	echo -ne "\e]0;$1\a"
+}
+push_title() {
+	echo -ne '\e[22t'
+}
+pop_title() {
+	echo -ne '\e[23t'
 }
 
 export GREP_OPTIONS="$GREP_OPTIONS --exclude-dir=\.svn --exclude-dir=\.hg --exclude-dir=\.git"
