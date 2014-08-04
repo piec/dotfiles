@@ -279,6 +279,9 @@ if filereadable($HOME . "/.vimrc.local")
     source $HOME/.vimrc.local
 endif
 
+let g:gitgutter_realtime = 0
+let g:gitgutter_enabled = 0
+
 map <space> f 
 vmap <space> f 
 
@@ -288,3 +291,4 @@ vmap <Enter> <Plug>(LiveEasyAlign)
 nmap <Leader>a <Plug>(LiveEasyAlign)
 
 "map dn ]c
+map Y "0P
