@@ -29,11 +29,15 @@ Bundle 'safetydank/vim-gitgutter'
 Bundle 'sjbach/lusty'
 "Bundle 'L9'
 "Bundle 'FuzzyFinder'
-Bundle "scrooloose/syntastic"
-Bundle "piec/man.vim"
-Bundle "christoomey/vim-tmux-navigator"
-Bundle "kien/ctrlp.vim"
-Bundle "tpope/vim-surround"
+Bundle 'scrooloose/syntastic'
+Bundle 'piec/man.vim'
+Bundle 'christoomey/vim-tmux-navigator'
+Bundle 'kien/ctrlp.vim'
+Bundle 'tpope/vim-surround'
+
+"Bundle 'rainux/vim-vala'
+"Bundle 'tfnico/vim-gradle'
+"Bundle 'kchmck/vim-coffee-script'
 
 filetype plugin indent on
 
