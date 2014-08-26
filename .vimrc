@@ -4,14 +4,16 @@ set nocompatible
 filetype off
 
 set runtimepath+=~/.vim/bundle/vundle
-call vundle#rc()
+call vundle#begin()
 
 Bundle 'gmarik/vundle'
 Bundle 'sjl/gundo.vim'
 Bundle 'scrooloose/nerdtree'
 Bundle 'scrooloose/nerdcommenter'
-Bundle 'Lokaltog/vim-powerline'
-"Bundle 'Lokaltog/powerline'
+Bundle 'bling/vim-airline'
+Bundle 'bling/vim-bufferline'
+"Bundle 'Lokaltog/vim-powerline'
+"Bundle 'Lokaltog/powerline', {'rtp': 'powerline/bindings/vim/'}
 "Bundle 'klen/python-mode'
 "Bundle 'sessionman.vim'
 Bundle 'godlygeek/tabular'
@@ -34,11 +36,13 @@ Bundle 'piec/man.vim'
 Bundle 'christoomey/vim-tmux-navigator'
 Bundle 'kien/ctrlp.vim'
 Bundle 'tpope/vim-surround'
+"Bundle 'Shougo/unite.vim'
 
 "Bundle 'rainux/vim-vala'
 "Bundle 'tfnico/vim-gradle'
 "Bundle 'kchmck/vim-coffee-script'
 
+call vundle#end()
 filetype plugin indent on
 
 "------------------------------------------------
@@ -263,17 +267,17 @@ map <F5> :TlistToggle<CR>
 imap <F5> :TlistToggle<CR>
 vmap <F5> :TlistToggle<CR>
 
+let g:Tlist_Show_One_File=1
+let g:Tlist_Auto_Open=0
+set updatetime=250
+"autocmd VimEnter * :TlistToggle
+
 nnoremap n nzz
 nnoremap N Nzz
 nnoremap * *zz
 nnoremap # #zz
 nnoremap g* g*zz
 nnoremap g# g#zz
-
-let g:Tlist_Show_One_File=1
-let g:Tlist_Auto_Open=1
-set updatetime=250
-"autocmd VimEnter * :TlistToggle
 
 if filereadable($HOME . "/.vimrc.local")
     source $HOME/.vimrc.local
@@ -292,3 +296,7 @@ nmap <Leader>a <Plug>(LiveEasyAlign)
 
 "map dn ]c
 map Y "0P
+
+let g:airline_theme='powerlineish'
+let g:airline_left_sep=''
+let g:airline_right_sep=''
