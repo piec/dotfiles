@@ -5,7 +5,7 @@
 
 (add-to-list 'load-path "~/.emacs.d/")
 ;; (add-to-list 'load-path "~/.emacs.d/apel-10.8")
-(add-to-list 'load-path "~/.emacs.d/color-theme-6.6.0")
+(add-to-list 'load-path "~/.emacs.d/color-theme")
 (add-to-list 'load-path "~/.emacs.d/cscope")
 
 ;; ;; pymacs
