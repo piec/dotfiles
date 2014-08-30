@@ -31,3 +31,6 @@
 [submodule ".emacs.d/color-theme"]
 	path = .emacs.d/color-theme
 	url = git@github.com:piec/color-theme
+[submodule ".zsh/.zprezto"]
+	path = .zsh/.zprezto
+	url = git@github.com:piec/prezto

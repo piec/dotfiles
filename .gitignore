@@ -9,4 +9,5 @@
 *.elc
 *~
 \#*#
-.vundle/
+.vim/bundle/
+!.vim/bundle/vundle
