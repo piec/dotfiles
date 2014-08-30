@@ -4,19 +4,9 @@
 (defvar *emacs-load-start* (current-time))
 
 (add-to-list 'load-path "~/.emacs.d/")
-(add-to-list 'load-path "~/.emacs.d/apel-10.8")
+;; (add-to-list 'load-path "~/.emacs.d/apel-10.8")
 (add-to-list 'load-path "~/.emacs.d/color-theme-6.6.0")
 (add-to-list 'load-path "~/.emacs.d/cscope")
-(add-to-list 'load-path "~/.emacs.d/php-mode")
-
-;; pylookup
-(setq pylookup-dir "~/.emacs.d/pylookup")
-(add-to-list 'load-path pylookup-dir)
-(eval-when-compile (require 'pylookup nil t))
-;; set executable file and db file
-(setq pylookup-program (concat pylookup-dir "/pylookup.py")
-	  pylookup-db-file (concat pylookup-dir "/pylookup.db"))
-
 
 ;; ;; pymacs
 ;; ;;(require 'pymacs nil t)
@@ -431,11 +421,11 @@
               (eldoc-mode t)
               )))
 (setq desktop-path '("."))
-(desktop-save-mode t)
+(desktop-save-mode 0)
 (require 'winsav)
 (setq winsav-dirname ".")
 (setq winsav-handle-also-desktop t)
-(winsav-save-mode t)
+(winsav-save-mode 0)
 
 
 ;;(setq clang-completion-suppress-error 'f)
@@ -482,8 +472,6 @@
 
 (add-to-list 'command-switch-alist '("diff" . command-line-diff))
 
-(require 'php-mode nil t)
-
 ;; align rules
 (add-hook 'align-load-hook
 		  (function (lambda ()
@@ -513,6 +501,6 @@
  '(hl-line ((t (:background "#101010"))))
  '(linum ((t (:inherit (shadow default) :background "color-233" :foreground "color-238" :underline nil)))))
 
-(message "My .emacs loaded in %ds" (destructuring-bind (hi lo ms) (current-time)
-                                     (- (+ hi lo) (+ (first *emacs-load-start*) (second *emacs-load-start*)))))
+;(message "My .emacs loaded in %ds" (destructuring-bind (hi lo ms) (current-time)
+                                     ;(- (+ hi lo) (+ (first *emacs-load-start*) (second *emacs-load-start*)))))
 

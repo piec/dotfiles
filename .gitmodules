@@ -4,18 +4,12 @@
 [submodule "oh-my-zsh"]
 	path = oh-my-zsh
 	url = git@github.com:piec/oh-my-zsh.git
-[submodule ".emacs.d/php-mode"]
-	path = .emacs.d/php-mode
-	url = https://github.com/ejmr/php-mode
 [submodule ".vim/bundle/powerline"]
 	path = .vim/bundle/powerline
 	url = https://github.com/Lokaltog/vim-powerline.git
 [submodule ".vim/bundle/python-mode"]
 	path = .vim/bundle/python-mode
 	url = git://github.com/klen/python-mode.git
-[submodule ".emacs.d/pylookup"]
-	path = .emacs.d/pylookup
-	url = git://github.com/tsgates/pylookup.git
 [submodule ".vim/bundle/nerdcommenter"]
 	path = .vim/bundle/nerdcommenter
 	url = git://github.com/scrooloose/nerdcommenter.git
