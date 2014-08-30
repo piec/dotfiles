@@ -1,9 +1,6 @@
 [submodule ".vim/bundle/gundo"]
 	path = .vim/bundle/gundo
 	url = http://github.com/sjl/gundo.vim.git
-[submodule "oh-my-zsh"]
-	path = oh-my-zsh
-	url = git@github.com:piec/oh-my-zsh.git
 [submodule ".vim/bundle/powerline"]
 	path = .vim/bundle/powerline
 	url = https://github.com/Lokaltog/vim-powerline.git
