@@ -1,1 +1,1 @@
-/Users/pierre/.zsh/.zprezto/runcoms/zlogout
+.zprezto/runcoms/zlogout

@@ -1,1 +1,1 @@
-/Users/pierre/.zsh/.zprezto/runcoms/zshenv
+.zprezto/runcoms/zshenv

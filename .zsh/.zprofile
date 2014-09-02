@@ -1,1 +1,1 @@
-/Users/pierre/.zsh/.zprezto/runcoms/zprofile
+.zprezto/runcoms/zprofile
