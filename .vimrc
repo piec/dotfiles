@@ -79,8 +79,13 @@ set autoindent
 set smarttab
 set smartindent
 set tabstop=4
-set shiftwidth=0 " =tabstop
-set softtabstop=-1 " =shiftwidth
+if v:version >= 704
+    set shiftwidth=0 " =tabstop
+    set softtabstop=-1 " =shiftwidth
+else
+    set shiftwidth=4
+    set softtabstop=4
+endif
 set expandtab "tabs -> spaces
 set shiftround
 
