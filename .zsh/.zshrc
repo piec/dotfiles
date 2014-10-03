@@ -55,3 +55,7 @@ function g {
 function gw {
     g "\<$1\>"
 }
+
+# ---
+
+[ -e ~/.zshrc ] && . ~/.zshrc
