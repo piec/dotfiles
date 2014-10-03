@@ -147,7 +147,8 @@ if &term =~ '^screen'
     execute "set <xDown>=\e[1;*B"
     execute "set <xRight>=\e[1;*C"
     execute "set <xLeft>=\e[1;*D"
-    set ttymouse=sgr
+    if has("mouse_sgr") | set ttymouse=sgr
+    else | set ttymouse=xterm2 | endif
 endif
 
 "------------------------------------------------
