@@ -12,7 +12,10 @@ fi
 
 # Customize to your needs...
 
-[[ "$OSTYPE" = darwin* ]] && (( $+commands[gls] )) && alias ls="gls --color=auto"
+if [[ "$OSTYPE" = darwin* ]]; then
+    (( $+commands[gls] )) && alias ls="gls --color=auto"
+    (( $+commands[gdircolors] )) && eval $(gdircolors)
+fi
 alias l="ls -la"
 setopt LIST_PACKED
 unsetopt SHARE_HISTORY
