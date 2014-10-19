@@ -19,6 +19,8 @@ fi
 alias l="ls -la"
 setopt LIST_PACKED
 unsetopt SHARE_HISTORY
+setopt HUP
+setopt CHECK_JOBS
 
 export EDITOR=vim
 export VISUAL=vim
