@@ -12,8 +12,10 @@ fi
 
 # Customize to your needs...
 
+[[ "$OSTYPE" = darwin* ]] && (( $+commands[gls] )) && alias ls="gls --color=auto"
 alias l="ls -la"
 setopt LIST_PACKED
+unsetopt SHARE_HISTORY
 
 export EDITOR=vim
 export VISUAL=vim
@@ -37,8 +39,8 @@ bindkey "\e[21~" run-mc
 zle -N run-mc
 function run-mc {
     source /usr/lib/mc/mc-wrapper.sh
-	zle clear-screen
-	zle redisplay
+    zle clear-screen
+    zle redisplay
 }
 
 function f {
