@@ -37,10 +37,12 @@ Bundle 'christoomey/vim-tmux-navigator'
 Bundle 'kien/ctrlp.vim'
 Bundle 'tpope/vim-surround'
 "Bundle 'Shougo/unite.vim'
+Bundle 'mileszs/ack.vim'
 
 "Bundle 'rainux/vim-vala'
 "Bundle 'tfnico/vim-gradle'
 "Bundle 'kchmck/vim-coffee-script'
+Bundle 'elzr/vim-json'
 
 call vundle#end()
 filetype plugin indent on
