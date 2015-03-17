@@ -16,7 +16,10 @@ if [[ "$OSTYPE" = darwin* ]]; then
     (( $+commands[gls] )) && alias ls="gls --color=auto"
     (( $+commands[gdircolors] )) && eval $(gdircolors)
 fi
+
+alias ls="LC_COLLATE=C ${aliases[ls]}"
 alias l="ls -la"
+
 setopt LIST_PACKED
 unsetopt SHARE_HISTORY
 setopt HUP
@@ -49,18 +52,29 @@ function run-mc {
 }
 
 function f {
-    find ${2-.} -type d -name .git -prune -o -type d -name .hg -prune -o -type d -name .svn -prune -o -iname "*$1*" -print | grep -i "$1"
+    find "${2-.}" -type d -name .git -prune -o -type d -name .hg -prune -o -type d -name .svn -prune -o -iname "*$1*" -print | grep -i "$1"
 }
 
 function g {
-    [ x$1 != x ] || return 1
-    local dir=${2-.}
-    [ -d $dir ] || return 1
-    grep -i "$1" -R $dir
+    local pattern="$1"; shift
+    [ "$pattern" = "" ] && return 1
+
+    local dir='.'
+    if [ "$1" != "" ]; then
+        dir="$1"; shift
+    fi
+
+    if ! [ -d "$dir" ]; then
+        echo "not a directory '$dir'"
+        return 1
+    fi
+    echo grep -i "$pattern" -R "$dir" "$@"
+    grep -i "$pattern" -R "$dir" "$@"
 }
 
 function gw {
-    g "\<$1\>"
+    local word="$1"; shift
+    g "\<${word}\>" . "$@"
 }
 
 # ---
