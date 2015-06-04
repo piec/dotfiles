@@ -43,6 +43,7 @@ Bundle 'mileszs/ack.vim'
 "Bundle 'tfnico/vim-gradle'
 "Bundle 'kchmck/vim-coffee-script'
 Bundle 'elzr/vim-json'
+Bundle 'terryma/vim-expand-region'
 
 call vundle#end()
 filetype plugin indent on
@@ -308,3 +309,7 @@ map Y "0P
 let g:airline_theme='powerlineish'
 let g:airline_left_sep=''
 let g:airline_right_sep=''
+
+vmap v <Plug>(expand_region_expand)
+vmap <C-v> <Plug>(expand_region_shrink)
+
