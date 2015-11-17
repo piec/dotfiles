@@ -18,7 +18,8 @@ Bundle 'bling/vim-airline'
 "Bundle 'sessionman.vim'
 Bundle 'godlygeek/tabular'
 Bundle 'junegunn/vim-easy-align'
-Bundle 'taglist.vim'
+"Bundle 'taglist.vim'
+Bundle 'majutsushi/tagbar'
 Bundle 'tpope/vim-fugitive'
 Bundle 'bronson/vim-visual-star-search'
 Bundle 'piec/detectindent.vim'
@@ -37,7 +38,8 @@ Bundle 'piec/man.vim'
 Bundle 'kien/ctrlp.vim'
 Bundle 'tpope/vim-surround'
 "Bundle 'Shougo/unite.vim'
-Bundle 'mileszs/ack.vim'
+"Bundle 'mileszs/ack.vim'
+Bundle 'rking/ag.vim'
 
 "Bundle 'rainux/vim-vala'
 "Bundle 'tfnico/vim-gradle'
@@ -50,7 +52,29 @@ filetype plugin indent on
 
 "------------------------------------------------
 
-let mapleader = ","
+"let mapleader = ","
+let mapleader = "\<Space>"
+
+inoremap jk <ESC>
+
+nnoremap <Leader>o :CtrlP<CR>
+nnoremap <Leader>w :w<CR>
+
+nmap <Leader><Leader> V
+
+nmap <Leader>j <C-w>j
+nmap <Leader>k <C-w>k
+nmap <Leader>h <C-w>h
+nmap <Leader>l <C-w>l
+nmap <Leader>J <C-w>J
+nmap <Leader>K <C-w>K
+nmap <Leader>H <C-w>H
+nmap <Leader>L <C-w>L
+nmap <Leader>= <C-w>=
+
+nmap <Leader>x <C-w>c
+
+"------------------------------------------------
 
 syntax on
 
@@ -272,9 +296,11 @@ let showmarks_include="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
 filetype plugin on
 
 " Taglist
-map <F5> :TlistToggle<CR>
-imap <F5> :TlistToggle<CR>
-vmap <F5> :TlistToggle<CR>
+map <F5> :TagbarToggle<CR>
+imap <F5> :TagbarToggle<CR>
+vmap <F5> :TagbarToggle<CR>
+let g:tagbar_sort = 0
+"let g:tagbar_left = 0
 
 let g:Tlist_Show_One_File=1
 let g:Tlist_Auto_Open=0
@@ -295,9 +321,6 @@ endif
 let g:gitgutter_realtime = 0
 let g:gitgutter_enabled = 0
 
-map <space> f 
-vmap <space> f 
-
 " Start interactive EasyAlign in visual mode (e.g. vip<Enter>)
 vmap <Enter> <Plug>(LiveEasyAlign)
 " Start interactive EasyAlign for a motion/text object (e.g. <Leader>aip)
@@ -313,3 +336,6 @@ let g:airline_right_sep=''
 vmap v <Plug>(expand_region_expand)
 vmap <C-v> <Plug>(expand_region_shrink)
 
+if ! has('nvim')
+    set clipboard=exclude:.*
+endif
