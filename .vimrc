@@ -46,6 +46,7 @@ Bundle 'rking/ag.vim'
 "Bundle 'kchmck/vim-coffee-script'
 Bundle 'elzr/vim-json'
 Bundle 'terryma/vim-expand-region'
+Bundle 'fatih/vim-go'
 
 call vundle#end()
 filetype plugin indent on
