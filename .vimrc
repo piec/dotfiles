@@ -57,6 +57,7 @@ filetype plugin indent on
 let mapleader = "\<Space>"
 
 inoremap jk <ESC>
+nnoremap Q <NOP>
 
 nnoremap <Leader>o :CtrlP<CR>
 nnoremap <Leader>w :w<CR>
@@ -72,6 +73,7 @@ nmap <Leader>K <C-w>K
 nmap <Leader>H <C-w>H
 nmap <Leader>L <C-w>L
 nmap <Leader>= <C-w>=
+nmap <Leader>a :Ag<CR>
 
 nmap <Leader>x <C-w>c
 
@@ -325,7 +327,7 @@ let g:gitgutter_enabled = 0
 " Start interactive EasyAlign in visual mode (e.g. vip<Enter>)
 vmap <Enter> <Plug>(LiveEasyAlign)
 " Start interactive EasyAlign for a motion/text object (e.g. <Leader>aip)
-nmap <Leader>a <Plug>(LiveEasyAlign)
+"nmap <Leader>a <Plug>(LiveEasyAlign)
 
 "map dn ]c
 map Y "0P
@@ -340,3 +342,15 @@ vmap <C-v> <Plug>(expand_region_shrink)
 if ! has('nvim')
     set clipboard=exclude:.*
 endif
+
+au FileType go nmap <leader>r <Plug>(go-run)
+au FileType go nmap <leader>b <Plug>(go-build)
+au FileType go nmap <leader>t <Plug>(go-test)
+au FileType go nmap <leader>c <Plug>(go-coverage)
+
+let g:LustyExplorerDefaultMappings = 0
+nmap <silent> <Leader>uf :LustyFilesystemExplorer<CR>
+nmap <silent> <Leader>ur :LustyFilesystemExplorerFromHere<CR>
+nmap <silent> <Leader>ub :LustyBufferExplorer<CR>
+nmap <silent> <Leader>ug :LustyBufferGrep<CR>
+
