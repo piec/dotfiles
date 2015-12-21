@@ -43,7 +43,8 @@ zstyle ':prezto:load' pmodule \
 
 zstyle ':prezto:module:bundle' install-path "${ZDOTDIR:-$HOME}"/.zprezto/bundles
 zstyle ':prezto:module:bundle' modules \
-  'piec/k-prezto'
+  'piec/k-prezto' \
+  'piec/u-prezto'
   #'piec/powerline-prezto'
 
 #
