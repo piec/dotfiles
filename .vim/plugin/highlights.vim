@@ -163,8 +163,8 @@ function! s:MatchToggle()
     nnoremap <silent> <kMinus> :call <SID>WindowMatches(0)<CR>
     nnoremap <silent> <kPlus> :call <SID>WindowMatches(1)<CR>
     nnoremap <silent> <kMultiply> :call <SID>WindowMatches(2)<CR>
-    nnoremap <silent> <Leader>f :call <SID>Search(0)<CR>
-    nnoremap <silent> <Leader>F :call <SID>Search(1)<CR>
+    "nnoremap <silent> <Leader>f :call <SID>Search(0)<CR>
+    "nnoremap <silent> <Leader>F :call <SID>Search(1)<CR>
     nnoremap <silent> <Leader>n :let @/=<SID>Search(0)<CR>
     nnoremap <silent> <Leader>N :let @/=<SID>Search(1)<CR>
   endif
@@ -172,7 +172,7 @@ function! s:MatchToggle()
   echo 'Mappings for matching:' g:match_maps ? 'On' : 'Off'
 endfunction
 command! HMatchToggle call s:MatchToggle()
-nnoremap <silent> <Leader>m :call <SID>MatchToggle()<CR>
+"nnoremap <silent> <Leader>m :call <SID>MatchToggle()<CR>
  
 " Remove and save current matches, or restore them.
 function! s:WindowMatches(action)

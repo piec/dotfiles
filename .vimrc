@@ -29,7 +29,7 @@ Bundle 'vim-scripts/ShowMarks'
 "Bundle 'rhysd/vim-clang-format'
 Bundle 'vim-scripts/a.vim'
 Bundle 'safetydank/vim-gitgutter'
-Bundle 'sjbach/lusty'
+"Bundle 'sjbach/lusty'
 "Bundle 'L9'
 "Bundle 'FuzzyFinder'
 Bundle 'scrooloose/syntastic'
@@ -47,6 +47,12 @@ Bundle 'rking/ag.vim'
 Bundle 'elzr/vim-json'
 Bundle 'terryma/vim-expand-region'
 Bundle 'fatih/vim-go'
+Bundle 'Chiel92/vim-autoformat'
+
+Bundle 'lepture/vim-jinja'
+Bundle 'ConradIrwin/vim-bracketed-paste'
+Bundle 'rust-lang/rust.vim'
+"Bundle 'lornix/vim-scrollbar'
 
 call vundle#end()
 filetype plugin indent on
@@ -64,6 +70,8 @@ nnoremap <Leader>w :w<CR>
 
 nmap <Leader><Leader> V
 
+nmap <Leader>b :CtrlPBuffer<CR>
+
 nmap <Leader>j <C-w>j
 nmap <Leader>k <C-w>k
 nmap <Leader>h <C-w>h
@@ -76,6 +84,7 @@ nmap <Leader>= <C-w>=
 nmap <Leader>a :Ag<CR>
 
 nmap <Leader>x <C-w>c
+nmap <Leader>$ :qa!<CR>
 
 "------------------------------------------------
 
@@ -120,8 +129,11 @@ set expandtab "tabs -> spaces
 set shiftround
 
 set showmatch
-"set showbreak=@-->
-set showbreak=…
+if $LANG =~ "utf8"
+    set showbreak=…
+else
+    set showbreak=@-->
+endif
 
 set listchars=eol:$,tab:>-,trail:~,extends:>,precedes:<
 map <F6> :set list!<CR>
@@ -340,21 +352,25 @@ vmap <Enter> <Plug>(LiveEasyAlign)
 "map dn ]c
 map Y "0P
 
-let g:airline_theme='powerlineish'
+"let g:airline_theme='powerlineish'
 let g:airline_left_sep=''
 let g:airline_right_sep=''
+let g:airline_section_error=''
+let g:airline_section_warning=''
+let g:airline#extensions#whitespace#enabled = 0
 
 vmap v <Plug>(expand_region_expand)
 vmap <C-v> <Plug>(expand_region_shrink)
 
 if ! has('nvim')
-    set clipboard=exclude:.*
+    "set clipboard=exclude:.*
 endif
 
 au FileType go nmap <leader>r <Plug>(go-run)
 au FileType go nmap <leader>b <Plug>(go-build)
 au FileType go nmap <leader>t <Plug>(go-test)
 au FileType go nmap <leader>c <Plug>(go-coverage)
+au FileType go nmap <Leader>g <Plug>(go-def-vertical)
 
 let g:LustyExplorerDefaultMappings = 0
 nmap <silent> <Leader>uf :LustyFilesystemExplorer<CR>
@@ -362,3 +378,8 @@ nmap <silent> <Leader>ur :LustyFilesystemExplorerFromHere<CR>
 nmap <silent> <Leader>ub :LustyBufferExplorer<CR>
 nmap <silent> <Leader>ug :LustyBufferGrep<CR>
 
+"let g:autoformat_verbosemode = 1
+let g:autoformat_autoindent = 0
+let g:formatdef_clangformat = "'clang-format -lines='.a:firstline.':'.a:lastline.' --assume-filename='.bufname('%')"
+nmap <Leader>f :Autoformat<CR>
+vmap f :Autoformat<CR>
