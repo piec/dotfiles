@@ -23,7 +23,7 @@ basename=${filename%.*}
 LOGFILE="$basename.log"
 PRIORITY=0
 PINGHOST="4.2.2.3"
-NOTIFYURL="https://nma.usk.bz/publicapi/notify"
+NOTIFYURL="https://www.notifymyandroid.com/publicapi/notify"
 CURL=$(which curl)
 WGET=$(which wget)
 [[ -z $CURL && -z $WGET ]] && logger "Neither curl nor wget installed" && exit 1
