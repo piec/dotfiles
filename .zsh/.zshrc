@@ -21,9 +21,17 @@ alias ls="LC_COLLATE=C ${aliases[ls]}"
 alias l="ls -la"
 
 setopt LIST_PACKED
-unsetopt SHARE_HISTORY
 setopt HUP
 setopt CHECK_JOBS
+
+# ---
+
+unsetopt SHARE_HISTORY
+HISTFILE=~/.zhistory
+HISTSIZE=50000
+SAVEHIST=50000
+
+# ---
 
 export EDITOR=vim
 export VISUAL=vim
