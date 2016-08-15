@@ -31,6 +31,7 @@ export VISUAL=vim
 path+=(~/bin)
 
 alias -g L="| less"
+alias -g H="| head"
 alias -s txt=vim
 
 bindkey -M isearch "\e[A" history-beginning-search-backward
