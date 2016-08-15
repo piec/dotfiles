@@ -370,7 +370,8 @@ au FileType go nmap <leader>r <Plug>(go-run)
 au FileType go nmap <leader>b <Plug>(go-build)
 au FileType go nmap <leader>t <Plug>(go-test)
 au FileType go nmap <leader>c <Plug>(go-coverage)
-au FileType go nmap <Leader>g <Plug>(go-def-vertical)
+au FileType go nmap <Leader>g <Plug>(go-def)
+au FileType go nmap <leader>v <Plug>(go-def-vertical)
 
 let g:LustyExplorerDefaultMappings = 0
 nmap <silent> <Leader>uf :LustyFilesystemExplorer<CR>
