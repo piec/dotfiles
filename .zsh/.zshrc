@@ -1,46 +1,60 @@
 #
 # Executes commands at the start of an interactive session.
 #
-# Authors:
-#   Sorin Ionescu <sorin.ionescu@gmail.com>
-#
 
 # Source Prezto.
 if [[ -s "${ZDOTDIR:-$HOME}/.zprezto/init.zsh" ]]; then
   source "${ZDOTDIR:-$HOME}/.zprezto/init.zsh"
 fi
 
-# Customize to your needs...
+# ---------------------------
 
-if [[ "$OSTYPE" = darwin* ]]; then
-    (( $+commands[gls] )) && alias ls="gls --color=auto"
-    (( $+commands[gdircolors] )) && eval $(gdircolors)
-fi
+path+=~/bin
 
-alias ls="LC_COLLATE=C ${aliases[ls]}"
-alias l="ls -la"
+export EDITOR=vim
+export VISUAL=vim
+
+[ "$TERM" = xterm ] && export TERM=xterm-256color
+[ "$TERM" = screen ] && export TERM=screen-256color
+
+# shell options -------------
+
+#unsetopt correct_all
+#unsetopt correct
 
 setopt LIST_PACKED
 setopt HUP
 setopt CHECK_JOBS
-
-# ---
 
 unsetopt SHARE_HISTORY
 HISTFILE=~/.zhistory
 HISTSIZE=50000
 SAVEHIST=50000
 
-# ---
+# aliases -------------------
 
-export EDITOR=vim
-export VISUAL=vim
+if [[ "$OSTYPE" = darwin* ]]; then
+    (( $+commands[gls] )) && alias ls="gls --color=auto"
+    (( $+commands[gdircolors] )) && eval $(gdircolors)
+fi
 
-path+=(~/bin)
+#alias ls="LC_COLLATE=C ls --color=tty --group-directories-first"
+alias ls="LC_COLLATE=C ${aliases[ls]}"
+alias l="ls -la"
+alias grep="${aliases[grep]} --exclude-dir=\.svn --exclude-dir=\.hg --exclude-dir=\.git"
+
+alias s="sudo systemctl"
+alias j="sudo journalctl"
+alias n="sudo netctl"
+
+alias mc=". /usr/lib/mc/mc-wrapper.sh"
+alias vi=vim
 
 alias -g L="| less"
 alias -g H="| head"
 alias -s txt=vim
+
+# bindkey -------------------
 
 bindkey -M isearch "\e[A" history-beginning-search-backward
 bindkey -M isearch "\e[B" history-beginning-search-forward
@@ -50,7 +64,27 @@ bindkey "\en" history-beginning-search-forward
 bindkey '\ee' edit-command-line
 bindkey "^U" backward-kill-line
 
-# ---
+bindkey "\e[H" beginning-of-line
+bindkey "\e[F" end-of-line
+
+bindkey "\e[1;3C" forward-word
+bindkey "\e[1;3D" backward-word
+bindkey "\e[1;5C" forward-word
+bindkey "\e[1;5D" backward-word
+bindkey "\e" backward-delete-word
+
+
+# ---------------------------
+
+bindkey "\eO5A" cd-up
+bindkey "\e[1;5A" cd-up
+bindkey "\e[3;5A" cd-up
+
+zle -N cd-up
+function cd-up {
+    cd ..
+    zle -I
+}
 
 bindkey "\e[21~" run-mc
 zle -N run-mc
@@ -119,6 +153,24 @@ function h {
     fi
 }
 
-# ---
+function db() {
+    setopt LOCAL_OPTIONS NULL_GLOB
+    if [ "$*" = "" ]; then
+        set -- * .*
+    fi
+    sudo du -x -s -BM "$@"
+}
+
+unalias d
+function d() {
+    db "$@" | sort -n
+}
+
+unalias p
+function p {
+    ps auxf | grep "$@"
+}
+
+# ---------------------------
 
 [ -e ~/.zshrc ] && . ~/.zshrc
