@@ -103,6 +103,14 @@ function gw {
     g "\<${word}\>" . "$@"
 }
 
+function h {
+    if [ "$1" != "" ]; then
+        fc -li 0 | grep -i "$*"
+    else
+        fc -li 0
+    fi
+}
+
 # ---
 
 [ -e ~/.zshrc ] && . ~/.zshrc
