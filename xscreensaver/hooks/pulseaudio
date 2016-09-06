@@ -1,0 +1,16 @@
+#!/usr/bin/env bash
+temp=/tmp/$(whoami)/mute-state
+case "$1" in
+    LOCK)
+        pacmd dump | grep set-sink-mute > "$temp"
+        (pacmd dump | grep set-sink-mute) | while read cmd sink state _; do
+            if [ "$state" = no ]; then
+                echo "muting '$sink'"
+                pacmd set-sink-mute "$sink" yes
+            fi
+        done
+        ;;
+    UNBLANK)
+        pacmd < "$temp"
+        ;;
+esac
