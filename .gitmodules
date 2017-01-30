@@ -34,3 +34,6 @@
 [submodule ".zsh/.zprezto"]
 	path = .zsh/.zprezto
 	url = git@github.com:piec/prezto
+[submodule "awesome/apw"]
+	path = awesome/apw
+	url = git@github.com:piec/apw
