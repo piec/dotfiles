@@ -12,6 +12,7 @@ local beautiful = require("beautiful")
 local menubar = require("menubar")
 local hotkeys_popup = require("awful.hotkeys_popup").widget
 local vicious = require("vicious")
+--local lain = require("lain")
 
 --local mylog = io.open(os.getenv("HOME") .. "/tmp/awesome_log", "a")
 --mylog:write("bla\n")
@@ -64,6 +65,7 @@ modkey = "Mod4"
 -- Table of layouts to cover with awful.layout.inc, order matters.
 awful.layout.layouts = {
     awful.layout.suit.tile,
+    --lain.layout.termfair,
     awful.layout.suit.tile.left,
     awful.layout.suit.tile.bottom,
     awful.layout.suit.tile.top,
