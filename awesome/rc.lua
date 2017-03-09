@@ -51,7 +51,7 @@ beautiful.init(os.getenv("HOME") .. "/.config/awesome/byte-pierre/theme.lua")
 local apw = require("apw/widget")
 
 -- This is used later as the default terminal and editor to run.
-terminal = "urxvt"
+terminal = "uxterm"
 editor = os.getenv("EDITOR") or "vim"
 editor_cmd = terminal .. " -e " .. editor
 
@@ -588,6 +588,7 @@ awful.rules.rules = {
 
     { rule = { class = "ioquake3.x86_64" }, properties = { fullscreen = false } },
     { rule = { class = "URxvt" }, properties = { size_hints_honor = false } },
+    { rule = { class = "UXTerm" }, properties = { size_hints_honor = false } },
     { rule = { class = "Espwd.py" }, properties = { floating = true, ontop = true } },
 }
 
