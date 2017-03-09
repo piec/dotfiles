@@ -73,6 +73,9 @@ bindkey "\e[1;5C" forward-word
 bindkey "\e[1;5D" backward-word
 bindkey "\e" backward-delete-word
 
+autoload -Uz copy-earlier-word
+zle -N copy-earlier-word
+bindkey "\em" copy-earlier-word
 
 # ---------------------------
 
@@ -120,8 +123,10 @@ function install-package {
 }
 
 function f {
-    find "${2-.}" -type d -name .git -prune -o -type d -name .hg -prune -o -type d -name .svn -prune -o -iname "*$1*" -print | grep -i "$1"
+    find "${2-.}" -type d -name .git -prune -o -type d -name .hg -prune -o -type d -name .svn -prune -o -iname "*$1*" -print
+    #| grep -i "$1"
 }
+alias f='noglob f'
 
 function g {
     local pattern="$1"; shift
@@ -152,6 +157,7 @@ function h {
         fc -li 0
     fi
 }
+alias h='noglob h'
 
 function db() {
     setopt LOCAL_OPTIONS NULL_GLOB
@@ -170,6 +176,21 @@ unalias p
 function p {
     ps auxf | grep "$@"
 }
+
+# ---------------------------
+
+function files {
+  name="$1"
+  if [ $# = 1 ]; then
+    pacman -Qlq "$name" | grep -v /$
+  else
+    shift
+    pacman -Qlq "$name" | grep -v /$ | xargs grep --color=auto "$@"
+  fi
+}
+#function _files { _pacman; _arguments -s : '*:package:_pacman_completions_installed_packages' }
+function _function_files { service=pacman; words=(-Q $words); _pacman "$@" }
+compdef _function_files files
 
 # ---------------------------
 
