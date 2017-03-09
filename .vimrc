@@ -53,6 +53,9 @@ Bundle 'lepture/vim-jinja'
 Bundle 'ConradIrwin/vim-bracketed-paste'
 Bundle 'rust-lang/rust.vim'
 "Bundle 'lornix/vim-scrollbar'
+"Bundle 'derekwyatt/vim-scala'
+"Bundle 'leafgarland/typescript-vim'
+"Bundle 'ARM9/arm-syntax-vim'
 
 call vundle#end()
 filetype plugin indent on
@@ -84,7 +87,7 @@ nmap <Leader>= <C-w>=
 nmap <Leader>a :Ag<CR>
 
 nmap <Leader>x <C-w>c
-nmap <Leader>$ :qa!<CR>
+nmap <Leader>$ :qa<CR>
 
 "------------------------------------------------
 
@@ -223,7 +226,12 @@ autocmd BufReadPost * if exists("loaded_detectindent") | exe "DetectIndent" | en
 "------------------------------------------------
 
 let g:pymode_folding = 0
-let g:pymode_lint_write = 0
+let g:pymode_lint_on_write = 0
+let g:pymode_rope_regenerate_on_write = 0
+"let g:pymode_checkers = ['pep8']
+let g:pymode_options_colorcolumn = 0
+let g:pymode_trim_whitespaces = 0
+let g:pymode_syntax_space_errors = 0
 
 
 if !empty($KERNELDIR)
@@ -373,6 +381,11 @@ au FileType go nmap <leader>c <Plug>(go-coverage)
 au FileType go nmap <Leader>g <Plug>(go-def)
 au FileType go nmap <leader>v <Plug>(go-def-vertical)
 
+"au FileType c nmap <Leader>g :YcmCompleter GoToDefinition<CR>
+"au FileType c nmap <Leader>i :YcmCompleter GoToInclude<CR>
+"au FileType c nmap <Leader>d :YcmCompleter GoToDeclaration<CR>
+"au FileType c nmap <Leader>t :YcmCompleter GetType<CR>
+
 let g:LustyExplorerDefaultMappings = 0
 nmap <silent> <Leader>uf :LustyFilesystemExplorer<CR>
 nmap <silent> <Leader>ur :LustyFilesystemExplorerFromHere<CR>
@@ -384,3 +397,20 @@ let g:autoformat_autoindent = 0
 let g:formatdef_clangformat = "'clang-format -lines='.a:firstline.':'.a:lastline.' --assume-filename='.bufname('%')"
 nmap <Leader>f :Autoformat<CR>
 vmap f :Autoformat<CR>
+
+" -----
+
+command! CloseHiddenBuffers call s:CloseHiddenBuffers()
+function! s:CloseHiddenBuffers()
+  let open_buffers = []
+
+  for i in range(tabpagenr('$'))
+    call extend(open_buffers, tabpagebuflist(i + 1))
+  endfor
+
+  for num in range(1, bufnr("$") + 1)
+    if buflisted(num) && index(open_buffers, num) == -1
+      exec "bdelete ".num
+    endif
+  endfor
+endfunction
