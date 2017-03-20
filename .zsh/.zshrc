@@ -34,7 +34,7 @@ SAVEHIST=50000
 # aliases -------------------
 
 if [[ "$OSTYPE" = darwin* ]]; then
-    (( $+commands[gls] )) && alias ls="gls --color=auto"
+    (( $+commands[gls] )) && alias ls="gls --color=auto --group-directories-first"
     (( $+commands[gdircolors] )) && eval $(gdircolors)
 fi
 
