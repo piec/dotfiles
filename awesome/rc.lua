@@ -353,6 +353,7 @@ globalkeys = awful.util.table.join(
     --awful.key({ modkey,           }, "Insert", function () awful.spawn(os.getenv("HOME") .. "/bin/ipowerstrip4.py") end),
     --awful.key({ modkey,           }, "Home", function () awful.spawn("xfce4-screenshooter -s /home/pierre/dev/sharedrop/drop --region") end),
     awful.key({ modkey, "Mod1"    }, "l", function () awful.spawn("xscreensaver-command -lock") end),
+    awful.key({ modkey, "Mod1", "Shift" }, "l", function () awful.spawn("sh -c 'xscreensaver-command -lock; sudo systemctl suspend'") end),
     awful.key({ modkey,           }, "c", function () awful.spawn(os.getenv("HOME") .. "/dotfiles/bin/spotify-action.sh playpause") end),
     awful.key({ modkey,           }, "b", function () awful.spawn(os.getenv("HOME") .. "/dotfiles/bin/spotify-action.sh nexttrack") end),
     awful.key({ modkey,           }, "w", function () awful.spawn(os.getenv("HOME") .. "/dotfiles/bin/spotify-action.sh prevtrack") end),
@@ -427,6 +428,32 @@ clientkeys = awful.util.table.join(
     awful.key({ modkey,           }, "=", function (c) c.opacity = c.opacity + 0.05 end),
     awful.key({ modkey,           }, "d", function (c) c.sticky = not c.sticky end),
 
+    awful.key({ modkey,           }, "*",
+        function (c)
+            c.floating = false
+            c.fullscreen = false
+            c.ontop = false
+            c.opacity = 1
+
+            c.sticky = false
+            c.urgent = false
+            c.hidden = false
+            c.minimized = false
+            c.fullscreen = false
+            c.maximized_horizontal = false
+            c.maximized_vertical = false
+            c.maximized = false
+
+            c.above = false
+            c.below = false
+            c.modal = false
+            c.ontop = false
+            c.isbanned = false
+            c.skip_taskbar = false
+            c.nofocus = false
+        end,
+        {description = "reset", group = "client"}
+        ),
     awful.key({ modkey,           }, "f",
         function (c)
             c.fullscreen = not c.fullscreen
@@ -589,6 +616,7 @@ awful.rules.rules = {
     { rule = { class = "ioquake3.x86_64" }, properties = { fullscreen = false } },
     { rule = { class = "URxvt" }, properties = { size_hints_honor = false } },
     { rule = { class = "UXTerm" }, properties = { size_hints_honor = false } },
+    { rule = { class = "st-256color" }, properties = { size_hints_honor = false } },
     { rule = { class = "Espwd.py" }, properties = { floating = true, ontop = true } },
 }
 
@@ -617,6 +645,7 @@ local floating = {
   "VirtualBox",
   "Wine", "arcanum.exe",
   "git-cola",
+  "Godot",
 }
 
 for k, v in ipairs(floating) do
