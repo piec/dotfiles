@@ -255,9 +255,11 @@ if has("gui_running")
         set guifont=Fixed\ Medium\ Semi-Condensed\ 10
         "set guifont=MiscFixed\ Semi-Condensed\ 10
     endif
+    set bg=dark
     colorscheme ir_black
 else
     if &t_Co == 256
+    set bg=dark
         colorscheme tir_black
         hi CursorLine ctermbg=235 cterm=none
     endif
@@ -385,6 +387,7 @@ au FileType go nmap <leader>v <Plug>(go-def-vertical)
 "au FileType c nmap <Leader>i :YcmCompleter GoToInclude<CR>
 "au FileType c nmap <Leader>d :YcmCompleter GoToDeclaration<CR>
 "au FileType c nmap <Leader>t :YcmCompleter GetType<CR>
+"au FileType c nmap <Leader>t :YcmCompleter GetType<CR>
 
 let g:LustyExplorerDefaultMappings = 0
 nmap <silent> <Leader>uf :LustyFilesystemExplorer<CR>
@@ -396,7 +399,9 @@ nmap <silent> <Leader>ug :LustyBufferGrep<CR>
 let g:autoformat_autoindent = 0
 let g:formatdef_clangformat = "'clang-format -lines='.a:firstline.':'.a:lastline.' --assume-filename='.bufname('%')"
 nmap <Leader>f :Autoformat<CR>
-vmap f :Autoformat<CR>
+vmap F :Autoformat<CR>
+
+let g:ycm_min_num_of_chars_for_completion = 100
 
 " -----
 
@@ -414,3 +419,9 @@ function! s:CloseHiddenBuffers()
     endif
   endfor
 endfunction
+
+" -----
+
+let g:bracketed_paste_tmux_wrap = 0
+
+autocmd FileType yaml setlocal ts=2 sts=2 sw=2 expandtab
