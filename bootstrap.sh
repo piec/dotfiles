@@ -4,7 +4,7 @@ set -o noclobber
 
 if [ "$1" = "backup" ]; then
     mkdir -p backup
-    backup=".vimrc .vim .tmux.conf .tmux.number.sh .tmux.local .zshenv"
+    backup=".vimrc .vim .tmux.conf .tmux.number.sh .tmux.local .zshenv .gitconfig"
     for f in $backup; do
         if [ -e "$f" ]; then
             mv -v "$f" backup/
@@ -25,8 +25,16 @@ ln -s dotfiles/tmux/.tmux.number.sh
 touch ~/.tmux.local
 
 cat > ~/.zshenv <<EOF
-ZDOTDIR="$HOME/dotfiles/.zsh"
-[ -e "$ZDOTDIR/.zshenv" ] && . "$ZDOTDIR/.zshenv"
+ZDOTDIR="\$HOME/dotfiles/.zsh"
+[ -e "\$ZDOTDIR/.zshenv" ] && . "\$ZDOTDIR/.zshenv"
+EOF
+
+cat > ~/.gitconfig <<EOF
+[user]
+    ;email = ...
+
+[include]
+    path = ~/dotfiles/.gitconfig
 EOF
 
 if [ -e ~/.bash_history ] && ! [ -e ~/.zhistory ] ; then
