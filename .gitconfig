@@ -1,14 +1,23 @@
 [color]
 	ui = auto
 [user]
-	name = Pierre
+	name = Pierre Carru
 	email = pierre.carru@gmail.com
 [alias]
 	st = status -s
 	co = checkout
 	d = diff --word-diff=color --ignore-all-space
 	s = show --word-diff=color --ignore-all-space
-	b = branch -av
+	b = branch -avv
 	r = remote -v
 	g = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative --branches
 	ga = log --graph --oneline
+
+	dd = diff --staged
+	t = tag -ln
+	n = log '@{u}..HEAD'
+	nn = show '@{u}..HEAD'
+	ff = merge --ff
+	pff = pull --ff
+[push]
+	default = simple
