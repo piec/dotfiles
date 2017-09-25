@@ -218,6 +218,18 @@ netwidget:set_max_value(13) -- max MB/s of connection / 100 (because vicious div
 
 vicious.register(netwidget, vicious.widgets.net, "${enp3s0 down_kb}", 1)
 
+iowidget_sda = wibox.widget.graph()
+iowidget_sda:set_width(60)
+iowidget_sda:set_background_color("#494B4F")
+iowidget_sda:set_color({ type = "linear", from = { 0, 0 }, to = { 60,0 }, stops = { {0, "#d88400"}, {0.5, "#e98f00" }, {1, "#000000"}}})
+iowidget_sda.border_color = "#000000"
+iowidget_sda:set_scale(false)
+iowidget_sda:set_min_value(0)
+--iowidget_sda:set_max_value(2) -- 200MB/s
+--vicious.register(iowidget_sda, vicious.widgets.dio, "${sda total_mb}", 1)
+iowidget_sda:set_max_value(10) -- 1000ms during 1s
+vicious.register(iowidget_sda, vicious.widgets.dio, "${sda iotime_ms}", 1)
+
 --
 
 local font = "DejaVu, 12"
@@ -276,6 +288,7 @@ awful.screen.connect_for_each_screen(function(s)
             cpuwidget,
             memwidget,
             netwidget,
+            iowidget_sda,
             mytextclock,
             s.mylayoutbox,
             apw
