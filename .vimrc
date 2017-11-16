@@ -40,6 +40,7 @@ Bundle 'tpope/vim-surround'
 "Bundle 'Shougo/unite.vim'
 "Bundle 'mileszs/ack.vim'
 Bundle 'rking/ag.vim'
+Bundle 'tpope/vim-obsession'
 
 "Bundle 'rainux/vim-vala'
 "Bundle 'tfnico/vim-gradle'
@@ -166,6 +167,16 @@ augroup RestoreCursor
     autocmd BufReadPost * call RestoreCursor()
     autocmd BufWinLeave * call SaveCursor()
 augroup END
+
+function! RestoreSession()
+    if argc() == 0
+        if filereadable('Session.vim')
+            silent source Session.vim
+        endif
+    endif
+endfunction
+
+autocmd VimEnter * call RestoreSession()
 
 "------------------------------------------------
 
