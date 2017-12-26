@@ -23,7 +23,8 @@ Plug 'vim-scripts/ShowMarks'
 "Plug 'Rip-Rip/clang_complete.git'
 "Plug 'rhysd/vim-clang-format'
 Plug 'vim-scripts/a.vim'
-Plug 'safetydank/vim-gitgutter'
+Plug 'airblade/vim-gitgutter'
+"Plug 'mhinz/vim-signify'
 "Plug 'sjbach/lusty'
 "Plug 'L9'
 "Plug 'FuzzyFinder'
@@ -279,7 +280,7 @@ else
     inoremap <C-@> <C-x><C-o>
 endif
 nnoremap <F1> :GundoToggle<CR>
-map <F2> :vertical wincmd f<CR>
+"map <F2> :vertical wincmd f<CR>
 map <F4> :NERDTreeToggle<CR>
 map <F3> :NERDTreeFind<CR>
 
@@ -327,7 +328,7 @@ func! ReloadCscope()
     !ctags -R
 endfunc
 
-map <F2> :call ReloadCscope()<CR><CR><CR>
+"map <F2> :call ReloadCscope()<CR><CR><CR>
 "map <F2> :read !svn diff<CR>:set syntax=diff buftype=nofile<CR>gg
 
 
@@ -342,8 +343,7 @@ filetype plugin on
 
 " Taglist
 map <F5> :TagbarToggle<CR>
-imap <F5> :TagbarToggle<CR>
-vmap <F5> :TagbarToggle<CR>
+imap <F5> <C-O>:TagbarToggle<CR>
 let g:tagbar_sort = 0
 "let g:tagbar_left = 0
 
@@ -363,8 +363,9 @@ if filereadable($HOME . "/.vimrc.local")
     source $HOME/.vimrc.local
 endif
 
-let g:gitgutter_realtime = 0
-let g:gitgutter_enabled = 0
+"let g:gitgutter_realtime = 0
+"let g:gitgutter_enabled = 0
+nmap <F2> :GitGutterToggle<CR>
 
 " Start interactive EasyAlign in visual mode (e.g. vip<Enter>)
 vmap <Enter> <Plug>(LiveEasyAlign)
