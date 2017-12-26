@@ -1,65 +1,60 @@
-" Vundle ----------------------------------------
-
 set nocompatible
-filetype off
 
-set runtimepath+=~/.vim/bundle/vundle
-call vundle#begin()
+" junegunn/vim-plug ----------------------------------------
+call plug#begin('~/.vim/plugged')
+Plug 'sjl/gundo.vim'
+Plug 'scrooloose/nerdtree'
+Plug 'scrooloose/nerdcommenter'
+Plug 'bling/vim-airline'
+"Plug 'bling/vim-bufferline'
+"Plug 'Lokaltog/vim-powerline'
+"Plug 'Lokaltog/powerline', {'rtp': 'powerline/bindings/vim/'}
+"Plug 'klen/python-mode'
+"Plug 'sessionman.vim'
+Plug 'godlygeek/tabular'
+Plug 'junegunn/vim-easy-align'
+"Plug 'taglist.vim'
+Plug 'majutsushi/tagbar'
+Plug 'tpope/vim-fugitive'
+Plug 'bronson/vim-visual-star-search'
+Plug 'piec/detectindent.vim'
+Plug 'vim-scripts/ShowMarks'
+"Plug 'Valloric/YouCompleteMe'
+"Plug 'Rip-Rip/clang_complete.git'
+"Plug 'rhysd/vim-clang-format'
+Plug 'vim-scripts/a.vim'
+Plug 'safetydank/vim-gitgutter'
+"Plug 'sjbach/lusty'
+"Plug 'L9'
+"Plug 'FuzzyFinder'
+Plug 'w0rp/ale'
+Plug 'piec/man.vim'
+"Plug 'christoomey/vim-tmux-navigator'
+Plug 'kien/ctrlp.vim'
+Plug 'junegunn/fzf'
+Plug 'tpope/vim-surround'
+"Plug 'Shougo/unite.vim'
+"Plug 'mileszs/ack.vim'
+Plug 'rking/ag.vim'
+Plug 'tpope/vim-obsession'
 
-Bundle 'gmarik/vundle'
-Bundle 'sjl/gundo.vim'
-Bundle 'scrooloose/nerdtree'
-Bundle 'scrooloose/nerdcommenter'
-Bundle 'bling/vim-airline'
-"Bundle 'bling/vim-bufferline'
-"Bundle 'Lokaltog/vim-powerline'
-"Bundle 'Lokaltog/powerline', {'rtp': 'powerline/bindings/vim/'}
-"Bundle 'klen/python-mode'
-"Bundle 'sessionman.vim'
-Bundle 'godlygeek/tabular'
-Bundle 'junegunn/vim-easy-align'
-"Bundle 'taglist.vim'
-Bundle 'majutsushi/tagbar'
-Bundle 'tpope/vim-fugitive'
-Bundle 'bronson/vim-visual-star-search'
-Bundle 'piec/detectindent.vim'
-Bundle 'vim-scripts/ShowMarks'
-"Bundle 'Valloric/YouCompleteMe'
-"Bundle 'Rip-Rip/clang_complete.git'
-"Bundle 'rhysd/vim-clang-format'
-Bundle 'vim-scripts/a.vim'
-Bundle 'safetydank/vim-gitgutter'
-"Bundle 'sjbach/lusty'
-"Bundle 'L9'
-"Bundle 'FuzzyFinder'
-Bundle 'scrooloose/syntastic'
-Bundle 'piec/man.vim'
-"Bundle 'christoomey/vim-tmux-navigator'
-Bundle 'kien/ctrlp.vim'
-Bundle 'tpope/vim-surround'
-"Bundle 'Shougo/unite.vim'
-"Bundle 'mileszs/ack.vim'
-Bundle 'rking/ag.vim'
-Bundle 'tpope/vim-obsession'
+"Plug 'rainux/vim-vala'
+"Plug 'tfnico/vim-gradle'
+"Plug 'kchmck/vim-coffee-script'
+Plug 'elzr/vim-json'
+Plug 'terryma/vim-expand-region'
+Plug 'fatih/vim-go'
+Plug 'Chiel92/vim-autoformat'
 
-"Bundle 'rainux/vim-vala'
-"Bundle 'tfnico/vim-gradle'
-"Bundle 'kchmck/vim-coffee-script'
-Bundle 'elzr/vim-json'
-Bundle 'terryma/vim-expand-region'
-Bundle 'fatih/vim-go'
-Bundle 'Chiel92/vim-autoformat'
-
-Bundle 'lepture/vim-jinja'
-Bundle 'ConradIrwin/vim-bracketed-paste'
-Bundle 'rust-lang/rust.vim'
-"Bundle 'lornix/vim-scrollbar'
-"Bundle 'derekwyatt/vim-scala'
-"Bundle 'leafgarland/typescript-vim'
-"Bundle 'ARM9/arm-syntax-vim'
-
-call vundle#end()
-filetype plugin indent on
+Plug 'lepture/vim-jinja'
+Plug 'ConradIrwin/vim-bracketed-paste'
+Plug 'rust-lang/rust.vim'
+"Plug 'lornix/vim-scrollbar'
+"Plug 'derekwyatt/vim-scala'
+"Plug 'leafgarland/typescript-vim'
+"Plug 'ARM9/arm-syntax-vim'
+"Plug 'benmills/vimux'
+call plug#end()
 
 "------------------------------------------------
 
@@ -69,7 +64,8 @@ let mapleader = "\<Space>"
 inoremap jk <ESC>
 nnoremap Q <NOP>
 
-nnoremap <Leader>o :CtrlP<CR>
+nnoremap <C-p> :CtrlP<CR>
+nnoremap <Leader>o :FZF<CR>
 nnoremap <Leader>w :w<CR>
 
 nmap <Leader><Leader> V
@@ -176,7 +172,7 @@ function! RestoreSession()
     endif
 endfunction
 
-autocmd VimEnter * call RestoreSession()
+"autocmd VimEnter * call RestoreSession()
 
 "------------------------------------------------
 
@@ -232,7 +228,11 @@ command -nargs=1 -complete=help H :vert :h <args>
 "let g:detectindent_verbosity = 0
 let g:detectindent_preferred_indent = 4
 let g:detectindent_preferred_expandtab = 1
-autocmd BufReadPost * if exists("loaded_detectindent") | exe "DetectIndent" | endif
+" XXX interferes with RestoreCursor
+"augroup DetectIndent
+  "autocmd!
+  "autocmd BufReadPost * if exists("loaded_detectindent") | exe "DetectIndent" | endif
+"augroup END
 
 "------------------------------------------------
 
@@ -264,6 +264,7 @@ if has("gui_running")
         set guifont=Monaco:h10
     elseif has("unix")
         set guifont=Fixed\ Medium\ Semi-Condensed\ 10
+        "set guifont=Misc\ Fixed\ Medium\ Semi-Condensed\ 10
         "set guifont=MiscFixed\ Semi-Condensed\ 10
     endif
     set bg=dark
@@ -379,6 +380,7 @@ let g:airline_right_sep=''
 let g:airline_section_error=''
 let g:airline_section_warning=''
 let g:airline#extensions#whitespace#enabled = 0
+set noshowmode
 
 vmap v <Plug>(expand_region_expand)
 vmap <C-v> <Plug>(expand_region_shrink)
