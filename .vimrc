@@ -172,7 +172,7 @@ function! RestoreSession()
     endif
 endfunction
 
-"autocmd VimEnter * call RestoreSession()
+autocmd VimEnter * nested call RestoreSession()
 
 "------------------------------------------------
 
