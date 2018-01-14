@@ -34,3 +34,6 @@
 [submodule "awesome/apw"]
 	path = awesome/apw
 	url = git@github.com:piec/apw
+[submodule "awesome/cyclefocus"]
+	path = awesome/cyclefocus
+	url = https://github.com/blueyed/awesome-cyclefocus.git

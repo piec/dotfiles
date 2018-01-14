@@ -12,7 +12,7 @@ local beautiful = require("beautiful")
 local menubar = require("menubar")
 local hotkeys_popup = require("awful.hotkeys_popup").widget
 local vicious = require("vicious")
---local lain = require("lain")
+local cyclefocus = require('cyclefocus')
 
 --local mylog = io.open(os.getenv("HOME") .. "/tmp/awesome_log", "a")
 --mylog:write("bla\n")
@@ -48,6 +48,9 @@ local vicious = require("vicious")
 --beautiful.init(awful.util.get_themes_dir() .. "byte/theme.lua")
 beautiful.init(os.getenv("HOME") .. "/.config/awesome/byte-pierre/theme.lua")
 
+beautiful.column_count=3
+--beautiful.master_count=3
+
 local apw = require("apw/widget")
 
 -- This is used later as the default terminal and editor to run.
@@ -64,23 +67,22 @@ modkey = "Mod4"
 
 -- Table of layouts to cover with awful.layout.inc, order matters.
 awful.layout.layouts = {
-    awful.layout.suit.tile,
-    --lain.layout.termfair,
-    awful.layout.suit.tile.left,
-    awful.layout.suit.tile.bottom,
-    awful.layout.suit.tile.top,
-    awful.layout.suit.fair,
-    awful.layout.suit.fair.horizontal,
-    awful.layout.suit.spiral,
-    awful.layout.suit.spiral.dwindle,
+    awful.layout.suit.tile.right,
+    --awful.layout.suit.tile.left,
+    --awful.layout.suit.tile.bottom,
+    --awful.layout.suit.tile.top,
+    --awful.layout.suit.fair,
+    --awful.layout.suit.fair.horizontal,
+    --awful.layout.suit.spiral,
+    --awful.layout.suit.spiral.dwindle,
     awful.layout.suit.max,
-    awful.layout.suit.max.fullscreen,
-    awful.layout.suit.magnifier,
-    awful.layout.suit.corner.nw,
+    --awful.layout.suit.max.fullscreen,
+    --awful.layout.suit.magnifier,
+    --awful.layout.suit.corner.nw,
     -- awful.layout.suit.corner.ne,
     -- awful.layout.suit.corner.sw,
     -- awful.layout.suit.corner.se,
-    awful.layout.suit.floating,
+    --awful.layout.suit.floating,
 }
 -- }}}
 
@@ -237,7 +239,8 @@ local style = { font = font, bg_color = "red" }
 --
 -- Create a textclock widget
 mytextclock = wibox.widget.textclock(nil, 5)
---mytextclock:set_font(font)
+local cal = awful.widget.calendar_popup.month()
+cal:attach(mytextclock, "tr")
 
 awful.screen.connect_for_each_screen(function(s)
     -- Wallpaper
@@ -346,7 +349,7 @@ globalkeys = awful.util.table.join(
               {description = "focus the previous screen", group = "screen"}),
     awful.key({ modkey,           }, "u", awful.client.urgent.jumpto,
               {description = "jump to urgent client", group = "client"}),
-    awful.key({ modkey,           }, "Tab",
+    awful.key({ modkey,           }, "twosuperior",
         function ()
             awful.client.focus.history.previous()
             if client.focus then
@@ -495,7 +498,17 @@ clientkeys = awful.util.table.join(
             c.maximized = not c.maximized
             c:raise()
         end ,
-        {description = "maximize", group = "client"})
+        {description = "maximize", group = "client"}),
+    -- Alt-Tab: cycle through clients on the same screen.
+    -- This must be a clientkeys mapping to have source_c available in the callback.
+    cyclefocus.key({ modkey, }, "Tab", {
+        -- cycle_filters as a function callback:
+        -- cycle_filters = { function (c, source_c) return c.screen == source_c.screen end },
+
+        -- cycle_filters from the default filters:
+        cycle_filters = { cyclefocus.filters.same_screen, cyclefocus.filters.common_tag },
+        modifier='Super_L', keys = {'Tab', 'ISO_Left_Tab'}  -- default, could be left out
+    })
 )
 
 -- Bind all key numbers to tags.
@@ -596,7 +609,7 @@ awful.rules.rules = {
           "MessageWin",  -- kalarm.
           "Sxiv",
           "Wpa_gui",
-          "pinentry",
+          "pinentry", "Pinentry",
           "veromix",
           "xtightvncviewer"},
 
@@ -620,7 +633,9 @@ awful.rules.rules = {
     { rule = { class = "Xfce4-notifyd" }, properties = { floating = true, border_width = 0 } },
     { rule = { class = "Key-mon" }, properties = { floating = true, border_width = 0, focusable = false } },
 
-    --{ rule = { class = "Chromium" }, properties = { border_width = 0 } },
+    { rule = { class = "Firefox", instance = "Navigator" }, properties = { floating = false, fullscreen = false, ontop = false } },
+    --{ rule = { class = "Chromium" }, properties = { floating = false, fullscreen = false, ontop = false, maximized = false } },
+
     --{ rule = { class = "Firefox" }, properties = { tag = ttag(1, 3) } },
 
     --{ rule = { name = "ventrebl.eu" }, properties = { tag = ttag(1, 4) } },
@@ -652,13 +667,14 @@ local floating = {
   "Qemu-system-arm",
   "mpv",
   --"Firefox",
-  "qemu-system-x86_64",
+  "qemu-system-x86_64", "Qemu-system-x86_64",
   "Linphone",
   "Ekiga",
   "VirtualBox",
   "Wine", "arcanum.exe",
   "git-cola",
   "Godot",
+  "Display",
 }
 
 for k, v in ipairs(floating) do
