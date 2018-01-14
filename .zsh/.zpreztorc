@@ -44,7 +44,8 @@ zstyle ':prezto:load' pmodule \
 zstyle ':prezto:module:bundle' install-path "${ZDOTDIR:-$HOME}"/.zprezto/bundles
 zstyle ':prezto:module:bundle' modules \
   'piec/k-prezto' \
-  'piec/u-prezto'
+  'piec/u-prezto' \
+  'piec/fzf-prezto'
   #'piec/powerline-prezto'
 
 #
@@ -165,3 +166,9 @@ zstyle ':prezto:module:prompt' theme 'fade' 'magenta'
 
 # Auto start a session when Zsh is launched in a SSH connection.
 # zstyle ':prezto:module:tmux:auto-start' remote 'yes'
+
+#zstyle ':prezto:module:fzf' system-key-bindings 'yes'
+#zstyle ':prezto:module:fzf' git-key-bindings 'yes'
+#zstyle ':fzf:bindings' cd '\ey'
+zstyle ':fzf:bindings' history '\er'
+
