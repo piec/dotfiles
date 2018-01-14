@@ -7,7 +7,14 @@ require("awful.autofocus")
 local wibox = require("wibox")
 -- Theme handling library
 local beautiful = require("beautiful")
+
 -- Notification library
+-- Do not register service on dbus so that I can use dunst
+-- see https://github.com/awesomeWM/awesome/issues/1285
+local _dbus = dbus; dbus = nil
+local naughty = require("naughty")
+dbus = _dbus
+
 --local naughty = require("naughty")
 local menubar = require("menubar")
 local hotkeys_popup = require("awful.hotkeys_popup").widget
@@ -216,9 +223,9 @@ netwidget:set_color({ type = "linear", from = { 0, 0 }, to = { 60,0 }, stops = {
 
 netwidget:set_scale(false)
 netwidget:set_min_value(0)
-netwidget:set_max_value(13) -- max MB/s of connection / 100 (because vicious divides down_kb by 100
+netwidget:set_max_value(1000) -- max MB/s of connection / 100 (because vicious divides down_kb by 100
 
-vicious.register(netwidget, vicious.widgets.net, "${enp3s0 down_kb}", 1)
+vicious.register(netwidget, vicious.widgets.net, "${eth0 down_kb}", 1)
 
 iowidget_sda = wibox.widget.graph()
 iowidget_sda:set_width(60)
@@ -230,7 +237,7 @@ iowidget_sda:set_min_value(0)
 --iowidget_sda:set_max_value(2) -- 200MB/s
 --vicious.register(iowidget_sda, vicious.widgets.dio, "${sda total_mb}", 1)
 iowidget_sda:set_max_value(10) -- 1000ms during 1s
-vicious.register(iowidget_sda, vicious.widgets.dio, "${sda iotime_ms}", 1)
+vicious.register(iowidget_sda, vicious.widgets.dio, "${sdg iotime_ms}", 1)
 
 --
 
@@ -615,6 +622,7 @@ awful.rules.rules = {
 
         name = {
           "Event Tester",  -- xev.
+          "Android Emulator",
         },
         role = {
           "AlarmWindow",  -- Thunderbird's calendar.
