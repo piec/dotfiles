@@ -196,7 +196,7 @@ set noicon "don't change the window icon title
 set notitle
 set modeline
 
-if &term =~ '^screen'
+if &term =~ '^screen' || &term =~ '^tmux'
     execute "set <xUp>=\e[1;*A"
     execute "set <xDown>=\e[1;*B"
     execute "set <xRight>=\e[1;*C"
