@@ -2,11 +2,11 @@
 temp=/tmp/$(whoami)/mute-state
 case "$1" in
     LOCK)
-        pacmd dump | grep set-sink-mute > "$temp"
-        (pacmd dump | grep set-sink-mute) | while read cmd sink state _; do
+        pacmd dump | grep -E '^(set-sink-mute|set-source-mute)' > "$temp"
+        pacmd dump | grep -E '^(set-sink-mute|set-source-mute)' | while read cmd sink state _; do
             if [ "$state" = no ]; then
                 echo "muting '$sink'"
-                pacmd set-sink-mute "$sink" yes
+                pacmd "$cmd" "$sink" yes
             fi
         done
         ;;
