@@ -370,7 +370,8 @@ globalkeys = awful.util.table.join(
     --awful.key({         }, "U2044", function () awful.spawn("notify-send -t 1 NOPE") end),
     --awful.key({         }, "U2045", function () awful.spawn("notify-send 45") end),
     --awful.key({         }, "U2046", function () awful.spawn("notify-send 46") end),
-    awful.key({         }, "Print", function () awful.spawn("spectacle -r") end),
+    awful.key({         }, "Print", function () awful.spawn.with_shell("maim -s -c 1,0,0,0.8 -b 5 -p -5 | ~/dotfiles/clipboard/clip-gtk.py") end),
+    awful.key({ "Shift" }, "Print", function () awful.spawn.with_shell("f=~/Pictures/Screenshots/\"screenshot-$(date +'%Y-%m-%d_%H:%M:%S').png\"; maim -s -c 1,0,0,0.8 -b 5 -p -5 \"$f\"; notify-send \"$f\"") end),
     awful.key({ modkey,           }, "less", function () awful.spawn("dswitcher") end),
     awful.key({ modkey,           }, "a", function () awful.spawn("dmenu-launch") end),
     --awful.key({ modkey,           }, "Insert", function () awful.spawn(os.getenv("HOME") .. "/bin/ipowerstrip4.py") end),
@@ -380,7 +381,7 @@ globalkeys = awful.util.table.join(
     awful.key({ modkey,           }, "c", function () awful.spawn(os.getenv("HOME") .. "/dotfiles/bin/spotify-action.sh playpause") end),
     awful.key({ modkey,           }, "b", function () awful.spawn(os.getenv("HOME") .. "/dotfiles/bin/spotify-action.sh nexttrack") end),
     awful.key({ modkey,           }, "w", function () awful.spawn(os.getenv("HOME") .. "/dotfiles/bin/spotify-action.sh prevtrack") end),
-    awful.key({ "Control" }, "F11", function () awful.spawn("killall -SIGUSR1 dunst") end),
+    awful.key({ "Control" }, "F11", function () awful.spawn.with_shell("notify-send Hidden; sleep 0.1; killall -SIGUSR1 dunst"); end),
     awful.key({ "Control" }, "F12", function () awful.spawn("killall -SIGUSR2 dunst") end),
 
     -- Standard program
