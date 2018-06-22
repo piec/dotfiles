@@ -1,0 +1,45 @@
+#!/bin/bash
+set -x
+: ${HOOKS_DIR:=~/.config/xscreensaver-hooks.d}
+
+#locker="/slock"
+#locker="i3lock -n"
+locker="env XSECURELOCK_WANT_FIRST_KEYPRESS=1 XSECURELOCK_BLANK_DPMS_STATE=off XSECURELOCK_BLANK_TIMEOUT=3 xsecurelock"
+#locker="env XSECURELOCK_WANT_FIRST_KEYPRESS=1 XSECURELOCK_BLANK_DPMS_STATE=off XSECURELOCK_BLANK_TIMEOUT=1 XSECURELOCK_SAVER=saver_mpv xsecurelock "
+
+echo "$0 $@"
+echo XSS_SLEEP_LOCK_FD=$XSS_SLEEP_LOCK_FD
+
+date; echo pre
+
+
+if [ "$XSS_SLEEP_LOCK_FD" = "" ]; then
+    run-parts -v --report --arg="LOCK" -- "${HOOKS_DIR}"
+    ${locker} &
+    #(sleep 1; xset dpms force off)&
+    slock_pid=$!
+else
+    # Lock -----------------------
+    # run locker and do no inherit inhibitor's fd
+    #${locker} {XSS_SLEEP_LOCK_FD}<&- &
+    ${locker} &
+    slock_pid=$!
+
+    timeout 5s run-parts -v --report --arg="LOCK" -- "${HOOKS_DIR}" {XSS_SLEEP_LOCK_FD}<&-
+
+
+    #sleep 0.5
+
+    echo "release lock"
+    exec {XSS_SLEEP_LOCK_FD}<&-
+
+fi
+
+# Let user unlock -------------
+
+wait ${slock_pid}
+
+# After user has unlocked -----
+
+date; echo post
+timeout 20s run-parts -v --report --arg="UNBLANK" -- "${HOOKS_DIR}"
