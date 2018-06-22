@@ -122,6 +122,16 @@ function install-package {
     fi
 }
 
+# ---------------------------
+
+zstyle ':zle:transpose-words*' word-style shell
+
+autoload -Uz transpose-words-match
+zle -N transpose-words-match
+bindkey "^[t" transpose-words-match
+
+# ---------------------------
+
 function f {
     find "${2-.}" -type d -name .git -prune -o -type d -name .hg -prune -o -type d -name .svn -prune -o -iname "*$1*" -print
     #| grep -i "$1"
