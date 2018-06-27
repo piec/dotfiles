@@ -1,8 +1,8 @@
 #!/bin/sh
 
 function mouse_by_id {
-    name="$1"
-    f="${2:-1}"
+    local name="$1"
+    local f="${2:-1}"
     # evdev ---
     #f=$((1./f))
     #xinput --set-prop "$name" "Device Accel Profile" 0
