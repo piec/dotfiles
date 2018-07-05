@@ -21,6 +21,7 @@ f.close()
 
 loader = GdkPixbuf.PixbufLoader.new()
 loader.write(b)
+loader.close()
 pixbuf = loader.get_pixbuf()
 
 clipboard = Gtk.Clipboard.get(Gdk.SELECTION_CLIPBOARD) # type: Gtk.Clipboard
