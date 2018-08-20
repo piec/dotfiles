@@ -7,6 +7,13 @@ if [[ -s "${ZDOTDIR:-$HOME}/.zprezto/init.zsh" ]]; then
   source "${ZDOTDIR:-$HOME}/.zprezto/init.zsh"
 fi
 
+function unset_func {
+  (( $+functions[$1] )) && unset -f "$1"
+  (( $+aliases[$1] )) && unalias "$1"
+}
+unset_func make
+unset_func diff
+
 # ---------------------------
 
 path+=~/bin
@@ -39,9 +46,9 @@ if [[ "$OSTYPE" = darwin* ]]; then
 fi
 
 #alias ls="LC_COLLATE=C ls --color=tty --group-directories-first"
-alias ls="LC_COLLATE=C ${aliases[ls]}"
+alias ls="LC_COLLATE=C ${aliases[ls]:-ls}"
 alias l="ls -la"
-alias grep="${aliases[grep]} --exclude-dir=\.svn --exclude-dir=\.hg --exclude-dir=\.git"
+alias grep="${aliases[grep]:-grep} --exclude-dir=\.svn --exclude-dir=\.hg --exclude-dir=\.git"
 
 alias s="sudo systemctl"
 alias j="sudo journalctl"
@@ -177,12 +184,12 @@ function db() {
     sudo du -x -s -BM "$@"
 }
 
-unalias d
+unset_func d
 function d() {
     db "$@" | sort -n
 }
 
-unalias p
+unset_func p
 function p {
     ps auxf | grep "$@"
 }
