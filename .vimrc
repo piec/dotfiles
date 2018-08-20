@@ -47,6 +47,7 @@ Plug 'elzr/vim-json'
 Plug 'terryma/vim-expand-region'
 Plug 'fatih/vim-go'
 Plug 'Chiel92/vim-autoformat'
+Plug 'cespare/vim-toml'
 
 Plug 'lepture/vim-jinja'
 Plug 'ConradIrwin/vim-bracketed-paste'
@@ -399,6 +400,7 @@ au FileType go nmap <Leader>g <Plug>(go-def)
 au FileType go nmap <leader>v <Plug>(go-def-vertical)
 
 "au FileType c nmap <Leader>g :YcmCompleter GoToDefinition<CR>
+""au FileType c nmap <Nul>g :vs<CR>:YcmCompleter GoToDefinition<CR>zz
 "au FileType c nmap <Leader>i :YcmCompleter GoToInclude<CR>
 "au FileType c nmap <Leader>d :YcmCompleter GoToDeclaration<CR>
 "au FileType c nmap <Leader>t :YcmCompleter GetType<CR>
@@ -436,7 +438,5 @@ function! s:CloseHiddenBuffers()
 endfunction
 
 " -----
-
-let g:bracketed_paste_tmux_wrap = 0
 
 autocmd FileType yaml setlocal ts=2 sts=2 sw=2 expandtab
