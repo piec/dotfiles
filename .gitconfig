@@ -8,7 +8,7 @@
 	co = checkout
 	d = diff --word-diff=color --ignore-all-space
 	s = show --word-diff=color --ignore-all-space
-	b = branch -avv
+	b = !git --no-pager branch -avv
 	r = remote -v
 	g = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative --branches
 	ga = log --graph --oneline
@@ -18,6 +18,8 @@
 	n = log '@{u}..HEAD'
 	nn = show '@{u}..HEAD'
 	ff = merge --ff
-	pff = pull --ff
+	pff = pull --ff-only
 [push]
 	default = simple
+[pull]
+	ff = only
