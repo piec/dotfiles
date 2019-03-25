@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
 temp=/tmp/$(whoami)/mute-state
+mkdir -p "$(dirname $temp)"
 case "$1" in
     LOCK)
         pacmd dump | grep -E '^(set-sink-mute|set-source-mute)' > "$temp"
