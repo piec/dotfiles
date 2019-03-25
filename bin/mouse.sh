@@ -29,6 +29,6 @@ function main {
     mouse "Logitech USB Optical Mouse"
     mouse "Razer Razer DeathAdder Chroma" 1
     mouse "Lenovo ThinkPad Compact USB Keyboard with TrackPoint" 1.5
-    mouse "TPPS\/2 IBM TrackPoint" 1.5
+    mouse "TPPS\/2 IBM TrackPoint" 1.3
 }
 

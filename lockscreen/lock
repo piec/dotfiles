@@ -25,7 +25,7 @@ else
     ${locker} &
     slock_pid=$!
 
-    timeout 5s run-parts -v --report --arg="LOCK" -- "${HOOKS_DIR}" {XSS_SLEEP_LOCK_FD}<&-
+    timeout 5s run-parts -v --report --arg="LOCK" -- "${HOOKS_DIR}" {XSS_SLEEP_LOCK_FD}<&- || true
 
 
     #sleep 0.5

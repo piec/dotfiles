@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+case "$1" in
+    LOCK)
+        ;;
+    UNBLANK)
+        (
+            source ~/dotfiles/bin/mouse.sh
+            main
+        )
+        ;;
+esac
