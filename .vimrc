@@ -367,6 +367,7 @@ endif
 
 "let g:gitgutter_realtime = 0
 "let g:gitgutter_enabled = 0
+let g:gitgutter_map_keys = 0
 nmap <F2> :GitGutterToggle<CR>
 
 " Start interactive EasyAlign in visual mode (e.g. vip<Enter>)
