@@ -1,0 +1,29 @@
+#!/bin/sh
+
+function show {
+    grep '.*' /sys/class/power_supply/BAT*/charge_*_threshold
+}
+
+if [ "$1" = "" ]; then
+    show
+    exit 0
+elif [ "$1" = 100 ]; then
+    start=90
+    stop=100
+else
+    start=30
+    stop=80
+fi
+
+# XXX quick workaround to avoid invalid argument errors 
+# because start must be < to stop
+for j in 1 2; do
+    for i in /sys/class/power_supply/BAT*/charge_stop_threshold; do
+        echo "$stop" | sudo tee "$i"
+    done
+    for i in /sys/class/power_supply/BAT*/charge_start_threshold; do
+        echo "$start" | sudo tee "$i"
+    done
+done
+
+show
