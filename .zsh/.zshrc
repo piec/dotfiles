@@ -32,6 +32,7 @@ export VISUAL=vim
 setopt LIST_PACKED
 setopt HUP
 setopt CHECK_JOBS
+setopt PROMPT_SP
 
 unsetopt SHARE_HISTORY
 setopt INC_APPEND_HISTORY
