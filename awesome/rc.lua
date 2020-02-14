@@ -507,6 +507,14 @@ clientkeys = awful.util.table.join(
             c:raise()
         end ,
         {description = "maximize", group = "client"}),
+    --awful.key({ modkey,           }, "Tab",
+        --function ()
+            --awful.client.focus.history.previous()
+            --if client.focus then
+                --client.focus:raise()
+            --end
+        --end,
+        --{description = "go back", group = "client"}),
     -- Alt-Tab: cycle through clients on the same screen.
     -- This must be a clientkeys mapping to have source_c available in the callback.
     cyclefocus.key({ modkey, }, "Tab", {
@@ -579,15 +587,6 @@ root.keys(globalkeys)
 -- }}}
 
 -- {{{ Rules
---
-local function ttag(x, y)
-   if tags[x] and tags[x][y] then
-      return tags[x][y]
-   elseif x > 1 then
-      return ttag(x - 1, y)
-   end
-   return nil
-end
 
 -- Rules to apply to new clients (through the "manage" signal).
 awful.rules.rules = {
@@ -623,14 +622,22 @@ awful.rules.rules = {
 
         name = {
           "Event Tester",  -- xev.
-          "Android Emulator",
         },
         role = {
           "AlarmWindow",  -- Thunderbird's calendar.
           "pop-up",       -- e.g. Google Chrome's (detached) Developer Tools.
         }
-      }, properties = { floating = true, titlebars_enabled = true }},
-
+      }, properties = { floating = true, titlebars_enabled = true }
+    },
+    { rule_any = {
+      name = {
+        "^Android Emulator*",
+        "^Emulator",
+      } },
+      properties = {
+        floating = true,
+      }
+    },
     -- Add titlebars to normal clients and dialogs
     { rule_any = {type = { "normal", "dialog" } -- "normal", 
       }, properties = { titlebars_enabled = true }
@@ -643,6 +650,7 @@ awful.rules.rules = {
     { rule = { class = "Key-mon" }, properties = { floating = true, border_width = 0, focusable = false } },
 
     { rule = { class = "Firefox", instance = "Navigator" }, properties = { floating = false, fullscreen = false, ontop = false } },
+    { rule = { class = "Blender" }, properties = { floating = false, fullscreen = false, ontop = false } },
     --{ rule = { class = "Chromium" }, properties = { floating = false, fullscreen = false, ontop = false, maximized = false } },
 
     --{ rule = { class = "Firefox" }, properties = { tag = ttag(1, 3) } },
@@ -655,6 +663,7 @@ awful.rules.rules = {
     { rule = { class = "UXTerm" }, properties = { size_hints_honor = false } },
     { rule = { class = "st-256color" }, properties = { size_hints_honor = false } },
     { rule = { class = "Espwd.py" }, properties = { floating = true, ontop = true } },
+    { rule = { class = "espwd.py" }, properties = { floating = true, ontop = true } },
 }
 
 local floating = {
@@ -662,6 +671,8 @@ local floating = {
   "Skype",
   "Keepass",
   "Keepassx",
+  "keepassxc",
+  "KeePassXC",
   "Mplayer",
   "pinentry",
   "gimp",
@@ -685,6 +696,7 @@ local floating = {
   "git-cola",
   "Godot",
   "Display",
+  "Vncviewer",
 }
 
 for k, v in ipairs(floating) do
