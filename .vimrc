@@ -405,6 +405,7 @@ if ! has('nvim')
     "set clipboard=exclude:.*
 endif
 
+let g:go_bin_path = $HOME . "/apps/gotools-vim/"
 au FileType go nmap <leader>r <Plug>(go-run)
 "au FileType go nmap <leader>b <Plug>(go-build)
 au FileType go nmap <leader>t <Plug>(go-test)
