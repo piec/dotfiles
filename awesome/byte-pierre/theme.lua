@@ -1,6 +1,7 @@
 -- byte, awesome3 theme, by mu @ freenode
 
 --{{{ Main
+local theme_assets = require("beautiful.theme_assets")
 local awful = require("awful")
 awful.util = require("awful.util")
 
@@ -125,5 +126,11 @@ theme.titlebar_maximized_button_normal_active = "/usr/share/awesome/themes/defau
 theme.titlebar_maximized_button_focus_active  = "/usr/share/awesome/themes/default/titlebar/maximized_focus_active.png"
 --
 theme.apw_show_text = false
+
+theme.menu_height = 16
+theme.awesome_icon = theme_assets.awesome_icon(
+    theme.menu_height, theme.bg_focus, theme.fg_focus
+)
+
 return theme
 -- vim: filetype=lua:expandtab:shiftwidth=4:tabstop=8:softtabstop=4:textwidth=80

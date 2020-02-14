@@ -285,8 +285,8 @@ awful.screen.connect_for_each_screen(function(s)
         layout = wibox.layout.align.horizontal,
         { -- Left widgets
             layout = wibox.layout.fixed.horizontal,
-            mytextbox,
             mylauncher,
+            mytextbox,
             s.mytaglist,
             s.mypromptbox,
         },
@@ -372,6 +372,9 @@ globalkeys = awful.util.table.join(
     --awful.key({         }, "U2046", function () awful.spawn("notify-send 46") end),
     awful.key({         }, "Print", function () awful.spawn.with_shell("maim -s -c 1,0,0,0.8 -b 5 -p -5 | ~/dotfiles/clipboard/clip-gtk.py") end),
     awful.key({ "Shift" }, "Print", function () awful.spawn.with_shell("f=~/Pictures/Screenshots/\"screenshot-$(date +'%Y-%m-%d_%H:%M:%S').png\"; maim -s -c 1,0,0,0.8 -b 5 -p -5 \"$f\"; notify-send \"$f\"") end),
+    awful.key({         }, "XF86MonBrightnessDown", function () awful.spawn("xbacklight -dec 5") end),
+    awful.key({         }, "XF86MonBrightnessUp", function () awful.spawn("xbacklight -inc 5") end),
+    awful.key({ modkey, }, "F11", function () awful.spawn(os.getenv("HOME") .. "/dotfiles/bin/toggle-touchpad") end),
     awful.key({ modkey,           }, "less", function () awful.spawn("dswitcher") end),
     awful.key({ modkey,           }, "a", function () awful.spawn("dmenu-launch") end),
     --awful.key({ modkey,           }, "Insert", function () awful.spawn(os.getenv("HOME") .. "/bin/ipowerstrip4.py") end),
@@ -662,6 +665,7 @@ awful.rules.rules = {
     { rule = { class = "URxvt" }, properties = { size_hints_honor = false } },
     { rule = { class = "UXTerm" }, properties = { size_hints_honor = false } },
     { rule = { class = "st-256color" }, properties = { size_hints_honor = false } },
+    { rule = { class = "Gnome-terminal" }, properties = { size_hints_honor = false } },
     { rule = { class = "Espwd.py" }, properties = { floating = true, ontop = true } },
     { rule = { class = "espwd.py" }, properties = { floating = true, ontop = true } },
 }
