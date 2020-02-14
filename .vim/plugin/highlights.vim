@@ -165,8 +165,8 @@ function! s:MatchToggle()
     nnoremap <silent> <kMultiply> :call <SID>WindowMatches(2)<CR>
     "nnoremap <silent> <Leader>f :call <SID>Search(0)<CR>
     "nnoremap <silent> <Leader>F :call <SID>Search(1)<CR>
-    nnoremap <silent> <Leader>n :let @/=<SID>Search(0)<CR>
-    nnoremap <silent> <Leader>N :let @/=<SID>Search(1)<CR>
+    "nnoremap <silent> <Leader>n :let @/=<SID>Search(0)<CR>
+    "nnoremap <silent> <Leader>N :let @/=<SID>Search(1)<CR>
   endif
   call s:WindowMatches(g:match_maps)
   echo 'Mappings for matching:' g:match_maps ? 'On' : 'Off'
