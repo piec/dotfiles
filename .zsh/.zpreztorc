@@ -38,6 +38,7 @@ zstyle ':prezto:load' pmodule \
   'prompt' \
   'syntax-highlighting' \
   'command-not-found' \
+  'autosuggestions' \
   'bundle'
 
 #
