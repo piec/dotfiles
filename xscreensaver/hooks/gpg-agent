@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+case "$1" in
+    LOCK)
+        gpgconf --reload gpg-agent
+        ;;
+    UNBLANK)
+        ;;
+esac
