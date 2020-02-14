@@ -40,3 +40,6 @@ EOF
 if [ -e ~/.bash_history ] && ! [ -e ~/.zhistory ] ; then
     cp -v ~/.bash_history ~/.zhistory
 fi
+
+mkdir -p ~/.config
+ln -s dotfiles/redshift/redshift.conf ~/.config/
