@@ -11,7 +11,7 @@ elif [ "$1" = 100 ]; then
     start=90
     stop=100
 else
-    start=30
+    start=50
     stop=80
 fi
 
