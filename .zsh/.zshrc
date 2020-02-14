@@ -106,12 +106,26 @@ function run-mc {
     zle redisplay
 }
 
-bindkey '^Xx' rerun-with-sudo
-zle -N rerun-with-sudo
-function rerun-with-sudo {
-    LBUFFER="sudo !!"
-    zle accept-line
+bindkey '^X^X' sudo-command-line
+function sudo-command-line {
+    [[ -z $BUFFER ]] && zle up-history
+    if [[ $BUFFER == sudo\ * ]]; then
+        LBUFFER="${LBUFFER#sudo }"
+    elif [[ $BUFFER == $EDITOR\ * ]]; then
+        LBUFFER="${LBUFFER#$EDITOR }"
+        LBUFFER="svim $LBUFFER"
+    elif [[ $BUFFER == sudoedit\ * ]]; then
+        LBUFFER="${LBUFFER#sudoedit }"
+        LBUFFER="$EDITOR $LBUFFER"
+    elif [[ $BUFFER == svim\ * ]]; then
+        LBUFFER="${LBUFFER#svim }"
+        LBUFFER="$EDITOR $LBUFFER"
+    else
+        LBUFFER="sudo $LBUFFER"
+    fi
+    zle redisplay
 }
+zle -N sudo-command-line
 
 bindkey 'i' install-package
 zle -N install-package
