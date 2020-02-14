@@ -18,27 +18,30 @@ Plug 'majutsushi/tagbar'
 Plug 'tpope/vim-fugitive'
 Plug 'bronson/vim-visual-star-search'
 Plug 'piec/detectindent.vim'
-Plug 'vim-scripts/ShowMarks'
+"Plug 'vim-scripts/ShowMarks'
+"Plug 'jacquesbh/vim-showmarks'
 Plug 'vim-scripts/file-line'
 "Plug 'Valloric/YouCompleteMe'
 "Plug 'Rip-Rip/clang_complete.git'
-"Plug 'rhysd/vim-clang-format'
+Plug 'rhysd/vim-clang-format'
 Plug 'vim-scripts/a.vim'
 Plug 'airblade/vim-gitgutter'
 "Plug 'mhinz/vim-signify'
 "Plug 'sjbach/lusty'
 "Plug 'L9'
 "Plug 'FuzzyFinder'
-Plug 'w0rp/ale'
+"Plug 'w0rp/ale'
 Plug 'piec/man.vim'
 "Plug 'christoomey/vim-tmux-navigator'
-Plug 'kien/ctrlp.vim'
+Plug 'ctrlpvim/ctrlp.vim'
 Plug 'junegunn/fzf'
+Plug 'junegunn/fzf.vim'
 Plug 'tpope/vim-surround'
 "Plug 'Shougo/unite.vim'
 "Plug 'mileszs/ack.vim'
-Plug 'rking/ag.vim'
+"Plug 'rking/ag.vim'
 Plug 'tpope/vim-obsession'
+Plug 'tpope/vim-dispatch'
 
 "Plug 'rainux/vim-vala'
 "Plug 'tfnico/vim-gradle'
@@ -56,7 +59,14 @@ Plug 'rust-lang/rust.vim'
 "Plug 'derekwyatt/vim-scala'
 "Plug 'leafgarland/typescript-vim'
 "Plug 'ARM9/arm-syntax-vim'
-"Plug 'benmills/vimux'
+Plug 'wsdjeg/FlyGrep.vim'
+Plug 'prabirshrestha/asyncomplete.vim'
+Plug 'prabirshrestha/async.vim'
+Plug 'prabirshrestha/vim-lsp'
+Plug 'prabirshrestha/asyncomplete-lsp.vim'
+Plug 'ryanolsonx/vim-lsp-typescript'
+Plug 'ryanolsonx/vim-lsp-python'
+
 call plug#end()
 
 "------------------------------------------------
@@ -84,7 +94,8 @@ nmap <Leader>K <C-w>K
 nmap <Leader>H <C-w>H
 nmap <Leader>L <C-w>L
 nmap <Leader>= <C-w>=
-nmap <Leader>a :Ag<CR>
+nmap <Leader>a :call fzf#vim#ag(expand('<cword>'))<CR>
+"nmap <Leader>g :Lines<CR>
 
 nmap <Leader>x <C-w>c
 nmap <Leader>$ :qa<CR>
@@ -293,17 +304,18 @@ func! WriteIfModified()
     endif
 endfunc
 
-map <F7> :call WriteIfModified()<CR>:make<CR><CR><CR>:cc<CR><CR>
+map <F7> :call WriteIfModified()<CR>:Make<CR><CR><CR>:cc<CR><CR>
 "map <F7> :make<CR><CR><CR>:cc<CR>
 map <F8> :cp<CR>
 map <F9> :cn<CR>
-"map <F5> :!clear; make run<CR><CR>
+"map <F6> :Make run
 
 map <F10> :!(cd %:h; (git d %:t \|\| hg diff %:t))<CR>
 "map <F11> :GitGutterLineHighlightsToggle<CR>
 "imap <F11> <C-O>:GitGutterLineHighlightsToggle<CR>
 vmap <Tab> >gv
 vmap <S-Tab> <gv
+vnoremap <C-c> "+y<Esc><Esc>
 
 func! Gotodefinition()
     ":map <F6> :vs<CR><C-w>w:csc find g <cword><CR>
@@ -394,7 +406,7 @@ if ! has('nvim')
 endif
 
 au FileType go nmap <leader>r <Plug>(go-run)
-au FileType go nmap <leader>b <Plug>(go-build)
+"au FileType go nmap <leader>b <Plug>(go-build)
 au FileType go nmap <leader>t <Plug>(go-test)
 au FileType go nmap <leader>c <Plug>(go-coverage)
 au FileType go nmap <Leader>g <Plug>(go-def)
@@ -441,3 +453,21 @@ endfunction
 " -----
 
 autocmd FileType yaml setlocal ts=2 sts=2 sw=2 expandtab
+
+let g:gitgutter_map_keys = 0
+nmap <Leader>n :GitGutterNextHunk<CR>
+
+let g:vim_json_syntax_conceal = 0
+
+" -----
+
+"let g:asyncomplete_auto_popup = 0
+
+inoremap <expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
+inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+inoremap <expr> <cr>    pumvisible() ? "\<C-y>" : "\<cr>"
+
+imap <c-space> <Plug>(asyncomplete_force_refresh)
+imap <c-@> <Plug>(asyncomplete_force_refresh)
+autocmd! CompleteDone * if pumvisible() == 0 | pclose | endif
+
