@@ -207,7 +207,8 @@ function d() {
 
 unset_func p
 function p {
-    ps auxf | grep "$@"
+    pgrep -iaf "$@"
+    #ps auxf | grep "$@"
 }
 
 # ---------------------------
