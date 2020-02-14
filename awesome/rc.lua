@@ -20,6 +20,7 @@ local menubar = require("menubar")
 local hotkeys_popup = require("awful.hotkeys_popup").widget
 local vicious = require("vicious")
 local cyclefocus = require('cyclefocus')
+cyclefocus.move_mouse_pointer = false
 
 --local mylog = io.open(os.getenv("HOME") .. "/tmp/awesome_log", "a")
 --mylog:write("bla\n")
