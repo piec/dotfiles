@@ -6,10 +6,6 @@ Plug 'sjl/gundo.vim'
 Plug 'scrooloose/nerdtree'
 Plug 'scrooloose/nerdcommenter'
 Plug 'bling/vim-airline'
-"Plug 'bling/vim-bufferline'
-"Plug 'Lokaltog/vim-powerline'
-"Plug 'Lokaltog/powerline', {'rtp': 'powerline/bindings/vim/'}
-"Plug 'klen/python-mode'
 "Plug 'sessionman.vim'
 Plug 'godlygeek/tabular'
 Plug 'junegunn/vim-easy-align'
@@ -19,15 +15,12 @@ Plug 'tpope/vim-fugitive'
 Plug 'bronson/vim-visual-star-search'
 Plug 'piec/detectindent.vim'
 "Plug 'vim-scripts/ShowMarks'
-"Plug 'jacquesbh/vim-showmarks'
 Plug 'vim-scripts/file-line'
-"Plug 'Valloric/YouCompleteMe'
-"Plug 'Rip-Rip/clang_complete.git'
+"Plug 'jacquesbh/vim-showmarks'
 Plug 'rhysd/vim-clang-format'
 Plug 'vim-scripts/a.vim'
 Plug 'airblade/vim-gitgutter'
 "Plug 'mhinz/vim-signify'
-"Plug 'sjbach/lusty'
 "Plug 'L9'
 "Plug 'FuzzyFinder'
 "Plug 'w0rp/ale'
@@ -46,6 +39,7 @@ Plug 'tpope/vim-dispatch'
 "Plug 'rainux/vim-vala'
 "Plug 'tfnico/vim-gradle'
 "Plug 'kchmck/vim-coffee-script'
+"Plug 'lukaszkorecki/CoffeeTags'
 Plug 'elzr/vim-json'
 Plug 'terryma/vim-expand-region'
 Plug 'fatih/vim-go'
@@ -56,16 +50,22 @@ Plug 'lepture/vim-jinja'
 Plug 'ConradIrwin/vim-bracketed-paste'
 Plug 'rust-lang/rust.vim'
 "Plug 'lornix/vim-scrollbar'
-"Plug 'derekwyatt/vim-scala'
-"Plug 'leafgarland/typescript-vim'
-"Plug 'ARM9/arm-syntax-vim'
+Plug 'derekwyatt/vim-scala'
+Plug 'leafgarland/typescript-vim'
+Plug 'ARM9/arm-syntax-vim'
+
 Plug 'wsdjeg/FlyGrep.vim'
-Plug 'prabirshrestha/asyncomplete.vim'
+
+" lsp
 Plug 'prabirshrestha/async.vim'
 Plug 'prabirshrestha/vim-lsp'
-Plug 'prabirshrestha/asyncomplete-lsp.vim'
+" lsp language support
 Plug 'ryanolsonx/vim-lsp-typescript'
 Plug 'ryanolsonx/vim-lsp-python'
+Plug 'piec/vim-lsp-clangd'
+" complete while you type:
+Plug 'prabirshrestha/asyncomplete.vim'
+Plug 'prabirshrestha/asyncomplete-lsp.vim'
 
 call plug#end()
 
@@ -95,7 +95,7 @@ nmap <Leader>H <C-w>H
 nmap <Leader>L <C-w>L
 nmap <Leader>= <C-w>=
 nmap <Leader>a :call fzf#vim#ag(expand('<cword>'))<CR>
-"nmap <Leader>g :Lines<CR>
+nmap <Leader>g :Lines<CR>
 
 nmap <Leader>x <C-w>c
 nmap <Leader>$ :qa<CR>
@@ -155,6 +155,9 @@ set laststatus=2
 
 set pastetoggle=<F1>
 set formatprg=par\ -w80q
+
+" Complete with i_CTRL-X_CTRL-K
+set dictionary=/usr/share/dict/usa
 
 "------------------------------------------------
 
@@ -217,6 +220,8 @@ if &term =~ '^screen' || &term =~ '^tmux'
     else | set ttymouse=xterm2 | endif
 endif
 
+if has("mouse_sgr") | set ttymouse=sgr | endif
+
 if &term =~ '^screen' || &term =~ '^xterm' || &term =~ '^tmux'
     let &t_SI = "\<Esc>[6 q"
     if v:version > 704 || v:version == 704 && has('patch687')
@@ -243,21 +248,12 @@ command -nargs=1 -complete=help H :vert :h <args>
 let g:detectindent_preferred_indent = 4
 let g:detectindent_preferred_expandtab = 1
 " XXX interferes with RestoreCursor
-"augroup DetectIndent
-  "autocmd!
-  "autocmd BufReadPost * if exists("loaded_detectindent") | exe "DetectIndent" | endif
-"augroup END
+augroup DetectIndent
+  autocmd!
+  autocmd BufReadPost * if exists("loaded_detectindent") | exe "DetectIndent" | endif
+augroup END
 
 "------------------------------------------------
-
-let g:pymode_folding = 0
-let g:pymode_lint_on_write = 0
-let g:pymode_rope_regenerate_on_write = 0
-"let g:pymode_checkers = ['pep8']
-let g:pymode_options_colorcolumn = 0
-let g:pymode_trim_whitespaces = 0
-let g:pymode_syntax_space_errors = 0
-
 
 if !empty($KERNELDIR)
     set path=$KERNELDIR/include " ^= to prepend
@@ -277,7 +273,7 @@ if has("gui_running")
     if has("mac")
         set guifont=Monaco:h10
     elseif has("unix")
-        set guifont=Fixed\ Medium\ Semi-Condensed\ 10
+        "set guifont=Fixed\ Medium\ Semi-Condensed\ 10
         "set guifont=Misc\ Fixed\ Medium\ Semi-Condensed\ 10
         "set guifont=MiscFixed\ Semi-Condensed\ 10
     endif
@@ -292,6 +288,7 @@ else
 
     inoremap <C-@> <C-x><C-o>
 endif
+let g:gundo_prefer_python3 = 1
 nnoremap <F1> :GundoToggle<CR>
 "map <F2> :vertical wincmd f<CR>
 map <F4> :NERDTreeToggle<CR>
@@ -345,10 +342,6 @@ endfunc
 "map <F2> :call ReloadCscope()<CR><CR><CR>
 "map <F2> :read !svn diff<CR>:set syntax=diff buftype=nofile<CR>gg
 
-
-if !has("ruby")
-    let g:LustyExplorerSuppressRubyWarning = 1
-endif
 
 let showmarks_ignore_type="hqprm"
 let showmarks_textlower="\t"
@@ -413,26 +406,11 @@ au FileType go nmap <leader>c <Plug>(go-coverage)
 au FileType go nmap <Leader>g <Plug>(go-def)
 au FileType go nmap <leader>v <Plug>(go-def-vertical)
 
-"au FileType c nmap <Leader>g :YcmCompleter GoToDefinition<CR>
-""au FileType c nmap <Nul>g :vs<CR>:YcmCompleter GoToDefinition<CR>zz
-"au FileType c nmap <Leader>i :YcmCompleter GoToInclude<CR>
-"au FileType c nmap <Leader>d :YcmCompleter GoToDeclaration<CR>
-"au FileType c nmap <Leader>t :YcmCompleter GetType<CR>
-"au FileType c nmap <Leader>t :YcmCompleter GetType<CR>
-
-let g:LustyExplorerDefaultMappings = 0
-nmap <silent> <Leader>uf :LustyFilesystemExplorer<CR>
-nmap <silent> <Leader>ur :LustyFilesystemExplorerFromHere<CR>
-nmap <silent> <Leader>ub :LustyBufferExplorer<CR>
-nmap <silent> <Leader>ug :LustyBufferGrep<CR>
-
 "let g:autoformat_verbosemode = 1
 let g:autoformat_autoindent = 0
 let g:formatdef_clangformat = "'clang-format -lines='.a:firstline.':'.a:lastline.' --assume-filename='.bufname('%')"
 nmap <Leader>f :Autoformat<CR>
 vmap F :Autoformat<CR>
-
-let g:ycm_min_num_of_chars_for_completion = 100
 
 " -----
 
@@ -464,11 +442,38 @@ let g:vim_json_syntax_conceal = 0
 
 "let g:asyncomplete_auto_popup = 0
 
-inoremap <expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
-inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+"inoremap <expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
+"inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 inoremap <expr> <cr>    pumvisible() ? "\<C-y>" : "\<cr>"
 
-imap <c-space> <Plug>(asyncomplete_force_refresh)
-imap <c-@> <Plug>(asyncomplete_force_refresh)
 autocmd! CompleteDone * if pumvisible() == 0 | pclose | endif
+
+let g:lsp_signs_error = {'text': '✗'}
+let g:lsp_signs_warning = {'text': '‼'}
+let g:lsp_signs_hint = {'text': 'H'}
+"let g:lsp_diagnostics_enabled = 0         " disable diagnostics support
+"let g:lsp_highlights_enabled = 0
+let g:lsp_signs_enabled = 1
+let g:lsp_diagnostics_echo_cursor = 1
+"let g:lsp_textprop_enabled = 0
+let g:lsp_highlight_references_enabled = 1
+
+let g:asyncomplete_auto_popup = 0
+
+function! s:on_lsp_buffer_enabled() abort
+  imap <c-space> <Plug>(asyncomplete_force_refresh)
+  imap <c-@> <Plug>(asyncomplete_force_refresh)
+  setlocal omnifunc=lsp#complete
+  nmap <leader>d :LspDocumentDiagnostics<CR>
+  nmap <leader>g :LspDefinition<CR>
+  nmap <leader>G :LspDeclaration<CR>
+  nmap <leader>r :LspReferences<CR>
+  highlight lspReference ctermbg=240 guibg=gray "ctermfg=red guifg=red 
+endfunction
+
+augroup lsp_install
+  au!
+  " call s:on_lsp_buffer_enabled only for languages that has the server registered.
+  autocmd User lsp_buffer_enabled call s:on_lsp_buffer_enabled()
+augroup END
 
