@@ -461,6 +461,9 @@ function! s:on_lsp_buffer_enabled() abort
   nmap <leader>g :LspDefinition<CR>
   nmap <leader>G :LspDeclaration<CR>
   nmap <leader>r :LspReferences<CR>
+  nmap <Leader>h :LspHover<CR>
+  nmap <Leader>f :LspDocumentFormat<CR>
+  vmap F :LspDocumentRangeFormat<CR>
   highlight lspReference ctermbg=240 guibg=gray "ctermfg=red guifg=red 
 endfunction
 
