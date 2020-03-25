@@ -387,12 +387,18 @@ let g:airline#extensions#whitespace#enabled = 0
 call airline#parts#define_function('sleuth', 'SleuthIndicator')
 let g:airline_section_y = airline#section#create_right(['ffenc','sleuth'])
 
-function! HighResScrollbar(...)
-  return noscrollbar#statusline(15,'-','█',['▐'],['▌'])
-endfunction
+function NoScrollBarIfInstalled()
+  if exists('g:noscrollbar_loaded')
+    function! HighResScrollbar(...)
+      return noscrollbar#statusline(15,'-','█',['▐'],['▌'])
+    endfunction
+    call airline#parts#define_function('noscrollbar', 'HighResScrollbar')
+    let g:airline_section_z = airline#section#create_right(['noscrollbar'])
 
-call airline#parts#define_function('noscrollbar', 'HighResScrollbar')
-let g:airline_section_z = airline#section#create_right(['noscrollbar'])
+    execute "AirlineRefresh"
+  endif
+endfunction
+autocmd VimEnter * call NoScrollBarIfInstalled()
 
 vmap v <Plug>(expand_region_expand)
 vmap <C-v> <Plug>(expand_region_shrink)
