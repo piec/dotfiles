@@ -49,7 +49,7 @@ Plug 'cespare/vim-toml'
 Plug 'lepture/vim-jinja'
 Plug 'ConradIrwin/vim-bracketed-paste'
 Plug 'rust-lang/rust.vim'
-"Plug 'lornix/vim-scrollbar'
+Plug 'gcavallanti/vim-noscrollbar'
 Plug 'derekwyatt/vim-scala'
 Plug 'leafgarland/typescript-vim'
 Plug 'ARM9/arm-syntax-vim'
@@ -376,13 +376,23 @@ vmap <Enter> <Plug>(LiveEasyAlign)
 "map dn ]c
 map Y "0P
 
+set noshowmode
 "let g:airline_theme='powerlineish'
 let g:airline_left_sep=''
 let g:airline_right_sep=''
 let g:airline_section_error=''
 let g:airline_section_warning=''
 let g:airline#extensions#whitespace#enabled = 0
-set noshowmode
+
+call airline#parts#define_function('sleuth', 'SleuthIndicator')
+let g:airline_section_y = airline#section#create_right(['ffenc','sleuth'])
+
+function! HighResScrollbar(...)
+  return noscrollbar#statusline(15,'-','█',['▐'],['▌'])
+endfunction
+
+call airline#parts#define_function('noscrollbar', 'HighResScrollbar')
+let g:airline_section_z = airline#section#create_right(['noscrollbar'])
 
 vmap v <Plug>(expand_region_expand)
 vmap <C-v> <Plug>(expand_region_shrink)
