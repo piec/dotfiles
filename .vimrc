@@ -13,7 +13,7 @@ Plug 'junegunn/vim-easy-align'
 Plug 'majutsushi/tagbar'
 Plug 'tpope/vim-fugitive'
 Plug 'bronson/vim-visual-star-search'
-Plug 'piec/detectindent.vim'
+Plug 'tpope/vim-sleuth'
 "Plug 'vim-scripts/ShowMarks'
 Plug 'vim-scripts/file-line'
 "Plug 'jacquesbh/vim-showmarks'
@@ -244,14 +244,7 @@ command -nargs=1 -complete=help H :vert :h <args>
 
 "------------------------------------------------
 
-"let g:detectindent_verbosity = 0
-let g:detectindent_preferred_indent = 4
-let g:detectindent_preferred_expandtab = 1
-" XXX interferes with RestoreCursor
-augroup DetectIndent
-  autocmd!
-  autocmd BufReadPost * if exists("loaded_detectindent") | exe "DetectIndent" | endif
-augroup END
+let g:sleuth_neighbor_limit=2
 
 "------------------------------------------------
 
