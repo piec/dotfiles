@@ -383,6 +383,7 @@ let g:airline_right_sep=''
 let g:airline_section_error=''
 let g:airline_section_warning=''
 let g:airline#extensions#whitespace#enabled = 0
+let g:airline#extensions#wordcount#enabled = 0
 
 call airline#parts#define_function('sleuth', 'SleuthIndicator')
 let g:airline_section_y = airline#section#create_right(['ffenc','sleuth'])
