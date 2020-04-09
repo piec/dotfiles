@@ -338,8 +338,8 @@ colors:
 #background_opacity: 0.7
 
 selection:
-  #semantic_escape_chars: ",│`|:\"' ()[]{}<>\t"
-  semantic_escape_chars: "│()*,;<>[]{}|'*:()/="
+  semantic_escape_chars: ",;│`|:\"' ()[]{}<>\t*/=-."
+  #semantic_escape_chars: "│()*,;<>[]{}|'*:()/= \t"
 
   # When set to `true`, selected text will be copied to the primary clipboard.
   #save_to_clipboard: true
