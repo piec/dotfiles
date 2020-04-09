@@ -62,7 +62,9 @@ beautiful.column_count=3
 local apw = require("apw/widget")
 
 -- This is used later as the default terminal and editor to run.
-terminal = "uxterm"
+--terminal = "uxterm"
+terminal = "WINIT_X11_SCALE_FACTOR=1 alacritty"
+other_terminal = "gnome-terminal"
 editor = os.getenv("EDITOR") or "vim"
 editor_cmd = terminal .. " -e " .. editor
 
@@ -389,7 +391,9 @@ globalkeys = awful.util.table.join(
     awful.key({ "Control" }, "F12", function () awful.spawn("killall -SIGUSR2 dunst") end),
 
     -- Standard program
-    awful.key({ modkey,           }, "Return", function () awful.spawn(terminal) end,
+    awful.key({ modkey,           }, "Return", function () awful.spawn.with_shell(terminal) end,
+              {description = "open a terminal", group = "launcher"}),
+    awful.key({ modkey, "Control" }, "Return", function () awful.spawn.with_shell(other_terminal) end,
               {description = "open a terminal", group = "launcher"}),
     awful.key({ modkey, "Control" }, "r", awesome.restart,
               {description = "reload awesome", group = "awesome"}),
