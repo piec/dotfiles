@@ -54,13 +54,14 @@ alias grep="${aliases[grep]:-grep} --exclude-dir=\.svn --exclude-dir=\.hg --excl
 
 alias s="sudo systemctl"
 alias j="sudo journalctl"
-alias n="sudo netctl"
+#alias n="sudo netctl"
 
 alias mc=". /usr/lib/mc/mc-wrapper.sh"
 alias vi=vim
 
 alias -g L="| less"
 alias -g H="| head"
+alias -g S="| sort"
 alias -s txt=vim
 
 # bindkey -------------------
