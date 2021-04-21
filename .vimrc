@@ -57,8 +57,8 @@ Plug 'ARM9/arm-syntax-vim'
 Plug 'prabirshrestha/async.vim'
 Plug 'prabirshrestha/vim-lsp'
 " lsp language support
-Plug 'ryanolsonx/vim-lsp-typescript'
-Plug 'ryanolsonx/vim-lsp-python'
+"Plug 'ryanolsonx/vim-lsp-typescript'
+"Plug 'ryanolsonx/vim-lsp-python'
 Plug 'piec/vim-lsp-clangd'
 " complete while you type:
 Plug 'prabirshrestha/asyncomplete.vim'
@@ -141,7 +141,7 @@ set expandtab "tabs -> spaces
 set shiftround
 
 set showmatch
-if $LANG =~ "utf8"
+if $LANG =~ "utf8" || $LANG =~ "UTF-8"
     set showbreak=…
 else
     set showbreak=@-->
@@ -209,13 +209,16 @@ set noicon "don't change the window icon title
 set notitle
 set modeline
 
-if &term =~ '^screen' || &term =~ '^tmux'
+if $TERM =~ '^screen' || $TERM =~ '^tmux'
     execute "set <xUp>=\e[1;*A"
     execute "set <xDown>=\e[1;*B"
     execute "set <xRight>=\e[1;*C"
     execute "set <xLeft>=\e[1;*D"
-    if has("mouse_sgr") | set ttymouse=sgr
-    else | set ttymouse=xterm2 | endif
+
+    if !has('nvim')
+      if has("mouse_sgr") | set ttymouse=sgr
+      else | set ttymouse=xterm2 | endif
+    endif
 endif
 
 if has("mouse_sgr") | set ttymouse=sgr | endif
