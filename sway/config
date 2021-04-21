@@ -33,14 +33,63 @@ output * bg /usr/share/backgrounds/sway/Sway_Wallpaper_Blue_1920x1080.png fill
 # Example configuration:
 #
 output eDP-1 resolution 1920x1080 position 0,0
+#output DP-1 resolution 1920x1080 position 1920,0
+output DP-1 resolution 3440x1440 position 1920,0
 output HDMI-A-2 resolution 1920x1080 position 1920,0
+
+output * adaptive_sync on
+
+workspace 1 output DP-1
+workspace 2 output DP-1
+workspace 9 output eDP-1
+
+# https://github.com/swaywm/sway/issues/3793 spotify escapes workspace assignment
+#assign [class="spotify"] -> 9
+for_window [class="Spotify"] move container to workspace 9
+
+assign [class="firefox-perso"] 1
+assign [class="firefox-eshard"] 2
+
+bindsym $mod+o move workspace to right
 
 # You can get the names of your outputs by running: swaymsg -t get_outputs
 
 ### Idle configuration
+exec mako
+exec nextcloud
+exec keepassxc
+exec libinput-gestures
+exec nm-applet --indicator
+exec gammastep-indicator -v -l 43:5
+exec playerctld daemon
+
+bindsym XF86AudioRaiseVolume exec pactl set-sink-volume @DEFAULT_SINK@ +5%
+bindsym XF86AudioLowerVolume exec pactl set-sink-volume @DEFAULT_SINK@ -5%
+bindsym XF86AudioMute exec pactl set-sink-mute @DEFAULT_SINK@ toggle
+bindsym XF86AudioMicMute exec pactl set-source-mute @DEFAULT_SOURCE@ toggle
+bindsym XF86MonBrightnessDown exec brightnessctl set 5%-
+bindsym XF86MonBrightnessUp exec brightnessctl set +5%
+bindsym XF86AudioPlay exec timeout 1s playerctl play-pause
+bindsym XF86AudioNext exec timeout 1s playerctl next
+bindsym XF86AudioPrev exec timeout 1s playerctl previous
+
 #
 # Example configuration:
 #
+exec swayidle -w \
+  timeout 300  'echo 300; swaylock -f; timeout 5s run-parts -v --report --arg="LOCK" -- ~/dotfiles/xscreensaver/hooks' \
+  timeout 600  'echo 600; swaymsg "output * dpms off"' \
+  resume       'echo resume; swaymsg "output * dpms on"; timeout 5s run-parts -v --report --arg="UNBLANK" -- ~/dotfiles/xscreensaver/hooks' \
+  before-sleep 'echo beforesleep; swaylock -f' \
+  lock         'echo lock; notify-send lock' \
+  unlock       'echo unlock; notify-send unlock'
+
+ #exec swayidle -w \
+          #timeout 300 'swaylock -f; timeout 5s run-parts -v --report --arg="LOCK" -- ~/dotfiles/xscreensaver/hooks' \
+          #timeout 600 'swaymsg "output * dpms off"' \
+               #resume 'swaymsg "output * dpms on"' \
+          #before-sleep 'swaylock -f'
+
 # exec swayidle -w \
 #          timeout 300 'swaylock -f -c 000000' \
 #          timeout 600 'swaymsg "output * dpms off"' \
@@ -65,7 +114,8 @@ output HDMI-A-2 resolution 1920x1080 position 1920,0
 # You can get the names of your inputs by running: swaymsg -t get_inputs
 # Read `man 5 sway-input` for more information about this section.
 
-input "1739:0:Synaptics_TM3276-022" {
+#input "1739:0:Synaptics_TM3276-022" {
+input type:touchpad {
     tap enabled
     natural_scroll enabled
 }
@@ -73,16 +123,64 @@ input "1739:0:Synaptics_TM3276-022" {
 input "1:1:AT_Translated_Set_2_keyboard" {
     xkb_file "~/dev/mirrorboard/mirror-pierre.xkb"
 }
+input "6127:24647:Lenovo_ThinkPad_Compact_USB_Keyboard_with_TrackPoint" {
+    xkb_file "~/dev/mirrorboard/mirror-pierre.xkb"
+}
+
+input * {
+    xkb_layout fr-latin9
+    xkb_options ctrl:nocaps
+}
+
+input type:touchpad {
+    accel_profile adaptive
+}
+input type:pointer {
+    # mouse, trackpoint
+    accel_profile flat
+}
+input "1133:49283:Logitech_G403_Prodigy_Gaming_Mouse" {
+    accel_profile flat
+    pointer_accel 0.2
+}
+input "6127:24647:Lenovo_ThinkPad_Compact_USB_Keyboard_with_TrackPoint" {
+    accel_profile flat
+    pointer_accel 0.8
+}
+input "2:10:TPPS/2_IBM_TrackPoint" {
+    accel_profile flat
+    pointer_accel 0.8
+}
+
+input "2:10:TPPS/2_Elan_TrackPoint" {
+    accel_profile flat
+    pointer_accel 0.8
+}
+
+input "2:7:SynPS/2_Synaptics_TouchPad" {
+    #accel_profile flat
+    pointer_accel 0.4
+    #calibration_matrix 2 0 0 0 2 0
+}
+
 
 ### Key bindings
 #
 # Basics:
 #
+    bindsym $mod+p exec "rofi -show run -theme solarized"
+    bindsym $mod+shift+p exec "rofi -show drun -theme solarized"
+    bindsym $mod+alt+l exec "sleep 0.5; pkill -USR1 swayidle"
+    bindsym $mod+parenright opacity minus 0.05
+    bindsym $mod+equal opacity plus 0.05
+    bindsym $mod+F10 exec "makoctl dismiss"
+
     # start a terminal
     bindsym $mod+Return exec $term
 
     # kill focused window
-    bindsym $mod+Shift+q kill
+    #bindsym $mod+Shift+q kill
+    bindsym $mod+Shift+c kill
 
     # start your launcher
     bindsym $mod+d exec $menu
@@ -95,7 +193,7 @@ input "1:1:AT_Translated_Set_2_keyboard" {
     floating_modifier $mod normal
 
     # reload the configuration file
-    bindsym $mod+Shift+c reload
+    bindsym $mod+Shift+r reload
 
     # exit sway (logs you out of your Wayland session)
     bindsym $mod+Shift+e exec swaynag -t warning -m 'You pressed the exit shortcut. Do you really want to exit sway? This will end your Wayland session.' -b 'Yes, exit sway' 'swaymsg exit'
@@ -156,25 +254,35 @@ input "1:1:AT_Translated_Set_2_keyboard" {
     # You can "split" the current object of your focus with
     # $mod+b or $mod+v, for horizontal and vertical splits
     # respectively.
-    bindsym $mod+b splith
-    bindsym $mod+v splitv
+    #bindsym $mod+shift+v splith
+    bindsym $mod+v split toggle
 
     # Switch the current container between different layout styles
     bindsym $mod+s layout stacking
-    bindsym $mod+w layout tabbed
+    bindsym $mod+z layout tabbed
     bindsym $mod+e layout toggle split
 
     # Make the current focus fullscreen
     bindsym $mod+f fullscreen
 
     # Toggle the current focus between tiling and floating mode
-    bindsym $mod+Shift+space floating toggle
+    #bindsym $mod+Shift+space floating toggle
+    bindsym $mod+Ctrl+space floating toggle
 
     # Swap focus between the tiling area and the floating area
     bindsym $mod+space focus mode_toggle
 
     # move focus to the parent container
     bindsym $mod+a focus parent
+
+
+    bindsym $mod+c exec timeout 1s playerctl play-pause
+    bindsym $mod+b exec timeout 1s playerctl next
+    bindsym $mod+w exec timeout 1s playerctl previous
+
+    #bindsym Print exec grim -g $(swaymsg -t get_tree | jq -r '.. | select(.pid? and .visible?) | .rect | "\(.x),\(.y) \(.width)x\(.height)"' | slurp -) - | wl-copy
+    bindsym Print exec ~/dotfiles/bin/sway-screenshot
+
 #
 # Scratchpad:
 #
@@ -182,11 +290,11 @@ input "1:1:AT_Translated_Set_2_keyboard" {
     # You can send windows there and get them back later.
 
     # Move the currently focused window to the scratchpad
-    bindsym $mod+Shift+parenright move scratchpad
+    #bindsym $mod+Shift+parenright move scratchpad
 
     # Show the next scratchpad window or hide the focused scratchpad window.
     # If there are multiple scratchpad windows, this command cycles through them.
-    bindsym $mod+parenright scratchpad show
+    #bindsym $mod+parenright scratchpad show
 #
 # Resizing containers:
 #
@@ -218,29 +326,71 @@ bindsym $mod+r mode "resize"
 #
 # Read `man 5 sway-bar` for more information about this section.
 bar {
+    id bar-0
     position top
 
     # When the status_command prints a new line to stdout, swaybar updates.
     # The default just shows the current date and time.
-    status_command while date +'%d/%m/%Y %H:%M'; do sleep 5; done
+    #status_command while date +'%d/%m/%Y %H:%M'; do sleep 5; done
+    #status_command i3status
+    status_command i3status-rs
+    
+    font pango:Font Awesome 5 Free 10
+    #font pango:Courier 10
+    #font pango:xxx
 
     colors {
         statusline #ffffff
+        #inactive_workspace #32323200 #32323200 #5c5c5c
+
         background #323232
-        inactive_workspace #32323200 #32323200 #5c5c5c
+        focused_background #200000
+
+        focused_workspace  #4c7899 #A02020 #ffffff
     }
 }
 
-input * {
-    xkb_layout fr-latin9
-    xkb_options ctrl:nocaps
-}
+#bar {
+    #id bar-1
+    #position top
+    #swaybar_command waybar
+#}
 
-input * {
-    pointer_accel 0
-}
+#bar {
+    #id bar-2
+    #position top
+    #status_command /home/pierre/apps/sway/xx
+#}
 
 exec "xrdb ~/.Xresources"
 
 include /etc/sway/config.d/*
+
+for_window [app_id="pavucontrol"] floating enable
+for_window [app_id="org.keepassxc.KeePassXC"] floating enable
+for_window [class="VirtualBox Manager"] floating enable
+for_window [app_id="com.nextcloud.desktopclient.nextcloud"] floating enable
+for_window [app_id="org.gnome.Nautilus"] floating enable
+for_window [app_id="kdesystemsettings"] floating enable
+for_window [app_id="evince"] floating enable
+for_window [title="espwd.py"] floating enable
+for_window [title="gles2"] floating enable
+
+for_window [app_id="firefox" title="Firefox — Sharing Indicator"] {
+  kill
+}
+
+#for_window [class="Vncviewer"] shortcuts_inhibitor enable
+
+titlebar_border_thickness 3
+default_border pixel 3
+
+#                    border  │ background │ text │ indicator │ child_border
+client.focused          #A02020 #285577 #FFFFFF #2EBE80   #A02020
+client.focused_inactive #333333 #5F676A #FFFFFF #484E50   #5F676A
+client.unfocused        #333333 #222222 #888888 #292D2E   #222222
+client.urgent           #2F343A #900000 #FFFFFF #900000   #900000
+client.placeholder      #000000 #0C0C0C #FFFFFF #000000   #0C0C0C
+
+client.background       #FFFFFF
 
