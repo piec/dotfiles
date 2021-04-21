@@ -1,0 +1,4 @@
+#!/bin/sh
+set -x
+sleep 1
+nitrogen --restore

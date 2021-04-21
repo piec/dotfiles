@@ -1,0 +1,21 @@
+#!/usr/bin/bash
+
+set -eo pipefail
+set -x
+
+f=/sys/devices/system/cpu/cpu0/cpufreq/scaling_governor
+governor=$(<$f)
+
+state=Critical
+icon=weather_thunder
+
+case $governor in
+powersave)
+	state=Good
+	;;
+performance)
+	state=Warning
+	;;
+esac
+
+echo {\"icon\":\"$icon\", \"state\":\"$state\", \"text\":\"$governor\"} 

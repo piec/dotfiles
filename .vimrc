@@ -27,7 +27,6 @@ Plug 'airblade/vim-gitgutter'
 Plug 'piec/man.vim'
 "Plug 'christoomey/vim-tmux-navigator'
 Plug 'ctrlpvim/ctrlp.vim'
-Plug 'junegunn/fzf'
 Plug 'junegunn/fzf.vim'
 Plug 'tpope/vim-surround'
 "Plug 'Shougo/unite.vim'
@@ -53,8 +52,6 @@ Plug 'gcavallanti/vim-noscrollbar'
 Plug 'derekwyatt/vim-scala'
 Plug 'leafgarland/typescript-vim'
 Plug 'ARM9/arm-syntax-vim'
-
-Plug 'wsdjeg/FlyGrep.vim'
 
 " lsp
 Plug 'prabirshrestha/async.vim'
@@ -95,6 +92,7 @@ nmap <Leader>H <C-w>H
 nmap <Leader>L <C-w>L
 nmap <Leader>= <C-w>=
 nmap <Leader>a :call fzf#vim#ag(expand('<cword>'))<CR>
+nmap <Leader>A :Ag<CR>
 nmap <Leader>g :Lines<CR>
 
 nmap <Leader>x <C-w>c
@@ -409,7 +407,9 @@ if ! has('nvim')
 endif
 
 let g:go_bin_path = $HOME . "/apps/gotools-vim/"
-au FileType go nmap <leader>r <Plug>(go-run)
+"au FileType go nmap <leader>r <Plug>(go-run)
+au FileType go nmap <leader>r <Plug>(go-referrers)
+au FileType go nmap <F2> <Plug>(go-rename)
 "au FileType go nmap <leader>b <Plug>(go-build)
 au FileType go nmap <leader>t <Plug>(go-test)
 au FileType go nmap <leader>c <Plug>(go-coverage)
@@ -478,7 +478,7 @@ function! s:on_lsp_buffer_enabled() abort
   nmap <leader>g :LspDefinition<CR>
   nmap <leader>G :LspDeclaration<CR>
   nmap <leader>r :LspReferences<CR>
-  nmap <Leader>h :LspHover<CR>
+  nmap <Leader>v :LspHover<CR>
   nmap <Leader>f :LspDocumentFormat<CR>
   vmap F :LspDocumentRangeFormat<CR>
   highlight lspReference ctermbg=240 guibg=gray "ctermfg=red guifg=red 
