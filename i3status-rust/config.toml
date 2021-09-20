@@ -23,9 +23,9 @@ interface_name_include = []
 block = "net"
 device = "wlp3s0"
 #format = "{ssid} {signal_strength} {ip} {speed_down}" # {graph_down}"
-format = "{speed_down} {speed_up}" # {graph_down}"
+format = "{speed_down;M*B} {speed_up;M*B}" # {graph_down}"
 interval = 5
-use_bits = false
+#use_bits = false
 
 
 #[[block]]
@@ -51,8 +51,8 @@ interval = 3
 [[block]]
 block = "memory"
 display_type = "memory"
-format_mem = "{Mup}%"
-format_swap = "{SUp}%"
+format_mem = "{mem_used}/{mem_total}"
+format_swap = "{swap_used_percents}"
 
 #[[block]]
 #block = "backlight"
@@ -67,8 +67,8 @@ device = "amdgpu_bl0"
 [[block]]
 block = "weather"
 #format = "{weather} ({location}) {temp}°, {wind} m/s {direction}"
-format = "{weather} {temp}°"
-service = { name = "openweathermap", api_key = "f7b59a94803950edace9453ba2a7b825", city_id = "2995469", units = "metric" }
+format = "{weather} {temp}"
+service = { name = "openweathermap", api_key = "f7b59a94803950edace9453ba2a7b825", city_id = "3028868", units = "metric" }
 
 [[block]]
 block = "sound"
@@ -87,7 +87,7 @@ interval = 10
 block = "battery"
 device = "BAT0"
 interval = 10
-format = "{percentage}%"
+format = "{percentage}"
 
 [[block]]
 block = "time"

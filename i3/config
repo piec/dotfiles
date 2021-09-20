@@ -58,6 +58,7 @@ bindsym XF86AudioNext exec --no-startup-id timeout 1s playerctl next
 bindsym XF86AudioPrev exec --no-startup-id timeout 1s playerctl previous
 bindsym XF86MonBrightnessDown exec --no-startup-id brightnessctl set 5%-
 bindsym XF86MonBrightnessUp exec --no-startup-id brightnessctl set +5%
+bindsym XF86Display exec --no-startup-id autorandr -c
 
 # Use Mouse+$mod to drag floating windows to their wanted position
 floating_modifier $mod
@@ -66,6 +67,7 @@ floating_modifier $mod
 #bindsym $mod+Return exec i3-sensible-terminal
 bindsym $mod+Return exec WINIT_X11_SCALE_FACTOR=1 alacritty
 #bindsym $mod+Return exec alacritty
+bindsym $mod+ctrl+Return exec uxterm
 #bindsym $mod+Return exec konsole
 
 # kill focused window
@@ -228,7 +230,10 @@ bindsym $mod+mod1+l exec --no-startup-id xset s activate
 
 bindsym $mod+o move workspace to right
 bindsym Print exec "maim -s -c 1,1,0,0.8 -b 5 -n 1 | ~/dotfiles/clipboard/clip-gtk.py"
-bindsym Ctrl+Print exec flameshot gui
+bindsym Ctrl+Print exec "f=~/Pictures/Screenshots/screenshot-$(date +%Y-%m-%d_%H:%M:%S).png; maim -s -c 1,0,0,0.8 -b 5 -n 1 \\"$f\\"; notify-send \\"$f\\""
+#bindsym Ctrl+Print exec flameshot gui
+bindsym Ctrl+F11 exec "notify-send Hidden; sleep 0.1; killall -SIGUSR1 dunst"
+bindsym Ctrl+F12 exec killall -SIGUSR2 dunst
 
 bindsym $mod+x [floating] move scratchpad
 #bindsym $mod+Shift+x scratchpad show
@@ -238,8 +243,10 @@ bindsym $mod+Shift+x [class=.*] scratchpad show
 
 workspace 1 output eDP-1
 workspace 2 output eDP-1
-workspace 3 output DP-1
+workspace 3 output eDP-1
 workspace 4 output DP-1
+workspace 5 output DP-1
+workspace 6 output DP-1
 workspace 9 output eDP-1
 
 
@@ -266,6 +273,10 @@ for_window [class="Arandr"]               floating enable
 for_window [class="Blueman-manager"]      floating enable
 for_window [class="flameshot"]            floating enable
 for_window [class="Nitrogen"]             floating enable
+for_window [class="conky"]             floating enable
+no_focus [class="conky"]
+for_window [class="guvcview"]             floating enable
+for_window [class="Vncviewer"]             floating enable
 
 for_window [class="Spotify"] move container to workspace 9
 
