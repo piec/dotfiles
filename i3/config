@@ -42,13 +42,16 @@ exec --no-startup-id playerctld daemon
 
 exec --no-startup-id dex -e i3 -va
 exec --no-startup-id redshift-gtk
-exec --no-startup-id dunst
-exec --no-startup-id "bash -c 'source ~/dotfiles/bin/mouse.sh'"
-exec --no-startup-id xkbcomp ~/dev/mirrorboard/mirror-pierre.xkb "$DISPLAY"
-exec --no-startup-id nitrogen --restore
+#exec --no-startup-id dunst
+exec --no-startup-id /usr/lib/xfce4/notifyd/xfce4-notifyd
+exec_always --no-startup-id "bash -c 'source ~/dotfiles/bin/mouse.sh; main'"
+exec_always --no-startup-id xkbcomp ~/dev/mirrorboard/mirror-pierre.xkb "$DISPLAY"
+exec_always --no-startup-id nitrogen --random --set-auto
+exec --no-startup-id /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
+exec --no-startup-id gkrellm
 
 # Use pactl to adjust volume in PulseAudio.
-set $refresh_i3status killall -SIGUSR1 i3status
+set $refresh_i3status killall -SIGUSR1 i3status-rs
 bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +10% && $refresh_i3status
 bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ -10% && $refresh_i3status
 bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute @DEFAULT_SINK@ toggle && $refresh_i3status
@@ -65,7 +68,7 @@ floating_modifier $mod
 
 # start a terminal
 #bindsym $mod+Return exec i3-sensible-terminal
-bindsym $mod+Return exec WINIT_X11_SCALE_FACTOR=1 alacritty
+bindsym $mod+Return exec alacritty
 #bindsym $mod+Return exec alacritty
 bindsym $mod+ctrl+Return exec uxterm
 #bindsym $mod+Return exec konsole
@@ -81,8 +84,10 @@ bindsym $mod+d exec --no-startup-id dmenu_run
 # There also is i3-dmenu-desktop which only displays applications shipping a
 # .desktop file. It is a wrapper around dmenu, so you need that installed.
 #bindsym $mod+d exec --no-startup-id i3-dmenu-desktop
-bindsym $mod+p exec --no-startup-id "rofi -show run -theme solarized"
-bindsym $mod+Shift+p exec --no-startup-id "rofi -show drun -theme solarized"
+bindsym $mod+p exec --no-startup-id "rofi -show run"
+bindsym $mod+Shift+p exec --no-startup-id "rofi -show drun"
+bindsym $mod+a exec --no-startup-id "rofi -show ssh"
+bindsym $mod+Shift+f exec --no-startup-id "fc-cache -fv"
 
 # change focus
 bindsym $mod+$left focus left
@@ -149,28 +154,27 @@ set $ws9 "9"
 set $ws10 "10"
 
 # switch to workspace
-bindsym $mod+ampersand workspace number $ws1
-bindsym $mod+eacute workspace number $ws2
-bindsym $mod+quotedbl workspace number $ws3
-bindsym $mod+apostrophe workspace number $ws4
-bindsym $mod+parenleft workspace number $ws5
-bindsym $mod+minus workspace number $ws6
-bindsym $mod+egrave workspace number $ws7
-bindsym $mod+underscore workspace number $ws8
-bindsym $mod+ccedilla workspace number $ws9
-bindsym $mod+agrave workspace number $ws10
+bindsym $mod+1 workspace number $ws1
+bindsym $mod+2 workspace number $ws2
+bindsym $mod+3 workspace number $ws3
+bindsym $mod+4 workspace number $ws4
+bindsym $mod+5 workspace number $ws5
+bindsym $mod+6 workspace number $ws6
+bindsym $mod+7 workspace number $ws7
+bindsym $mod+8 workspace number $ws8
+bindsym $mod+9 workspace number $ws9
 
 # move focused container to workspace
-bindsym $mod+Shift+ampersand move container to workspace number $ws1
-bindsym $mod+Shift+eacute move container to workspace number $ws2
-bindsym $mod+Shift+quotedbl move container to workspace number $ws3
-bindsym $mod+Shift+apostrophe move container to workspace number $ws4
-bindsym $mod+Shift+5 move container to workspace number $ws5
-bindsym $mod+Shift+minus move container to workspace number $ws6
-bindsym $mod+Shift+egrave move container to workspace number $ws7
-bindsym $mod+Shift+underscore move container to workspace number $ws8
-bindsym $mod+Shift+ccedilla move container to workspace number $ws9
-bindsym $mod+Shift+agrave move container to workspace number $ws10
+bindsym $mod+Shift+1 move container to workspace 1
+bindsym $mod+Shift+2 move container to workspace 2
+bindsym $mod+Shift+3 move container to workspace 3
+bindsym $mod+Shift+4 move container to workspace 4
+bindsym $mod+Shift+5 move container to workspace 5
+bindsym $mod+Shift+6 move container to workspace 6
+bindsym $mod+Shift+7 move container to workspace 7
+bindsym $mod+Shift+8 move container to workspace 8
+bindsym $mod+Shift+9 move container to workspace 9
+bindsym $mod+Shift+0 move container to workspace 10
 
 # reload the configuration file
 bindsym $mod+Ctrl+r reload
@@ -231,7 +235,7 @@ bindsym $mod+mod1+l exec --no-startup-id xset s activate
 bindsym $mod+o move workspace to right
 bindsym Print exec "maim -s -c 1,1,0,0.8 -b 5 -n 1 | ~/dotfiles/clipboard/clip-gtk.py"
 bindsym Ctrl+Print exec "f=~/Pictures/Screenshots/screenshot-$(date +%Y-%m-%d_%H:%M:%S).png; maim -s -c 1,0,0,0.8 -b 5 -n 1 \\"$f\\"; notify-send \\"$f\\""
-#bindsym Ctrl+Print exec flameshot gui
+bindsym Shift+Print exec flameshot gui
 bindsym Ctrl+F11 exec "notify-send Hidden; sleep 0.1; killall -SIGUSR1 dunst"
 bindsym Ctrl+F12 exec killall -SIGUSR2 dunst
 
