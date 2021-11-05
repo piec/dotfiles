@@ -22,6 +22,8 @@ local vicious = require("vicious")
 local cyclefocus = require('cyclefocus')
 cyclefocus.move_mouse_pointer = false
 
+local volume_widget = require('awesome-wm-widgets.volume-widget.volume')
+
 --local mylog = io.open(os.getenv("HOME") .. "/tmp/awesome_log", "a")
 --mylog:write("bla\n")
 
@@ -59,7 +61,7 @@ beautiful.init(os.getenv("HOME") .. "/.config/awesome/byte-pierre/theme.lua")
 beautiful.column_count=3
 --beautiful.master_count=3
 
-local apw = require("apw/widget")
+--local apw = require("apw/widget")
 
 -- This is used later as the default terminal and editor to run.
 --terminal = "uxterm"
@@ -92,7 +94,7 @@ awful.layout.layouts = {
     -- awful.layout.suit.corner.ne,
     -- awful.layout.suit.corner.sw,
     -- awful.layout.suit.corner.se,
-    --awful.layout.suit.floating,
+    awful.layout.suit.floating,
 }
 -- }}}
 
@@ -122,7 +124,7 @@ myawesomemenu = {
 }
 
 mymainmenu = awful.menu({ items = { { "awesome", myawesomemenu, beautiful.awesome_icon },
-                                    { "open terminal", terminal }
+                                    { "open terminal", function () awful.spawn.with_shell(terminal) end}
                                   }
                         })
 
@@ -304,7 +306,8 @@ awful.screen.connect_for_each_screen(function(s)
             iowidget_sda,
             mytextclock,
             s.mylayoutbox,
-            apw
+            --apw,
+            volume_widget()
         },
     }
 end)
@@ -320,9 +323,9 @@ root.buttons(awful.util.table.join(
 
 -- {{{ Key bindings
 globalkeys = awful.util.table.join(
-    awful.key({ }, "XF86AudioRaiseVolume",  apw.Up),
-    awful.key({ }, "XF86AudioLowerVolume",  apw.Down),
-    awful.key({ }, "XF86AudioMute",         apw.ToggleMute),
+    --awful.key({ }, "XF86AudioRaiseVolume",  apw.Up),
+    --awful.key({ }, "XF86AudioLowerVolume",  apw.Down),
+    --awful.key({ }, "XF86AudioMute",         apw.ToggleMute),
    
     awful.key({ modkey,           }, "s",      hotkeys_popup.show_help,
               {description="show help", group="awesome"}),
@@ -384,7 +387,8 @@ globalkeys = awful.util.table.join(
     --awful.key({ modkey,           }, "Home", function () awful.spawn("xfce4-screenshooter -s /home/pierre/dev/sharedrop/drop --region") end),
     awful.key({ modkey, "Mod1"    }, "l", function () awful.spawn("xset s activate") end),
     awful.key({ modkey, "Mod1", "Shift" }, "l", function () awful.spawn("systemctl suspend") end),
-    awful.key({ modkey,           }, "c", function () awful.spawn(os.getenv("HOME") .. "/dotfiles/bin/spotify-action.sh playpause") end),
+    awful.key({ modkey,           }, "c", function () awful.spawn("playerctl play-pause") end),
+    awful.key({ }, "XF86AudioPlay",       function () awful.spawn("playerctl play-pause") end),
     awful.key({ modkey,           }, "b", function () awful.spawn(os.getenv("HOME") .. "/dotfiles/bin/spotify-action.sh nexttrack") end),
     awful.key({ modkey,           }, "w", function () awful.spawn(os.getenv("HOME") .. "/dotfiles/bin/spotify-action.sh prevtrack") end),
     awful.key({ "Control" }, "F11", function () awful.spawn.with_shell("notify-send Hidden; sleep 0.1; killall -SIGUSR1 dunst"); end),
@@ -673,6 +677,7 @@ awful.rules.rules = {
     { rule = { class = "Gnome-terminal" }, properties = { size_hints_honor = false } },
     { rule = { class = "Espwd.py" }, properties = { floating = true, ontop = true } },
     { rule = { class = "espwd.py" }, properties = { floating = true, ontop = true } },
+    { rule = { name = "EGL test" }, properties = { floating = true, ontop = true } },
 }
 
 local floating = {
