@@ -63,6 +63,7 @@ Plug 'piec/vim-lsp-clangd'
 " complete while you type:
 Plug 'prabirshrestha/asyncomplete.vim'
 Plug 'prabirshrestha/asyncomplete-lsp.vim'
+Plug 'prettier/vim-prettier', { 'for': ['javascript', 'typescript'] }
 
 call plug#end()
 
@@ -470,12 +471,14 @@ let g:lsp_signs_enabled = 1
 let g:lsp_diagnostics_echo_cursor = 1
 "let g:lsp_textprop_enabled = 0
 let g:lsp_highlight_references_enabled = 1
+let g:lsp_diagnostics_echo_delay = 200
 
 let g:asyncomplete_auto_popup = 0
 
 function! s:on_lsp_buffer_enabled() abort
   imap <c-space> <Plug>(asyncomplete_force_refresh)
   imap <c-@> <Plug>(asyncomplete_force_refresh)
+  map <c-f> :LspSignatureHelp<CR>
   setlocal omnifunc=lsp#complete
   nmap <leader>d :LspDocumentDiagnostics<CR>
   nmap <leader>g :LspDefinition<CR>
@@ -492,4 +495,8 @@ augroup lsp_install
   " call s:on_lsp_buffer_enabled only for languages that has the server registered.
   autocmd User lsp_buffer_enabled call s:on_lsp_buffer_enabled()
 augroup END
+
+let g:prettier#autoformat_require_pragma = 0
+let g:prettier#autoformat_config_present = 1
+let g:prettier#exec_cmd_async = 1
 
