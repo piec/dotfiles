@@ -214,17 +214,30 @@ function p {
 
 # ---------------------------
 
-function files {
-  name="$1"
-  if [ $# = 1 ]; then
-    pacman -Qlq "$name" | grep -v /$
-  else
-    shift
-    pacman -Qlq "$name" | grep -v /$ | xargs grep --color=auto "$@"
-  fi
-}
-#function _files { _pacman; _arguments -s : '*:package:_pacman_completions_installed_packages' }
-function _function_files { service=pacman; words=(-Q $words); _pacman "$@" }
+if (( $+commands[pacman] )); then
+    function files {
+        name="$1"
+        if [ $# = 1 ]; then
+            pacman -Qlq "$name" | grep -v /$
+        else
+            shift
+            pacman -Qlq "$name" | grep -v /$ | xargs grep --color=auto "$@"
+        fi
+    }
+    #function _files { _pacman; _arguments -s : '*:package:_pacman_completions_installed_packages' }
+    function _function_files { service=pacman; words=(-Q $words); _pacman "$@" }
+elif (( $+commands[dpkg] )); then
+    function files {
+        name="$1"
+        if [ $# = 1 ]; then
+            dpkg -L "$name"
+        else
+            shift
+            dpkg -L "$name" | xargs grep --color=auto "$@"
+        fi
+    }
+    function _function_files { _arguments '*:package:_deb_packages installed' }
+fi
 compdef _function_files files
 
 # ---------------------------
