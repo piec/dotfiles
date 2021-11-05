@@ -45,3 +45,4 @@ wait ${slock_pid}
 
 date; echo post
 timeout 20s run-parts -v --report --arg="UNBLANK" -- "${HOOKS_DIR}"
+exit 0

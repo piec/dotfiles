@@ -2,8 +2,8 @@
 #theme = "solarized-light"
 #theme = "slick"
 
-icons = "awesome"
-#icons = "awesome5"
+#icons = "awesome"
+icons = "awesome5"
 #icons = "material"
 
 [[block]]

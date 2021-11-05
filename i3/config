@@ -232,7 +232,7 @@ bindsym $mod+w exec --no-startup-id timeout 1s playerctl previous
 bindsym $mod+Ctrl+l exec --no-startup-id xset s activate
 bindsym $mod+mod1+l exec --no-startup-id xset s activate
 
-bindsym $mod+o move workspace to right
+bindsym $mod+o move workspace to output right
 bindsym Print exec "maim -s -c 1,1,0,0.8 -b 5 -n 1 | ~/dotfiles/clipboard/clip-gtk.py"
 bindsym Ctrl+Print exec "f=~/Pictures/Screenshots/screenshot-$(date +%Y-%m-%d_%H:%M:%S).png; maim -s -c 1,0,0,0.8 -b 5 -n 1 \\"$f\\"; notify-send \\"$f\\""
 bindsym Shift+Print exec flameshot gui
