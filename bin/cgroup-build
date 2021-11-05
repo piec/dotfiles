@@ -1,0 +1,7 @@
+set -x
+sudo cgcreate -a pierre -t pierre -g cpu,memory:build
+#echo 100 >| /sys/fs/cgroup/cpu/build/cpu.shares
+#echo 30G >| /sys/fs/cgroup/memory/build/memory.limit_in_bytes
+
+echo 30G >| /sys/fs/cgroup/build/memory.max
+echo '6000000 100000' >| /sys/fs/cgroup/build/cpu.max
