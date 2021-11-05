@@ -42,4 +42,7 @@ if [ -e ~/.bash_history ] && ! [ -e ~/.zhistory ] ; then
 fi
 
 mkdir -p ~/.config
-ln -s dotfiles/redshift/redshift.conf ~/.config/
+ln -s ~/dotfiles/redshift/redshift.conf ~/.config/
+
+ln -s ~/dotfiles/i3 ~/.config/
+ln -s ~/dotfiles/i3status-rust/ ~/.config/

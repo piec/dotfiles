@@ -52,8 +52,8 @@ alias ls="LC_COLLATE=C ${aliases[ls]:-ls}"
 alias l="ls -la"
 alias grep="${aliases[grep]:-grep} --exclude-dir=\.svn --exclude-dir=\.hg --exclude-dir=\.git"
 
-alias s="sudo systemctl"
-alias j="sudo journalctl"
+alias s="sudo -E systemctl"
+alias j="sudo -E journalctl"
 #alias n="sudo netctl"
 
 alias mc=". /usr/lib/mc/mc-wrapper.sh"
