@@ -2,7 +2,7 @@
 	ui = auto
 [user]
 	name = Pierre Carru
-	email = pierre.carru@gmail.com
+	email = pierre@carru.fr
 [alias]
 	st = status -s
 	co = checkout
