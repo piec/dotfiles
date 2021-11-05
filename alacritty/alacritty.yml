@@ -22,6 +22,7 @@ env:
   # check the local terminfo database and use `alacritty` if it is
   # available, otherwise `xterm-256color` is used.
   TERM: xterm-256color
+  WINIT_X11_SCALE_FACTOR: "1"
 
 #window:
   # Window dimensions (changes require restart)
@@ -851,14 +852,13 @@ key_bindings:
   #- { key: B,              mods: Control|Shift, mode: ~Search,    action: SearchBackward   }
   #- { key: C,              mods: Control|Shift, mode: Vi|~Search, action: ClearSelection   }
   #- { key: Insert,         mods: Shift,                           action: PasteSelection   }
-  - { key: Key0,            mods: Control,                         action: None    }
-  - { key: Key0,            mods: Control|Shift,                   action: ResetFontSize    }
-  - { key: Equals,          mods: Control,                         action: None }
-  - { key: Plus,            mods: Control,                         action: None }
-  - { key: Plus,            mods: Control|Shift,                   action: IncreaseFontSize }
+  - { key: Key0,           mods: Control|Shift,                   action: ResetFontSize    }
+  #- { key: Equals,         mods: Control,                         action: IncreaseFontSize }
+  - { key: Plus,           mods: Control|Shift,                   action: IncreaseFontSize }
   #- { key: NumpadAdd,      mods: Control,                         action: IncreaseFontSize }
   #- { key: Minus,          mods: Control,                         action: DecreaseFontSize }
   #- { key: NumpadSubtract, mods: Control,                         action: DecreaseFontSize }
+  - { key: 12,             mods: Control,                         action: DecreaseFontSize }
 
   # (Windows only)
   #- { key: Return,   mods: Alt,           action: ToggleFullscreen }
