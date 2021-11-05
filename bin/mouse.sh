@@ -22,7 +22,7 @@ function mouse {
     echo "name=$name"
     shift
     for id in $(xinput list | gawk "match(\$0, /${name}\s*id=([0-9]+).*pointer/, a) { print a[1] }"); do
-        echo "  id=$id val=$2"
+        echo "  id=$id val=$1"
         mouse_by_id "$id" $*
     done
 }
@@ -32,10 +32,12 @@ function main {
     mouse "Microsoft Microsoft 5-Button Mouse with IntelliEye(TM)"
     mouse "Logitech USB Optical Mouse"
     mouse "Razer Razer DeathAdder Chroma" 1
-    mouse "Lenovo ThinkPad Compact USB Keyboard with TrackPoint" 1.5
+    mouse "Lenovo ThinkPad Compact USB Keyboard with TrackPoint" 2.0
     mouse "TPPS\/2 IBM TrackPoint" 1.3
-    mouse "TPPS\/2 Elan TrackPoint" 1.3
+    mouse "TPPS\/2 Elan TrackPoint" 1.5
     mouse "SynPS\/2 Synaptics TouchPad" 2.0 1 0
     mouse "Logitech G403 Prodigy Gaming Mouse" 1
+    mouse "Logitech Gaming Mouse G402" 1
 }
 
+main

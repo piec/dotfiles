@@ -1,3 +1,4 @@
 ! option	=	symbols
   pierre:noppoo = +pierre(noppoo)
   pierre:pedal = +pierre(pedal)
+  pierre:mirror = +pierre(mirror)

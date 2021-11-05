@@ -4,8 +4,10 @@ case "$1" in
         ;;
     UNBLANK)
         (
-            source ~/dotfiles/bin/mouse.sh
-            main
+            if [ "$XDG_SESSION_TYPE" = x11 ]; then
+                source ~/dotfiles/bin/mouse.sh
+                main
+            fi
         )
         ;;
 esac
