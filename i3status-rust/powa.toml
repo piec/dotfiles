@@ -1,0 +1,168 @@
+#theme = "solarized-dark"
+#theme = "solarized-light"
+#theme = "slick"
+#theme = "native"
+#theme = "space-villain"
+
+#icons = "awesome"
+#icons = "awesome5"
+#icons = "material"
+
+[theme]
+#name = "native"
+[theme.overrides]
+#idle_bg = "#123456"
+#idle_fg = "#abcdef"
+
+[icons]
+name = "awesome5"
+[icons.overrides]
+headphones = ""
+
+[[block]]
+block = "music"
+#player = "spotify"
+buttons = ["play", "next"]
+format = "{player}"
+[block.theme_overrides]
+idle_bg = "#123412"
+info_bg = "#125012"
+
+#[[block]]
+#block = "networkmanager"
+##on_click = "alacritty -e nmtui"
+#on_click = "networkmanager_dmenu"
+#interface_name_exclude = ["br\\-[0-9a-f]{12}", "docker\\d+"]
+#interface_name_include = []
+
+[[block]]
+block = "net"
+device = "wg0"
+#format = "{ssid} {signal_strength} {ip} {speed_down}" # {graph_down}"
+format = "{ip} {speed_down;M*B} {speed_up;M*B}" # {graph_down}"
+interval = 5
+#use_bits = false
+[block.theme_overrides]
+idle_bg = "#341234"
+#info_bg = "#125012"
+
+[[block]]
+block = "net"
+device = "wlan0"
+#format = "{ssid} {signal_strength} {ip} {speed_down}" # {graph_down}"
+format = "{ip} {speed_down;M*B} {speed_up;M*B}" # {graph_down}"
+interval = 5
+#use_bits = false
+[block.theme_overrides]
+idle_bg = "#341234"
+#info_bg = "#125012"
+
+[[block]]
+block = "net"
+device = "enp5s0"
+#format = "{ssid} {signal_strength} {ip} {speed_down}" # {graph_down}"
+format = "{ip} {speed_down;M*B} {speed_up;M*B}" # {graph_down}"
+interval = 5
+#use_bits = false
+[block.theme_overrides]
+idle_bg = "#341234"
+#info_bg = "#125012"
+
+
+#[[block]]
+#block = "disk_space"
+#path = "/"
+#alias = "/"
+#info_type = "available"
+#unit = "GB"
+#interval = 20
+#warning = 20.0
+#alert = 10.0
+
+[[block]]
+block = "load"
+interval = 1
+format = "{1m}"
+
+[[block]]
+block = "cpu"
+interval = 3
+#format = "{barchart} {utilization}% {frequency}GHz"
+
+[[block]]
+block = "memory"
+display_type = "memory"
+format_mem = "{mem_used}/{mem_total}"
+format_swap = "{swap_used_percents}"
+
+#[[block]]
+#block = "backlight"
+##device = "intel_backlight"
+#device = "ddcci9"
+
+#[[block]]
+#block = "backlight"
+##device = "intel_backlight"
+#device = "amdgpu_bl0"
+
+#[[block]]
+#block = "weather"
+##format = "{weather} ({location}) {temp}°, {wind} m/s {direction}"
+#format = "{weather} {temp}"
+#service = { name = "openweathermap", api_key = "f7b59a94803950edace9453ba2a7b825", city_id = "3028868", units = "metric" }
+
+[[block]]
+block = "custom"
+command = '~/dotfiles/bin/governor'
+json = true
+on_click = "~/dotfiles/bin/governor-toggle"
+interval = 10
+
+#[[block]]
+#block = "battery"
+#device = "BAT0"
+#interval = 10
+#format = "{percentage}"
+
+[[block]]
+block = "custom"
+cycle = ["pactl set-card-profile bluez_card.30_50_75_38_6D_EF a2dp-sink; echo A2DP", "pactl set-card-profile bluez_card.30_50_75_38_6D_EF headset-head-unit-cvsd; echo HSP"]
+on_click = "<command>"
+interval = "once"
+[block.theme_overrides]
+idle_bg = "#123456"
+#idle_fg = "#abcdef"
+
+[[block]]
+block = "bluetooth"
+mac = "30:50:75:38:6D:EF"
+format = "75t"
+[block.theme_overrides]
+idle_bg = "#123456"
+#idle_fg = "#abcdef"
+
+[[block]]
+block = "sound"
+driver = "pulseaudio"
+show_volume_when_muted = true
+on_click = "pavucontrol"
+format = "{output_name} {volume}"
+[block.mappings]
+"alsa_output.pci-0000_0b_00.3.iec958-stereo" = ""
+"bluez_output.30_50_75_38_6D_EF.a2dp-sink" = ""
+"bluez_output.30_50_75_38_6D_EF.headset-head-unit" = " ︁"
+"alsa_output.usb-Samsung_USBC_Headset_20190816-00.analog-stereo" = ""
+"alsa_output.usb-0b0e_Jabra_SPEAK_510_USB_50C2ED2B37C8022000-00.analog-stereo" = " Jabra"
+[block.theme_overrides]
+idle_bg = "#123456"
+#idle_fg = "#abcdef"
+
+[[block]]
+block = "time"
+interval = 10
+format = "%a %d/%m/%Y %R"
+locale = "fr_FR"
+timezone = "Europe/Paris"
+[block.theme_overrides]
+#idle_bg = "#341212"
+#idle_fg = "#abcdef"
