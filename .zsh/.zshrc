@@ -59,10 +59,18 @@ alias j="sudo -E journalctl"
 alias mc=". /usr/lib/mc/mc-wrapper.sh"
 alias vi=vim
 
-alias -g L="| less"
-alias -g H="| head"
-alias -g S="| sort"
+alias -g L="|& less"
+alias -g H="|& head"
+alias -g S="|& sort"
+alias -g V="|& vim -"
+alias -g X="|& sed -z 's/\n*\$//' | sed 's|^${HOME}|~|g' | xclip -f -selection primary | xclip -selection clipboard"
+alias -g G='; gotify p "done $?"'
+alias -g N='; notify-send "done $?"'
 alias -s txt=vim
+
+function R {
+    realpath "$@" X
+}
 
 # bindkey -------------------
 
@@ -210,6 +218,12 @@ unset_func p
 function p {
     pgrep -iaf "$@"
     #ps auxf | grep "$@"
+}
+
+# ---------------------------
+
+function word {
+    awk "{print \$${1:-1}}"
 }
 
 # ---------------------------

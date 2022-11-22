@@ -3,4 +3,4 @@
 slop=$(slop -c 1,0,0,0.8 -b 5 -n 1 -f "%x %y %w %h %g %i") || exit 1
 read -r X Y W H G ID < <(echo $slop)
 set -x
-exec ffmpeg -f x11grab -s "$W"x"$H" -i :0.0+$X,$Y -f pulse -ac 2 -i default ${1-~/myfile.mp4}
+exec ffmpeg -f x11grab -s "$W"x"$H" -i "$DISPLAY".0+$X,$Y -f pulse -ac 2 -i default ${1-~/myfile.mp4}

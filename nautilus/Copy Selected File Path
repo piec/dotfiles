@@ -2,9 +2,23 @@
 import os
 import subprocess
 
-lines = os.getenv('NAUTILUS_SCRIPT_SELECTED_FILE_PATHS', '').split('\n')
-escaped = map(lambda e: f"'{e}'" if ' ' in e else e , lines)
+HOME = os.getenv("HOME")
 
-s = ' '.join(escaped).encode()
+lines = os.getenv('NAUTILUS_SCRIPT_SELECTED_FILE_PATHS', '').split('\n')
+print(lines)
+paths = map(lambda e: f"'{e}'" if ' ' in e else e , lines)
+
+
+def replace_home(s):
+    if s.startswith(HOME):
+        return s.replace(HOME, "~", 1)
+    return s
+
+if HOME is not None:
+    paths = map(lambda e: replace_home(e), paths)
+
+print(paths)
+s = ' '.join(paths).encode()
+print(s)
 subprocess.run(['/usr/bin/xclip'], input=s)
 subprocess.run(['/usr/bin/xclip', '-selection', 'clipboard'], input=s)

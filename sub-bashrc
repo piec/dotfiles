@@ -38,11 +38,11 @@ function prompt_command()
 	[[ $1 = yes ]] && echo -en $GRAY
 	local cols=`tput cols`
 	cols=${cols:-50}
-	if echo "$LANG" | grep "UTF-8" > /dev/null; then
-		hbar $[ $cols - 5 ] "─"
-	else
-		hbar $[ $cols - 5 ] "-"
-	fi
+	#if echo "$LANG" | grep "UTF-8" > /dev/null; then
+		#hbar $[ $cols - 5 ] "─"
+	#else
+		#hbar $[ $cols - 5 ] "-"
+	#fi
 
 	[[ $1 = yes ]] && [ "a$sv" != "a0" ] && echo -en $RED
 
@@ -97,11 +97,11 @@ if [ "$color_prompt" = yes ]; then
         :
 	}
 	PS1="${xGRAY}\$xPRE_TEXT $xNO${debian_chroot:+($debian_chroot)}$xUSER\u$xNO $xHOST\h$xNO $xDIRECTORY\w$xNO"'$(ps1_end)'" \\$ "
-	PS1='$(prompt_command yes)\n'$PS1
+	#PS1='$(prompt_command yes)\n'$PS1
 else
 	#PS1='${debian_chroot:+($debian_chroot)}\u@\h:\w\$ '
 	PS1='${debian_chroot:+($debian_chroot)}\u@\h:\w\$ '
-	PS1='$(prompt_command no)\n'$PS1
+	#PS1='$(prompt_command no)\n'$PS1
 fi
 
 # enable color support of ls and also add handy aliases

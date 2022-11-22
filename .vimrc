@@ -23,7 +23,7 @@ Plug 'airblade/vim-gitgutter'
 "Plug 'mhinz/vim-signify'
 "Plug 'L9'
 "Plug 'FuzzyFinder'
-"Plug 'w0rp/ale'
+Plug 'w0rp/ale'
 Plug 'piec/man.vim'
 "Plug 'christoomey/vim-tmux-navigator'
 Plug 'ctrlpvim/ctrlp.vim'
@@ -59,7 +59,7 @@ Plug 'prabirshrestha/vim-lsp'
 " lsp language support
 "Plug 'ryanolsonx/vim-lsp-typescript'
 "Plug 'ryanolsonx/vim-lsp-python'
-Plug 'piec/vim-lsp-clangd'
+"Plug 'piec/vim-lsp-clangd'
 " complete while you type:
 Plug 'prabirshrestha/asyncomplete.vim'
 Plug 'prabirshrestha/asyncomplete-lsp.vim'
@@ -500,3 +500,4 @@ let g:prettier#autoformat_require_pragma = 0
 let g:prettier#autoformat_config_present = 1
 let g:prettier#exec_cmd_async = 1
 
+:command! Gblame Git blame
