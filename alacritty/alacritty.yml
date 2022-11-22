@@ -112,7 +112,6 @@ font:
     x: 0
     y: 0
   antialias: false
-  use_thin_strokes: true
   normal:
     #family: "xos4 Terminus"
     family: "Misc Fixed"
@@ -858,7 +857,7 @@ key_bindings:
   #- { key: NumpadAdd,      mods: Control,                         action: IncreaseFontSize }
   #- { key: Minus,          mods: Control,                         action: DecreaseFontSize }
   #- { key: NumpadSubtract, mods: Control,                         action: DecreaseFontSize }
-  - { key: 12,             mods: Control,                         action: DecreaseFontSize }
+  #- { key: 12,             mods: Control,                         action: DecreaseFontSize }
 
   # (Windows only)
   #- { key: Return,   mods: Alt,           action: ToggleFullscreen }
