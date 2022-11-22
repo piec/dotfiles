@@ -1,0 +1,12 @@
+#!/bin/bash
+set -eux
+
+ami_id="$1"
+snapshots="$(aws ec2 describe-images --image-ids "$ami_id" | jq -r '.Images[].BlockDeviceMappings[].Ebs.SnapshotId | select( . != null)')"
+
+echo "snapshots=$snapshots"
+aws ec2 deregister-image --image-id "${ami_id}"
+
+for snap_id in $snapshots; do
+    aws ec2 delete-snapshot --snapshot-id "${snap_id}"
+done

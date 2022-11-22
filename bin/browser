@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+
+#if [[ "$1" =~ .*eshard\.int ]]; then
+
+if [[ "$1" = *eshard.* ]]; then
+    firefox -p eshard "$*" &
+elif [[ "$1" = *n2i.io ]]; then
+    firefox -p n2i "$*" &
+else
+    firefox -p perso-new "$*" &
+fi
+#disown
+exit 0
