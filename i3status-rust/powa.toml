@@ -15,7 +15,7 @@
 #idle_fg = "#abcdef"
 
 [icons]
-name = "awesome5"
+name = "awesome6"
 [icons.overrides]
 headphones = ""
 
@@ -37,9 +37,22 @@ info_bg = "#125012"
 
 [[block]]
 block = "net"
-device = "wg0"
+device = "eshard-wg3"
 #format = "{ssid} {signal_strength} {ip} {speed_down}" # {graph_down}"
-format = "{ip} {speed_down;M*B} {speed_up;M*B}" # {graph_down}"
+#format = "{ip} {speed_down;M*B} {speed_up;M*B}" # {graph_down}"
+format = "{ip}"
+interval = 5
+#use_bits = false
+[block.theme_overrides]
+idle_bg = "#341234"
+#info_bg = "#125012"
+
+[[block]]
+block = "net"
+device = "tailscale0"
+#format = "{ssid} {signal_strength} {ip} {speed_down}" # {graph_down}"
+#format = "{ip} {speed_down;M*B} {speed_up;M*B}" # {graph_down}"
+format = "{ip}"
 interval = 5
 #use_bits = false
 [block.theme_overrides]
@@ -50,7 +63,8 @@ idle_bg = "#341234"
 block = "net"
 device = "wlan0"
 #format = "{ssid} {signal_strength} {ip} {speed_down}" # {graph_down}"
-format = "{ip} {speed_down;M*B} {speed_up;M*B}" # {graph_down}"
+#format = "{ip} {speed_down;M*B} {speed_up;M*B}" # {graph_down}"
+format = "{ip}"
 interval = 5
 #use_bits = false
 [block.theme_overrides]
@@ -133,13 +147,13 @@ interval = "once"
 idle_bg = "#123456"
 #idle_fg = "#abcdef"
 
-[[block]]
-block = "bluetooth"
-mac = "30:50:75:38:6D:EF"
-format = "75t"
-[block.theme_overrides]
-idle_bg = "#123456"
-#idle_fg = "#abcdef"
+#[[block]]
+#block = "bluetooth"
+#mac = "30:50:75:38:6D:EF"
+#format = "75t"
+#[block.theme_overrides]
+#idle_bg = "#123456"
+##idle_fg = "#abcdef"
 
 [[block]]
 block = "sound"
@@ -160,9 +174,37 @@ idle_bg = "#123456"
 [[block]]
 block = "time"
 interval = 10
+format = "%R HK"
+locale = "fr_FR"
+timezone = "Asia/Hong_Kong"
+[block.theme_overrides]
+idle_bg = "#341212"
+
+[[block]]
+block = "time"
+interval = 10
+format = "%R India"
+locale = "fr_FR"
+timezone = "Asia/Calcutta"
+[block.theme_overrides]
+idle_bg = "#341212"
+
+[[block]]
+block = "time"
+interval = 10
+format = "%R Portland"
+locale = "fr_FR"
+timezone = "America/Los_Angeles"
+[block.theme_overrides]
+idle_bg = "#341212"
+
+[[block]]
+block = "time"
+interval = 10
 format = "%a %d/%m/%Y %R"
 locale = "fr_FR"
 timezone = "Europe/Paris"
 [block.theme_overrides]
-#idle_bg = "#341212"
-#idle_fg = "#abcdef"
+idle_fg = "#D0D0D0"
+idle_bg = "#123412"
+

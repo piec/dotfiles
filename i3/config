@@ -18,7 +18,9 @@ set $right l
 
 # Font for window titles. Will also be used by the bar unless a different font
 # is used in the bar {} block below.
-font pango:monospace 10
+#font pango:monospace 10
+font pango:Cantarell, Font Awesome 6 Free Bold 11
+#font pango:monospace 10
 
 # This font is widely installed, provides lots of unicode glyphs, right-to-left
 # text rendering and scalability on retina/hidpi displays (thanks to pango).
@@ -46,9 +48,12 @@ exec --no-startup-id redshift-gtk
 exec --no-startup-id /usr/lib/xfce4/notifyd/xfce4-notifyd
 exec_always --no-startup-id "bash -c 'source ~/dotfiles/bin/mouse.sh; main'"
 exec_always --no-startup-id xkbcomp ~/dev/mirrorboard/mirror-pierre.xkb "$DISPLAY"
+exec_always --no-startup-id xset r rate 300 25
 exec_always --no-startup-id nitrogen --random --set-auto
 exec --no-startup-id /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
 exec --no-startup-id gkrellm
+exec --no-startup-id picom -b
+#exec_always --no-startup-id i3-layouts
 
 # Use pactl to adjust volume in PulseAudio.
 set $refresh_i3status killall -SIGUSR1 i3status-rs
@@ -126,13 +131,26 @@ bindsym $mod+f fullscreen toggle
 bindsym $mod+s layout stacking
 bindsym $mod+z layout tabbed
 bindsym $mod+e layout toggle split
+bindsym $mod+t sticky toggle
+
+#for_window [class="Gedit"] mark "gedit"
+for_window [class="Gedit"] sticky enable
+for_window [class="Gedit"] floating enable
+
+for_window [class="Mousepad"] sticky enable
+for_window [class="Mousepad"] floating enable
+for_window [class="Mousepad"] move scratchpad
+for_window [class="Mousepad"] scratchpad show
+bindsym F9 exec i3-msg [class="Mousepad"] scratchpad show || mousepad
+#bindsym F11 move scratchpad
+#bindsym F12 [con_mark="gedit"] move scratchpad
 
 # toggle tiling / floating
 #bindsym $mod+Shift+space floating toggle
 bindsym $mod+Ctrl+space floating toggle
 
 # change focus between tiling / floating windows
-bindsym $mod+space focus mode_toggle
+#bindsym $mod+space focus mode_toggle
 
 # focus the parent container
 bindsym $mod+q focus parent
@@ -214,7 +232,8 @@ bindsym $mod+r mode "resize"
 # finds out, if available)
 bar {
         #status_command i3status
-        font pango:DejaVu Sans Mono 10, Font Awesome 5 Free 10
+        #font pango:<family list> [<style options>] <size>
+        #font pango:Cantarell, Font Awesome 6 Free Bold 11
         status_command i3status-rs
         position top
 }
@@ -233,15 +252,17 @@ bindsym $mod+Ctrl+l exec --no-startup-id xset s activate
 bindsym $mod+mod1+l exec --no-startup-id xset s activate
 
 bindsym $mod+o move workspace to output right
-bindsym Print exec "maim -s -c 1,1,0,0.8 -b 5 -n 1 | ~/dotfiles/clipboard/clip-gtk.py"
-bindsym Ctrl+Print exec "f=~/Pictures/Screenshots/screenshot-$(date +%Y-%m-%d_%H:%M:%S).png; maim -s -c 1,0,0,0.8 -b 5 -n 1 \\"$f\\"; notify-send \\"$f\\""
+bindsym Ctrl+Print exec "maim -s -c 1,1,0,0.8 -b 5 -n 1 | ~/dotfiles/clipboard/clip-gtk.py"
+bindsym Ctrl+Shift+Print exec "f=~/Pictures/Screenshots/screenshot-$(date +%Y-%m-%d_%H:%M:%S).png; maim -s -c 1,0,0,0.8 -b 5 -n 1 \\"$f\\" && notify-send \\"$f\\""
 bindsym Shift+Print exec flameshot gui
 bindsym Ctrl+F11 exec "notify-send Hidden; sleep 0.1; killall -SIGUSR1 dunst"
 bindsym Ctrl+F12 exec killall -SIGUSR2 dunst
 
-bindsym $mod+x [floating] move scratchpad
+#bindsym $mod+x [floating] move scratchpad
 #bindsym $mod+Shift+x scratchpad show
 bindsym $mod+Shift+x [class=.*] scratchpad show
+
+bindsym $mod+Shift+n exec nautilus
 
 # Workspaces -----------------------------------
 
@@ -277,17 +298,35 @@ for_window [class="Arandr"]               floating enable
 for_window [class="Blueman-manager"]      floating enable
 for_window [class="flameshot"]            floating enable
 for_window [class="Nitrogen"]             floating enable
-for_window [class="conky"]             floating enable
+for_window [class="conky"]                floating enable
 no_focus [class="conky"]
 for_window [class="guvcview"]             floating enable
-for_window [class="Vncviewer"]             floating enable
+for_window [class="Vncviewer"]            floating enable
+for_window [class="Qemu-system-.*"]       floating enable
+for_window [class="Minecraft.*"]          floating enable
+for_window [class="DB Browser for SQLite"] floating enable
+for_window [class="unityhub"]             floating enable
+for_window [class="jadx-gui-JadxGUI"]             floating enable
+for_window [class="Nextcloud"]             floating enable
+for_window [class="Blueberry.py"]          floating enable
+for_window [class="steam_app_1172620"]     floating enable
+for_window [class="hl2_linux"]             floating enable
+for_window [class="Virt-manager"]          floating enable
+for_window [class="Virt-manager"]          border normal
+for_window [class="looking-glass-client"]  floating enable
+for_window [class="looking-glass-client"]  border normal
+
+#for_window [class="Alacritty"] border toggle
 
 for_window [class="Spotify"] move container to workspace 9
 
 # Theme ----------------------------------------
 
 #titlebar_border_thickness 3
+#default_border pixel 3
 default_border pixel 3
+default_floating_border normal
+hide_edge_borders smart
 
 #                    border  │ background │ text │ indicator │ child_border
 client.focused          #A02020 #285577 #FFFFFF #2EBE80   #A02020
