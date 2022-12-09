@@ -139,9 +139,14 @@ for_window [class="Gedit"] floating enable
 
 for_window [class="Mousepad"] sticky enable
 for_window [class="Mousepad"] floating enable
-for_window [class="Mousepad"] move scratchpad
-for_window [class="Mousepad"] scratchpad show
-bindsym F9 exec i3-msg [class="Mousepad"] scratchpad show || mousepad
+#for_window [class="Mousepad"] move scratchpad
+#for_window [class="Mousepad"] scratchpad show
+
+for_window [class="obsidian"] sticky enable
+for_window [class="obsidian"] move scratchpad
+for_window [class="obsidian"] scratchpad show
+#bindsym F9 exec i3-msg [class="Mousepad"] scratchpad show || mousepad
+bindsym F9 exec i3-msg [class="obsidian"] scratchpad show || obsidian
 #bindsym F11 move scratchpad
 #bindsym F12 [con_mark="gedit"] move scratchpad
 
@@ -259,6 +264,7 @@ bindsym Ctrl+F11 exec "notify-send Hidden; sleep 0.1; killall -SIGUSR1 dunst"
 bindsym Ctrl+F12 exec killall -SIGUSR2 dunst
 
 #bindsym $mod+x [floating] move scratchpad
+bindsym $mod+x move scratchpad
 #bindsym $mod+Shift+x scratchpad show
 bindsym $mod+Shift+x [class=.*] scratchpad show
 
@@ -313,8 +319,11 @@ for_window [class="steam_app_1172620"]     floating enable
 for_window [class="hl2_linux"]             floating enable
 for_window [class="Virt-manager"]          floating enable
 for_window [class="Virt-manager"]          border normal
+
 for_window [class="looking-glass-client"]  floating enable
 for_window [class="looking-glass-client"]  border normal
+
+for_window [class="obsidian"]              floating enable
 
 #for_window [class="Alacritty"] border toggle
 

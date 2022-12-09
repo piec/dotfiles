@@ -4,7 +4,7 @@
 
 if [[ "$1" = *eshard.* ]]; then
     firefox -p eshard "$*" &
-elif [[ "$1" = *n2i.io ]]; then
+elif [[ "$1" = *n2i.io* ]]; then
     firefox -p n2i "$*" &
 else
     firefox -p perso-new "$*" &
