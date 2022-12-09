@@ -2,7 +2,7 @@ set nocompatible
 
 " junegunn/vim-plug ----------------------------------------
 call plug#begin('~/.vim/plugged')
-Plug 'sjl/gundo.vim'
+Plug 'simnalamburt/mundo.vim'
 Plug 'scrooloose/nerdtree'
 Plug 'scrooloose/nerdcommenter'
 Plug 'bling/vim-airline'
@@ -283,8 +283,8 @@ else
 
     inoremap <C-@> <C-x><C-o>
 endif
-let g:gundo_prefer_python3 = 1
-nnoremap <F1> :GundoToggle<CR>
+
+nnoremap <F1> :MundoToggle<CR>
 "map <F2> :vertical wincmd f<CR>
 map <F4> :NERDTreeToggle<CR>
 map <F3> :NERDTreeFind<CR>
