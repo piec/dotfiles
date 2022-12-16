@@ -45,7 +45,7 @@ exec --no-startup-id playerctld daemon
 exec --no-startup-id dex -e i3 -va
 exec --no-startup-id redshift-gtk
 #exec --no-startup-id dunst
-exec --no-startup-id /usr/lib/xfce4/notifyd/xfce4-notifyd
+exec_always --no-startup-id /usr/lib/xfce4/notifyd/xfce4-notifyd
 exec_always --no-startup-id "bash -c 'source ~/dotfiles/bin/mouse.sh; main'"
 exec_always --no-startup-id xkbcomp ~/dev/mirrorboard/mirror-pierre.xkb "$DISPLAY"
 exec_always --no-startup-id xset r rate 300 25
@@ -238,7 +238,7 @@ bindsym $mod+r mode "resize"
 bar {
         #status_command i3status
         #font pango:<family list> [<style options>] <size>
-        #font pango:Cantarell, Font Awesome 6 Free Bold 11
+        font pango:Cantarell, Font Awesome 6 Free 14
         status_command i3status-rs
         position top
 }

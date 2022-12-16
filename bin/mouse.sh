@@ -37,7 +37,7 @@ function main {
     mouse "TPPS\/2 Elan TrackPoint" 1.5
     mouse "SynPS\/2 Synaptics TouchPad" 2.0 1 0
     mouse "Logitech G403 Prodigy Gaming Mouse" 1
-    mouse "Logitech Gaming Mouse G402" 1
+    mouse "Logitech Gaming Mouse G402" 1.0
 }
 
 main

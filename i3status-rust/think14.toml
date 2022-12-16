@@ -15,7 +15,7 @@
 #idle_fg = "#abcdef"
 
 [icons]
-name = "awesome5"
+name = "awesome6"
 [icons.overrides]
 headphones = ""
 
@@ -132,5 +132,6 @@ format = "%a %d/%m/%Y %R"
 locale = "fr_FR"
 timezone = "Europe/Paris"
 [block.theme_overrides]
-#idle_bg = "#341212"
-#idle_fg = "#abcdef"
+idle_fg = "#D0D0D0"
+idle_bg = "#123412"
+
