@@ -19,6 +19,7 @@
 	nn = show '@{u}..HEAD'
 	ff = merge --ff
 	pff = pull --ff-only
+	commti = commit
 [push]
 	default = simple
 [pull]

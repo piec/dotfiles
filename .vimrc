@@ -43,7 +43,7 @@ Plug 'elzr/vim-json'
 Plug 'terryma/vim-expand-region'
 Plug 'fatih/vim-go'
 Plug 'Chiel92/vim-autoformat'
-Plug 'cespare/vim-toml'
+Plug 'cespare/vim-toml', { 'branch': 'main' }
 
 Plug 'lepture/vim-jinja'
 Plug 'ConradIrwin/vim-bracketed-paste'
@@ -64,6 +64,8 @@ Plug 'prabirshrestha/vim-lsp'
 Plug 'prabirshrestha/asyncomplete.vim'
 Plug 'prabirshrestha/asyncomplete-lsp.vim'
 Plug 'prettier/vim-prettier', { 'for': ['javascript', 'typescript'] }
+
+Plug 'udalov/kotlin-vim'
 
 call plug#end()
 
@@ -93,8 +95,11 @@ nmap <Leader>H <C-w>H
 nmap <Leader>L <C-w>L
 nmap <Leader>= <C-w>=
 nmap <Leader>a :call fzf#vim#ag(expand('<cword>'))<CR>
-nmap <Leader>A :Ag<CR>
-nmap <Leader>g :Lines<CR>
+"nmap <Leader>A :Ag<CR>
+nmap <Leader>g :Rg <c-r><c-w><CR>
+"nmap <Leader>g :Lines<CR>
+"nmap <Leader>g :Lines <c-r><c-w><CR>
+"nmap <Leader>g :call Rg expand('<cword>')<CR>
 
 nmap <Leader>x <C-w>c
 nmap <Leader>$ :qa<CR>
@@ -379,29 +384,24 @@ vmap <Enter> <Plug>(LiveEasyAlign)
 map Y "0P
 
 set noshowmode
+let g:airline#extensions#ale#enabled = 1
 "let g:airline_theme='powerlineish'
 let g:airline_left_sep=''
 let g:airline_right_sep=''
-let g:airline_section_error=''
-let g:airline_section_warning=''
-let g:airline#extensions#whitespace#enabled = 0
+"let g:airline_section_error=''
+"let g:airline_section_warning=''
+"let g:airline#extensions#whitespace#enabled = 0
 let g:airline#extensions#wordcount#enabled = 0
 
 call airline#parts#define_function('sleuth', 'SleuthIndicator')
 let g:airline_section_y = airline#section#create_right(['ffenc','sleuth'])
+let g:airline_section_z = ""
 
-function NoScrollBarIfInstalled()
-  if exists('g:noscrollbar_loaded')
-    function! HighResScrollbar(...)
-      return noscrollbar#statusline(15,'-','█',['▐'],['▌'])
-    endfunction
-    call airline#parts#define_function('noscrollbar', 'HighResScrollbar')
-    let g:airline_section_z = airline#section#create_right(['noscrollbar'])
-
-    execute "AirlineRefresh"
-  endif
+" replace section z with noscrollbar
+function! Noscrollbar(...)
+    let w:airline_section_z = "%{noscrollbar#statusline(15,'-','█',['▐'],['▌'])}"
 endfunction
-autocmd VimEnter * call NoScrollBarIfInstalled()
+call airline#add_statusline_func('Noscrollbar')
 
 vmap v <Plug>(expand_region_expand)
 vmap <C-v> <Plug>(expand_region_shrink)
@@ -487,7 +487,7 @@ function! s:on_lsp_buffer_enabled() abort
   nmap <Leader>v :LspHover<CR>
   nmap <Leader>f :LspDocumentFormat<CR>
   vmap F :LspDocumentRangeFormat<CR>
-  highlight lspReference ctermbg=240 guibg=gray "ctermfg=red guifg=red 
+  highlight lspReference ctermbg=240 guibg=gray "ctermfg=red guifg=red
 endfunction
 
 augroup lsp_install
@@ -501,3 +501,9 @@ let g:prettier#autoformat_config_present = 1
 let g:prettier#exec_cmd_async = 1
 
 :command! Gblame Git blame
+
+let g:ale_set_loclist = 0
+let g:ale_set_quickfix = 1
+let g:ale_disable_lsp = 1
+let g:ale_virtualtext_cursor = 0
+

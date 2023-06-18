@@ -1,2 +1,5 @@
 set main-view-id-display = yes
 set line-graphics = utf-8
+set refresh-mode = auto
+#set refresh-mode = periodic
+#set refresh-interval = 1
