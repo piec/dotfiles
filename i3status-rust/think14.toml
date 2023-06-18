@@ -9,63 +9,56 @@
 #icons = "material"
 
 [theme]
-#name = "native"
+#theme = "native"
 [theme.overrides]
 #idle_bg = "#123456"
 #idle_fg = "#abcdef"
 
 [icons]
-name = "awesome6"
+icons = "awesome6"
 [icons.overrides]
 headphones = ""
 
 [[block]]
 block = "music"
 #player = "spotify"
-buttons = ["play", "next"]
-format = "{player}"
+#buttons = ["play", "next"]
+#format = "$player"
+format = " $icon {$combo.str(max_w:20) $play $next |}"
+
+[[block]]
+block = "net"
+device = "enp2s0f0"
+format = "$icon $device:$ip"
+interval = 5
 [block.theme_overrides]
-idle_bg = "#123412"
-info_bg = "#125012"
+idle_bg = "#341234"
+#info_bg = "#125012"
 
 [[block]]
-block = "networkmanager"
-#on_click = "alacritty -e nmtui"
-on_click = "networkmanager_dmenu"
-interface_name_exclude = ["br\\-[0-9a-f]{12}", "docker\\d+"]
-#interface_name_include = []
-
-
-#[[block]]
-#block = "disk_space"
-#path = "/"
-#alias = "/"
-#info_type = "available"
-#unit = "GB"
-#interval = 20
-#warning = 20.0
-#alert = 10.0
+block = "net"
+device = "wlp3s0"
+format = "$icon $device:$ip"
+interval = 5
+[block.theme_overrides]
+idle_bg = "#341234"
+#info_bg = "#125012"
 
 [[block]]
-block = "load"
-interval = 1
-format = "{1m}"
+block = "net"
+device = "tailscale0"
+format = "$icon $device:$ip"
+interval = 5
+[block.theme_overrides]
+idle_bg = "#341234"
 
-[[block]]
-block = "cpu"
-interval = 3
-#format = "{barchart} {utilization}% {frequency}GHz"
 
 [[block]]
 block = "memory"
-display_type = "memory"
-format_mem = "{mem_used}/{mem_total}"
-format_swap = "{swap_used_percents}"
-
-#[[block]]
-#block = "backlight"
-##device = "intel_backlight"
-#device = "ddcci9"
+#display_type = "memory"
+#format_mem = "$mem_used/$mem_total"
+#format_swap = "$swap_used_percents"
+format = "$icon $mem_avail.eng(prefix:M)/$mem_total.eng(prefix:M)"
 
 [[block]]
 block = "backlight"
@@ -93,9 +86,15 @@ format = "{percentage}"
 
 [[block]]
 block = "custom"
-cycle = ["pactl set-card-profile bluez_card.30_50_75_38_6D_EF a2dp-sink; echo A2DP", "pactl set-card-profile bluez_card.30_50_75_38_6D_EF headset-head-unit-cvsd; echo HSP"]
-on_click = "<command>"
+command = "~/dotfiles/bin/bluetooth-profile"
 interval = "once"
+#hide_when_empty = true
+[[block.click]]
+button = "left"
+update = true
+[[block.click]]
+button = "right"
+cmd = "~/dotfiles/bin/bluetooth-profile toggle; killall -SIGUSR1 i3status-rs"
 [block.theme_overrides]
 idle_bg = "#123456"
 #idle_fg = "#abcdef"
@@ -128,8 +127,7 @@ idle_bg = "#123456"
 [[block]]
 block = "time"
 interval = 10
-format = "%a %d/%m/%Y %R"
-locale = "fr_FR"
+format = "$timestamp.datetime(f:'%a %d/%m/%Y %R', l:'fr_FR')"
 timezone = "Europe/Paris"
 [block.theme_overrides]
 idle_fg = "#D0D0D0"
