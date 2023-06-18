@@ -139,14 +139,21 @@ for_window [class="Gedit"] floating enable
 
 for_window [class="Mousepad"] sticky enable
 for_window [class="Mousepad"] floating enable
-#for_window [class="Mousepad"] move scratchpad
-#for_window [class="Mousepad"] scratchpad show
+for_window [class="Mousepad"] move scratchpad
+for_window [class="Mousepad"] scratchpad show
+bindsym Shift+F9 exec i3-msg [class="Mousepad"] scratchpad show || mousepad
 
 for_window [class="obsidian"] sticky enable
 for_window [class="obsidian"] move scratchpad
 for_window [class="obsidian"] scratchpad show
-#bindsym F9 exec i3-msg [class="Mousepad"] scratchpad show || mousepad
 bindsym F9 exec i3-msg [class="obsidian"] scratchpad show || obsidian
+
+#for_window [class="firefox-n2i"] sticky enable
+#for_window [class="firefox-n2i"] floating disable
+#for_window [class="firefox-n2i"] move scratchpad
+#for_window [class="firefox-n2i"] scratchpad show
+bindsym $mod+grave exec ~/dotfiles/bin/toggle.py
+
 #bindsym F11 move scratchpad
 #bindsym F12 [con_mark="gedit"] move scratchpad
 
@@ -264,7 +271,7 @@ bindsym Ctrl+F11 exec "notify-send Hidden; sleep 0.1; killall -SIGUSR1 dunst"
 bindsym Ctrl+F12 exec killall -SIGUSR2 dunst
 
 #bindsym $mod+x [floating] move scratchpad
-bindsym $mod+x move scratchpad
+#bindsym $mod+x move scratchpad
 #bindsym $mod+Shift+x scratchpad show
 bindsym $mod+Shift+x [class=.*] scratchpad show
 
@@ -298,6 +305,7 @@ for_window [class="Nm-connection-editor"] floating enable
 for_window [class="Godot"]                floating enable
 for_window [class="Steam"]                floating enable
 for_window [class="Thunderbird"]          floating enable
+for_window [class="thunderbird"]          floating enable
 for_window [class="mplayer"]              floating enable
 for_window [class="mpv"]                  floating enable
 for_window [class="Arandr"]               floating enable
@@ -324,6 +332,8 @@ for_window [class="looking-glass-client"]  floating enable
 for_window [class="looking-glass-client"]  border normal
 
 for_window [class="obsidian"]              floating enable
+for_window [class="qView"]                 floating enable
+#for_window [class="Chromium"]              floating enable
 
 #for_window [class="Alacritty"] border toggle
 
