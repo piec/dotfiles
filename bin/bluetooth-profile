@@ -1,0 +1,28 @@
+#!/bin/bash
+set -o pipefail
+
+device="30_50_75_38_6D_EF"
+
+profile=$(pactl list sinks | awk '
+/api.bluez5.profile/ {
+    gsub("\"", "")
+    print $3
+    exit
+}
+')
+
+if [ "$profile" = "" ]; then
+    echo "x"
+    exit
+fi
+
+if [ "$1" == "toggle" ]; then
+    if [ "$profile" = "a2dp-sink" ]; then
+        profile="headset-head-unit-msbc"
+    else
+        profile="a2dp-sink"
+    fi
+    pactl set-card-profile "bluez_card.$device" "$profile"
+fi
+
+echo "$profile"
