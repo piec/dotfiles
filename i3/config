@@ -73,9 +73,9 @@ floating_modifier $mod
 
 # start a terminal
 #bindsym $mod+Return exec i3-sensible-terminal
-bindsym $mod+Return exec alacritty
-#bindsym $mod+Return exec alacritty
-bindsym $mod+ctrl+Return exec uxterm
+bindsym $mod+Return exec wezterm
+bindsym $mod+ctrl+Return exec alacritty
+#bindsym $mod+ctrl+Return exec uxterm
 #bindsym $mod+Return exec konsole
 
 # kill focused window
@@ -245,7 +245,7 @@ bindsym $mod+r mode "resize"
 bar {
         #status_command i3status
         #font pango:<family list> [<style options>] <size>
-        font pango:Cantarell, Font Awesome 6 Free 14
+        font pango:Cantarell, Font Awesome 6 Free Bold 11
         status_command i3status-rs
         position top
 }
