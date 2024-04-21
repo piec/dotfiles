@@ -17,10 +17,30 @@
 	t = tag -ln
 	n = log '@{u}..HEAD'
 	nn = show '@{u}..HEAD'
-	ff = merge --ff
+	m = merge --ff-only
+	f = fetch --all --prune --tags
 	pff = pull --ff-only
-	commti = commit
+	;commti = commit
 [push]
 	default = simple
+	autoSetupRemote = true
 [pull]
 	ff = only
+[merge]
+    ff = only
+    diffstyle = zdiff3
+[diff]
+	algorithm = histogram
+	colorMoved = default
+[rerere]
+	enabled = true
+[help]
+	autocorrect = 50
+
+[url "ssh://git@github.com/"]
+	pushInsteadOf = https://github.com/
+[url "ssh://git@gitlab.com/"]
+	pushInsteadOf = https://gitlab.com/
+
+[status]
+	submoduleSummary = true
