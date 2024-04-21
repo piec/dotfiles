@@ -5,7 +5,7 @@ call plug#begin('~/.vim/plugged')
 Plug 'simnalamburt/mundo.vim'
 Plug 'scrooloose/nerdtree'
 Plug 'scrooloose/nerdcommenter'
-Plug 'bling/vim-airline'
+Plug 'vim-airline/vim-airline'
 "Plug 'sessionman.vim'
 Plug 'godlygeek/tabular'
 Plug 'junegunn/vim-easy-align'
@@ -66,6 +66,7 @@ Plug 'prabirshrestha/asyncomplete-lsp.vim'
 Plug 'prettier/vim-prettier', { 'for': ['javascript', 'typescript'] }
 
 Plug 'udalov/kotlin-vim'
+Plug 'vim-scripts/AnsiEsc.vim'
 
 call plug#end()
 
@@ -312,7 +313,24 @@ map <F10> :!(cd %:h; (git d %:t \|\| hg diff %:t))<CR>
 "imap <F11> <C-O>:GitGutterLineHighlightsToggle<CR>
 vmap <Tab> >gv
 vmap <S-Tab> <gv
-vnoremap <C-c> "+y<Esc><Esc>
+"vnoremap <C-c> "+y<Esc><Esc>
+
+if has("clipboard")
+    " see also /usr/share/vim/vim90/mswin.vim
+    vnoremap <C-S-c> "+y
+    "vnoremap <C-Insert> "+y
+
+    if has("gui_running")
+        "paste in normal mode and stay in normal mode
+        "nnoremap <C-S-v> "+gP
+        "paste from normal mode and stay in insert mode
+        nnoremap <C-S-v> i<C-r>+
+        "paste in : command line
+        noremap! <C-S-v> <C-r>+
+        "paste in insert mode
+        inoremap <C-S-v> <C-r>+
+    endif
+endif
 
 func! Gotodefinition()
     ":map <F6> :vs<CR><C-w>w:csc find g <cword><CR>
@@ -395,11 +413,15 @@ let g:airline#extensions#wordcount#enabled = 0
 
 call airline#parts#define_function('sleuth', 'SleuthIndicator')
 let g:airline_section_y = airline#section#create_right(['ffenc','sleuth'])
-let g:airline_section_z = ""
+"let g:airline_section_z = ""
+" https://github.com/vim-airline/vim-airline/blob/d9f42cb46710e31962a9609939ddfeb0685dd779/autoload/airline/init.vim#L278C1-L278C124
+let g:airline_section_z = airline#section#create(['windowswap', 'obsession', 'linenr', 'colnr'])
+let g:airline_symbols.colnr = ':'
+let g:airline_symbols.linenr = ''
 
-" replace section z with noscrollbar
+" append noscrollbar to airline section_z
 function! Noscrollbar(...)
-    let w:airline_section_z = "%{noscrollbar#statusline(15,'-','█',['▐'],['▌'])}"
+    let w:airline_section_z = g:airline_section_z . " %{noscrollbar#statusline(15,'-','█',['▐'],['▌'])}"
 endfunction
 call airline#add_statusline_func('Noscrollbar')
 
