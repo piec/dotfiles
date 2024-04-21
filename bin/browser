@@ -2,12 +2,26 @@
 
 #if [[ "$1" =~ .*eshard\.int ]]; then
 
-if [[ "$1" = *eshard.* ]]; then
-    firefox -p eshard "$*" &
-elif [[ "$1" = *n2i.io* ]] || [[ "$1" = *amazonaws* ]]; then
-    firefox -p n2i "$*" &
-else
-    firefox -p perso-new "$*" &
+FIREFOX=firefox
+
+profile=perso-new
+
+workspace=$(i3-msg -t get_workspaces \
+  | jq '.[] | select(.focused==true).name' \
+  | cut -d"\"" -f2)
+
+if [ "$workspace" = 2 ]; then
+    profile=n2i
 fi
+
+if [[ "$1" = *eshard.* ]]; then
+    profile=eshard
+elif [[ "$1" = *n2i.io* ]] || [[ "$1" = *amazonaws* ]]; then
+    profile=n2i
+#else
+    #profile=perso-new
+fi
+
+$FIREFOX -p "$profile" "$*" >& /dev/null &
 #disown
 exit 0
