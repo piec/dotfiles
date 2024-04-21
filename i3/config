@@ -51,14 +51,17 @@ exec_always --no-startup-id xkbcomp ~/dev/mirrorboard/mirror-pierre.xkb "$DISPLA
 exec_always --no-startup-id xset r rate 300 25
 exec_always --no-startup-id nitrogen --random --set-auto
 exec --no-startup-id /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
-exec --no-startup-id gkrellm
+#exec --no-startup-id gkrellm
 exec --no-startup-id picom -b
+#exec_always --no-startup-id whatsie
+
+exec_always --no-startup-id xfce4-panel
 #exec_always --no-startup-id i3-layouts
 
 # Use pactl to adjust volume in PulseAudio.
 set $refresh_i3status killall -SIGUSR1 i3status-rs
-bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +10% && $refresh_i3status
-bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ -10% && $refresh_i3status
+bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +5% && $refresh_i3status
+bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ -5% && $refresh_i3status
 bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute @DEFAULT_SINK@ toggle && $refresh_i3status
 bindsym XF86AudioMicMute exec --no-startup-id pactl set-source-mute @DEFAULT_SOURCE@ toggle && $refresh_i3status
 bindsym XF86AudioPlay exec --no-startup-id timeout 1s playerctl play-pause
@@ -73,8 +76,8 @@ floating_modifier $mod
 
 # start a terminal
 #bindsym $mod+Return exec i3-sensible-terminal
-bindsym $mod+Return exec wezterm
-bindsym $mod+ctrl+Return exec alacritty
+bindsym $mod+Return exec alacritty
+bindsym $mod+ctrl+Return exec wezterm
 #bindsym $mod+ctrl+Return exec uxterm
 #bindsym $mod+Return exec konsole
 
@@ -141,12 +144,12 @@ for_window [class="Mousepad"] sticky enable
 for_window [class="Mousepad"] floating enable
 for_window [class="Mousepad"] move scratchpad
 for_window [class="Mousepad"] scratchpad show
-bindsym Shift+F9 exec i3-msg [class="Mousepad"] scratchpad show || mousepad
+bindsym Shift+F9 exec i3-msg '[class="Mousepad"]' scratchpad show || mousepad
 
 for_window [class="obsidian"] sticky enable
 for_window [class="obsidian"] move scratchpad
 for_window [class="obsidian"] scratchpad show
-bindsym F9 exec i3-msg [class="obsidian"] scratchpad show || obsidian
+#bindsym F9 exec i3-msg '[class="obsidian"]' scratchpad show || obsidian
 
 #for_window [class="firefox-n2i"] sticky enable
 #for_window [class="firefox-n2i"] floating disable
@@ -238,17 +241,19 @@ mode "resize" {
         bindsym $mod+r mode "default"
 }
 
-bindsym $mod+r mode "resize"
+#bindsym $mod+r mode "resize"
 
 # Start i3bar to display a workspace bar (plus the system information i3status
 # finds out, if available)
-bar {
-        #status_command i3status
-        #font pango:<family list> [<style options>] <size>
-        font pango:Cantarell, Font Awesome 6 Free Bold 11
-        status_command i3status-rs
-        position top
-}
+#bar {
+#        #status_command i3status
+#        #font pango:<family list> [<style options>] <size>
+#        font pango:Cantarell, Font Awesome 6 Free Bold 11
+#        status_command i3status-rs
+#        position top
+#
+#        #tray_output  DisplayPort-0
+#}
 
 # Prefs ----------------------------------------
 
@@ -267,15 +272,20 @@ bindsym $mod+o move workspace to output right
 bindsym Ctrl+Print exec "maim -s -c 1,1,0,0.8 -b 5 -n 1 | ~/dotfiles/clipboard/clip-gtk.py"
 bindsym Ctrl+Shift+Print exec "f=~/Pictures/Screenshots/screenshot-$(date +%Y-%m-%d_%H:%M:%S).png; maim -s -c 1,0,0,0.8 -b 5 -n 1 \\"$f\\" && notify-send \\"$f\\""
 bindsym Shift+Print exec flameshot gui
-bindsym Ctrl+F11 exec "notify-send Hidden; sleep 0.1; killall -SIGUSR1 dunst"
-bindsym Ctrl+F12 exec killall -SIGUSR2 dunst
+#bindsym Print exec flameshot gui
+#bindsym Ctrl+F11 exec "notify-send Hidden; sleep 0.1; killall -SIGUSR1 dunst"
+#bindsym Ctrl+F12 exec killall -SIGUSR2 dunst
 
-#bindsym $mod+x [floating] move scratchpad
+bindsym $mod+x [floating] move scratchpad
+#for_window [floating] move scratchpad; scratchpad show
 #bindsym $mod+x move scratchpad
 #bindsym $mod+Shift+x scratchpad show
 bindsym $mod+Shift+x [class=.*] scratchpad show
 
 bindsym $mod+Shift+n exec nautilus
+
+#bindsym F12 exec  "notify-send press"
+#bindsym --release F12 exec  "notify-send release"
 
 # Workspaces -----------------------------------
 
@@ -333,6 +343,12 @@ for_window [class="looking-glass-client"]  border normal
 
 for_window [class="obsidian"]              floating enable
 for_window [class="qView"]                 floating enable
+for_window [class="Signal"]                floating enable
+for_window [class="Shattered Pixel Dungeon"] floating enable
+for_window [class="Xfce4-panel"] floating enable
+for_window [class="Wrapper-2.0"] floating enable
+for_window [class="Thunar"] floating enable
+#for_window [class="WhatSie"] floating enable
 #for_window [class="Chromium"]              floating enable
 
 #for_window [class="Alacritty"] border toggle
