@@ -17,3 +17,6 @@
 
 /.zsh/.zcompdump*
 /.zsh/.zcompcache
+/.zsh/.zshrc.zwc
+
+/i3status-rust/config.toml

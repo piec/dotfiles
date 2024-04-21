@@ -1,0 +1,1 @@
+aapt dump badging "$1" | grep -Po "package: name='\K[^']*(?=')"
