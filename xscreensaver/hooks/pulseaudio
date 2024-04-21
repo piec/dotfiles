@@ -1,17 +1,23 @@
 #!/usr/bin/env bash
 temp=/tmp/$(whoami)/mute-state
-mkdir -p "$(dirname $temp)"
+mkdir -p "$(dirname "$temp")"
+
+expr='.sources .[] | [.index,.name,(if .mute then 1 else 0 end)] | @tsv' 
+
 case "$1" in
     LOCK)
-        pacmd dump | grep -E '^(set-sink-mute|set-source-mute)' > "$temp"
-        pacmd dump | grep -E '^(set-sink-mute|set-source-mute)' | while read cmd sink state _; do
-            if [ "$state" = no ]; then
-                echo "muting '$sink'"
-                pacmd "$cmd" "$sink" yes
-            fi
+        pactl --format=json list > "$temp"
+        jq  -r "$expr" "$temp" | while IFS=$'\t' read -r index name mute _; do
+            echo "muting $index '$name' $mute"
+            echo pactl set-source-mute "$name" 1
+            pactl set-source-mute "$name" 1
         done
         ;;
     UNBLANK)
-        pacmd < "$temp"
+        jq  -r "$expr" "$temp" | while IFS=$'\t' read -r index name mute _; do
+            echo "restore mute $index '$name' $mute"
+            echo pactl set-source-mute "$name" "$mute"
+            pactl set-source-mute "$name" "$mute"
+        done
         ;;
 esac
