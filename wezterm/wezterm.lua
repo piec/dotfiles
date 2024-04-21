@@ -28,7 +28,7 @@ config.font = wezterm.font_with_fallback {
     --"Terminus"
     "Noto Sans Mono"
 }
---config.font_size = 11
+config.font_size = 7
 
 config.ssh_domains = {
   {
@@ -64,6 +64,12 @@ config.keys = {
     mods = 'LEADER|SHIFT',
     action = wezterm.action.SplitHorizontal { domain = 'CurrentPaneDomain' },
   },
+    { key = '=', mods = 'CTRL', action = wezterm.action.IncreaseFontSize },
+    {
+      key = 'B',
+      mods = 'CTRL',
+      action = wezterm.action.EmitEvent 'toggle-presentation',
+    },
 }
 
 --config.window_decorations = "NONE"
@@ -83,6 +89,29 @@ config.window_frame = {
   font_size = 10,
 }
 
-config.selection_word_boundary = " \t\n{[}]()\"'`:;%/@." 
+config.selection_word_boundary = " \t\n{[}]()\"'`:;%/@.=,│"
+
+wezterm.on('toggle-presentation', function(window, pane)
+  local overrides = window:get_config_overrides() or {}
+  if overrides.font_size ~= nil then
+    overrides = {}
+  else
+    overrides.font = wezterm.font_with_fallback { "Noto Sans Mono" }
+    overrides.font_size = 11
+  end
+  window:set_config_overrides(overrides)
+end)
+
+--config.canonicalize_pasted_newlines = "None"
+
+--config.mouse_bindings = {
+  --{
+    --event = { Down = { streak = 3, button = 'Left' } },
+    --action = wezterm.action.SelectTextAtMouseCursor 'SemanticZone',
+    --mods = 'NONE',
+  --},
+--}
+
+--term = "wezterm"
 
 return config
