@@ -69,7 +69,7 @@ alias -g N='; notify-send -u critical "done $?"'
 alias -s txt=vim
 
 function R {
-    realpath "$@" X
+    realpath "$@" |& sed -z 's/\n*$//' | sed "s|^${HOME}|~|g" | xclip -f -selection primary | xclip -selection clipboard
 }
 
 # bindkey -------------------
