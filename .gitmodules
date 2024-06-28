@@ -28,9 +28,6 @@
 [submodule ".emacs.d/color-theme"]
 	path = .emacs.d/color-theme
 	url = git@github.com:piec/color-theme
-[submodule ".zsh/.zprezto"]
-	path = .zsh_/.zprezto
-	url = git@github.com:piec/prezto
 [submodule "awesome/apw"]
 	path = awesome/apw
 	url = git@github.com:piec/apw
