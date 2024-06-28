@@ -19,7 +19,7 @@ Plug 'vim-scripts/file-line'
 "Plug 'jacquesbh/vim-showmarks'
 Plug 'rhysd/vim-clang-format'
 Plug 'vim-scripts/a.vim'
-Plug 'airblade/vim-gitgutter'
+Plug 'airblade/vim-gitgutter', { 'branch': 'main' }
 "Plug 'mhinz/vim-signify'
 "Plug 'L9'
 "Plug 'FuzzyFinder'
