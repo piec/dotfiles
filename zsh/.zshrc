@@ -83,8 +83,8 @@ function unset_func {
 # -----------------------------------------
 #region prefs
 
-alias ls="LC_COLLATE=C ls --color"
-alias l="${aliases[ls]:-ls} -la --group-directories-first"
+alias ls="LC_COLLATE=C ls --color --group-directories-first"
+alias l="${aliases[ls]:-ls} -la"
 alias tiga="tig --all"
 alias svim="sudo -E vim"
 # alias grep="${aliases[grep]:-grep} --exclude-dir=\.svn --exclude-dir=\.hg --exclude-dir=\.git"
