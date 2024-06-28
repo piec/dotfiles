@@ -20,3 +20,7 @@
 /.zsh/.zshrc.zwc
 
 /i3status-rust/config.toml
+
+*.zwc
+.zcompdump
+/znap

@@ -45,23 +45,20 @@ function pmodload {
   echo "nope $0 $*"
 }
 
-znap source 'piec/dotfiles' \
-    '.zsh/.zprezto/modules/helper/init.zsh' \
-    \
-    '.zsh/.zprezto/modules/environment/init.zsh' \
-    '.zsh/.zprezto/modules/terminal/init.zsh' \
-    '.zsh/.zprezto/modules/editor/init.zsh' \
-    '.zsh/.zprezto/modules/history/init.zsh' \
-    '.zsh/.zprezto/modules/directory/init.zsh' \
-    '.zsh/.zprezto/modules/spectrum/init.zsh' \
-    '.zsh/.zprezto/modules/completion/init.zsh' \
-    '.zsh/.zprezto/modules/prompt/init.zsh' \
-    '.zsh/.zprezto/modules/syntax-highlighting/init.zsh' \
-    '.zsh/.zprezto/modules/command-not-found/init.zsh' \
-    '.zsh/.zprezto/modules/autosuggestions/init.zsh' \
 
-    # '.zsh/.zprezto/modules/utility/init.zsh' \
-    # '.zsh/.zprezto/modules/bundle/init.zsh' \
+znap source 'sorin-ionescu/prezto' \
+    'modules/helper/init.zsh' \
+    \
+    'modules/environment/init.zsh' \
+    'modules/terminal/init.zsh' \
+    'modules/editor/init.zsh' \
+    'modules/history/init.zsh' \
+    'modules/directory/init.zsh' \
+    'modules/spectrum/init.zsh' \
+    'modules/completion/init.zsh' \
+    'modules/syntax-highlighting/init.zsh' \
+    'modules/command-not-found/init.zsh' \
+    'modules/autosuggestions/init.zsh' \
 
 #endregion
 
@@ -81,13 +78,13 @@ fi
 
 # -----------------------------------------
 
-znap source 'piec/fzf-prezto' 'init.zsh'
-
-
-# export NVM_DIR="$HOME/.nvm"
-# [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-#[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+# znap source 'piec/fzf-prezto' 'init.zsh'
 
 path+=~/dotfiles/bin
 
 # TODO runcoms?
+
+# prompt
+fpath=($HOME/dotfiles/zsh/functions/ $fpath)
+autoload -Uz promptinit && promptinit
+prompt fade2 magenta
