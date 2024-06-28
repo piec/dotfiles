@@ -29,7 +29,7 @@
 	path = .emacs.d/color-theme
 	url = git@github.com:piec/color-theme
 [submodule ".zsh/.zprezto"]
-	path = .zsh/.zprezto
+	path = .zsh_/.zprezto
 	url = git@github.com:piec/prezto
 [submodule "awesome/apw"]
 	path = awesome/apw
@@ -37,3 +37,6 @@
 [submodule "awesome/cyclefocus"]
 	path = awesome/cyclefocus
 	url = https://github.com/blueyed/awesome-cyclefocus.git
+[submodule "znap/zsh-snap"]
+	path = znap/zsh-snap
+	url = https://github.com/marlonrichert/zsh-snap.git
