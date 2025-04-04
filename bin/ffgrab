@@ -1,6 +1,36 @@
 #!/bin/bash
 #slop=$(slop -f "%x %y %w %h %g %i") || exit 1
-slop=$(slop -c 1,0,0,0.8 -b 5 -n 1 -f "%x %y %w %h %g %i") || exit 1
-read -r X Y W H G ID < <(echo $slop)
 set -x
-exec ffmpeg -f x11grab -s "$W"x"$H" -i "$DISPLAY".0+$X,$Y -f pulse -ac 2 -i default ${1-~/myfile.mp4}
+name=ffgrab
+notifid="$(notify-send -a $name -p "select window")"
+slop=$(slop -c 1,0,0,0.8 -b 5 -n 1 -f "%x %y %w %h %g %i") || { 
+    notify-send -r "$notifid" -a $name -t 1500 canceled
+    exit 1
+}
+#read -r X Y W H G ID < <(echo "$slop")
+read -r X Y W H G ID <<< "$slop"
+
+deffile="$HOME/Videos/record-$(date +%Y-%m-%d_%H:%M:%S).mp4"
+file="${1-$deffile}" 
+#ffmpeg -f x11grab -s "$W"x"$H" -i "$DISPLAY".0+$X,$Y -f pulse -ac 2 -i default "$file" -y &
+echo "DISPLAY=$DISPLAY"
+ffmpeg -f x11grab -s "$W"x"$H" -i "${DISPLAY}"+$X,$Y \
+    -vf "pad=ceil(iw/2)*2:ceil(ih/2)*2" \
+    -c:v libx264 -preset fast -profile:v main -pix_fmt yuv420p \
+    "$file" -y &
+pid=$!
+
+{
+    echo notify...
+    notify-send -r "$notifid" -a $name -A "exit" -t 0 $name
+    echo notify end
+    kill -INT $pid
+    #exit 0
+}&
+wait $pid
+opt=$(notify-send -r "$notifid" -a $name -A "open file" -A "open dir" -t 10000 $name)
+if [ "$opt" = 0 ]; then
+    xdg-open "$file" &
+elif [ "$opt" = 1 ]; then
+    xdg-open "$(dirname "$file")" &
+fi

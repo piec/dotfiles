@@ -38,6 +38,10 @@ function main {
     mouse "SynPS\/2 Synaptics TouchPad" 2.0 1 0
     mouse "Logitech G403 Prodigy Gaming Mouse" 1
     mouse "Logitech Gaming Mouse G402" 1.0
+    mouse "Logitech G502" 1.0
+    mouse "Logitech MX Vertical" 1.0
+    mouse "Logitech USB Receiver Mouse" 1.0
+    mouse "CX 2.4G Receiver Mouse" 1.3
 }
 
 main

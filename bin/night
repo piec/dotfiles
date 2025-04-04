@@ -1,0 +1,26 @@
+#!/bin/bash
+dark=$1
+
+if [ "$dark" = "" ]; then
+    if xfconf-query -c xsettings -p /Net/ThemeName | grep -i dark >& /dev/null; then
+        dark=0
+    else
+        dark=1
+    fi
+fi
+
+if [ "$dark" = 1 ]; then
+    theme=Adwaita-dark
+    color_scheme=prefer-dark
+    bri=10
+else
+    theme=Adwaita
+    color_scheme=default
+    bri=65
+fi
+
+xfconf-query -c xsettings -p /Net/ThemeName -s "$theme"
+# https://github.com/xfce-mirror/xfce4-settings/blob/5e5dea9e6d2a6f98b6f2f8e46a3b303f217c0ab5/dialogs/appearance-settings/main.c#L1118
+gsettings set org.gnome.desktop.interface color-scheme "$color_scheme"
+gsettings set org.gnome.desktop.interface gtk-theme "$theme"
+ddcutil setvcp 10 $bri

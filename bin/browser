@@ -22,6 +22,12 @@ elif [[ "$1" = *n2i.io* ]] || [[ "$1" = *amazonaws* ]]; then
     #profile=perso-new
 fi
 
-$FIREFOX -p "$profile" "$*" >& /dev/null &
+if [[ "$1" = *meet.google.com* ]]; then
+    /usr/bin/chromium --profile-directory="Profile 7" chrome://new-tab-page "$*" %U &
+else
+    $FIREFOX -p "$profile" "$*" >& /dev/null &
+fi
+
+
 #disown
 exit 0

@@ -1,0 +1,45 @@
+#!/bin/bash
+set -x
+set -o pipefail
+
+name="clipscreen"
+notifid="$(notify-send -a $name -p "select window")"
+slop="$(slop -c 1,0,0,0.8 -b 5 -n 1)" || { 
+    notify-send -r "$notifid" -a $name -t 1500 canceled
+    exit 1
+}
+
+clipscreen "$slop" &
+pid=$!
+
+exec 3< <(notify-send -r "$notifid" -a $name -A "reselect" -A "exit" -t 0 $name)
+notifypid=$!
+
+function cleanup {
+    echo end
+    kill -INT $pid || :
+    kill -INT $notifypid || :
+}
+trap cleanup EXIT
+
+{
+    echo wait pid...
+    #wait "$pid"
+    tail -f --pid $pid /dev/null
+    echo wait pid done
+    echo notifypid=$notifypid
+    exit 0
+}&
+
+{
+    opt=$(cat <&3)
+    echo "notify end opt=<${opt}>"
+
+    if [ "$opt" = 0 ]; then
+        $0 &
+    fi
+    kill -INT $pid || :
+    exit 0
+}&
+
+wait $pid
