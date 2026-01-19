@@ -15,6 +15,7 @@ echo XSS_SLEEP_LOCK_FD=$XSS_SLEEP_LOCK_FD
 date; echo pre
 
 
+# no $XSS_SLEEP_LOCK_FD when just locking screen (xset s activate), only for suspend
 if [ "$XSS_SLEEP_LOCK_FD" = "" ]; then
     run-parts -v --report --arg="LOCK" -- "${HOOKS_DIR}"
     ${locker} &

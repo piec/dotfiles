@@ -32,7 +32,7 @@ font pango:Cantarell, Font Awesome 6 Free Bold 11
 # xss-lock grabs a logind suspend inhibit lock and will use i3lock to lock the
 # screen before suspend. Use loginctl lock-session to lock your screen.
 #exec --no-startup-id xss-lock --transfer-sleep-lock -- i3lock --nofork
-exec --no-startup-id HOOKS_DIR=~/dotfiles/xscreensaver/hooks exec xss-lock -l -n /usr/lib/xsecurelock/dimmer -- ~/dotfiles/lockscreen/lock
+exec_always --no-startup-id HOOKS_DIR=~/dotfiles/xscreensaver/hooks exec xss-lock -l -n /usr/lib/xsecurelock/dimmer -- ~/dotfiles/lockscreen/lock
 
 # NetworkManager is the most popular way to manage wireless networks on Linux,
 # and nm-applet is a desktop environment-independent system tray GUI for it.
@@ -42,10 +42,13 @@ exec --no-startup-id playerctld daemon
 #exec --no-startup-id nextcloud
 #exec --no-startup-id libinput-gestures
 
-exec --no-startup-id dex -e i3 -va
+exec_always --no-startup-id dex -e i3 -e XFCE -va
 exec --no-startup-id redshift-gtk
 #exec --no-startup-id dunst
-exec_always --no-startup-id /usr/lib/xfce4/notifyd/xfce4-notifyd
+
+# done by dex -e xfce
+#exec_always --no-startup-id /usr/lib/xfce4/notifyd/xfce4-notifyd
+
 exec_always --no-startup-id "bash -c 'source ~/dotfiles/bin/mouse.sh; main'"
 exec_always --no-startup-id xkbcomp ~/dev/mirrorboard/mirror-pierre.xkb "$DISPLAY"
 exec_always --no-startup-id xset r rate 300 25
@@ -54,9 +57,11 @@ exec --no-startup-id /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
 #exec --no-startup-id gkrellm
 exec --no-startup-id picom -b
 #exec_always --no-startup-id whatsie
+exec elecwhat
 
 exec_always --no-startup-id xfce4-panel
 #exec_always --no-startup-id i3-layouts
+exec_always --no-startup-id openrgb --profile off -v
 
 # Use pactl to adjust volume in PulseAudio.
 set $refresh_i3status killall -SIGUSR1 i3status-rs
@@ -92,7 +97,7 @@ bindsym $mod+d exec --no-startup-id dmenu_run
 # There also is i3-dmenu-desktop which only displays applications shipping a
 # .desktop file. It is a wrapper around dmenu, so you need that installed.
 #bindsym $mod+d exec --no-startup-id i3-dmenu-desktop
-bindsym $mod+p exec --no-startup-id "rofi -show run"
+bindsym $mod+p exec --no-startup-id "PATH=~/bin/:$PATH rofi -show run"
 bindsym $mod+Shift+p exec --no-startup-id "rofi -show drun"
 bindsym $mod+a exec --no-startup-id "rofi -show ssh"
 bindsym $mod+Shift+f exec --no-startup-id "fc-cache -fv"
@@ -145,6 +150,7 @@ for_window [class="Mousepad"] floating enable
 for_window [class="Mousepad"] move scratchpad
 for_window [class="Mousepad"] scratchpad show
 bindsym Shift+F9 exec i3-msg '[class="Mousepad"]' scratchpad show || mousepad
+bindsym Shift+F10 exec qdbus fr.carru.elecwhat /fr/carru/elecwhat fr.carru.elecwhat.ToggleVisibility
 
 for_window [class="obsidian"] sticky enable
 for_window [class="obsidian"] move scratchpad
@@ -261,15 +267,18 @@ mouse_warping none
 
 # Bindings -------------------------------------
 
-bindsym $mod+c exec --no-startup-id timeout 1s playerctl play-pause
-bindsym $mod+b exec --no-startup-id timeout 1s playerctl next
-bindsym $mod+w exec --no-startup-id timeout 1s playerctl previous
+set $xfce_refresh xfce4-panel --plugin-event=genmon-16:refresh:bool:true
+set $xfce_refresh2 for i in {1..3}; do xfce4-panel --plugin-event=genmon-16:refresh:bool:true; sleep 0.5; done
+bindsym $mod+c exec --no-startup-id "timeout 1s playerctl play-pause; $xfce_refresh"
+bindsym $mod+b exec --no-startup-id "timeout 1s playerctl next; $xfce_refresh2"
+bindsym $mod+w exec --no-startup-id "timeout 1s playerctl previous; $xfce_refresh2"
 
 bindsym $mod+Ctrl+l exec --no-startup-id xset s activate
 bindsym $mod+mod1+l exec --no-startup-id xset s activate
 
 bindsym $mod+o move workspace to output right
-bindsym Ctrl+Print exec "maim -s -c 1,1,0,0.8 -b 5 -n 1 | ~/dotfiles/clipboard/clip-gtk.py"
+#bindsym Ctrl+Print exec "maim -s -c 1,1,0,0.8 -b 5 -n 1 | ~/dotfiles/clipboard/clip-gtk.py"
+bindsym Ctrl+Print exec flameshot gui -r | tesseract - - | gxmessage -title "Decoded Data" -fn "Consolas 12" -wrap -geometry 640x480 -file -
 bindsym Ctrl+Shift+Print exec "f=~/Pictures/Screenshots/screenshot-$(date +%Y-%m-%d_%H:%M:%S).png; maim -s -c 1,0,0,0.8 -b 5 -n 1 \\"$f\\" && notify-send \\"$f\\""
 bindsym Shift+Print exec flameshot gui
 #bindsym Print exec flameshot gui
@@ -301,10 +310,12 @@ workspace 9 output eDP-1
 for_window [window_role="pop-up"]         floating enable
 for_window [window_role="task_dialog"]    floating enable
 for_window [class="Pavucontrol"]          floating enable
+for_window [class="pavucontrol"]          floating enable
 for_window [class="VirtualBox"]           floating enable
 for_window [class="VirtualBox Manager"]   floating enable
 for_window [class="espwd.py"]             floating enable
 for_window [class="org.gnome.Nautilus"]   floating enable
+for_window [class="Solaar"]               floating enable
 for_window [class="Evince"]               floating enable
 for_window [class="KeePassXC"]            floating enable
 for_window [class="Pinentry"]             floating enable
@@ -314,6 +325,8 @@ for_window [class="Simple-scan"]          floating enable
 for_window [class="Nm-connection-editor"] floating enable
 for_window [class="Godot"]                floating enable
 for_window [class="Steam"]                floating enable
+for_window [class="steam"]                floating enable
+for_window [class="steam_app_1172620"]    floating enable
 for_window [class="Thunderbird"]          floating enable
 for_window [class="thunderbird"]          floating enable
 for_window [class="mplayer"]              floating enable
@@ -333,10 +346,10 @@ for_window [class="unityhub"]             floating enable
 for_window [class="jadx-gui-JadxGUI"]             floating enable
 for_window [class="Nextcloud"]             floating enable
 for_window [class="Blueberry.py"]          floating enable
-for_window [class="steam_app_1172620"]     floating enable
 for_window [class="hl2_linux"]             floating enable
 for_window [class="Virt-manager"]          floating enable
 for_window [class="Virt-manager"]          border normal
+for_window [class="org.gnome.FileRoller"]  floating enable
 
 for_window [class="looking-glass-client"]  floating enable
 for_window [class="looking-glass-client"]  border normal
@@ -348,18 +361,29 @@ for_window [class="Shattered Pixel Dungeon"] floating enable
 for_window [class="Xfce4-panel"] floating enable
 for_window [class="Wrapper-2.0"] floating enable
 for_window [class="Thunar"] floating enable
+for_window [class="elecwhat"] floating enable
+for_window [class="com-timestored-qstudio-QStudioLauncher"] floating enable
 #for_window [class="WhatSie"] floating enable
-#for_window [class="Chromium"]              floating enable
+for_window [class="Chromium"]              floating enable
+for_window [class="Gxmessage"]             floating enable
+for_window [class="Otpclient"]             floating enable
+for_window [class="scrcpy"]                floating enable
+for_window [class="openrgb"]               floating enable
+for_window [title="Welcome to Android Studio"] floating enable
+#for_window [title="Sign in.*"] floating enable
 
 #for_window [class="Alacritty"] border toggle
 
 for_window [class="Spotify"] move container to workspace 9
+#for_window [class=".*"] title_format "%title -- %class -- %instance"
+for_window [class="Handy"] floating enable
+no_focus [class="Handy"]
 
 # Theme ----------------------------------------
 
 #titlebar_border_thickness 3
-#default_border pixel 3
 default_border pixel 3
+#default_border normal
 default_floating_border normal
 hide_edge_borders smart
 
