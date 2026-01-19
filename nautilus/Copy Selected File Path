@@ -4,8 +4,8 @@ import subprocess
 
 HOME = os.getenv("HOME")
 
-lines = os.getenv('NAUTILUS_SCRIPT_SELECTED_FILE_PATHS', '').split('\n')
-print(lines)
+lines = os.getenv('NAUTILUS_SCRIPT_SELECTED_FILE_PATHS', '').strip('\n').split('\n')
+# print(f"line={lines}")
 paths = map(lambda e: f"'{e}'" if ' ' in e else e , lines)
 
 

@@ -28,28 +28,37 @@ foreground = "0xbebebe"
 [env]
 TERM = "xterm-256color"
 #WINIT_X11_SCALE_FACTOR = "randr"
-WINIT_X11_SCALE_FACTOR = "1"
-XCURSOR_SIZE="20"
+#WINIT_X11_SCALE_FACTOR = "1"
+XCURSOR_SIZE = "20"
 dynamic_title = "true"
 
-[font]
+# -----
+#[font]
 #antialias = false
-size = 10
+#size = 10
+
+#[font.normal]
+#family = "Misc Fixed"
+#style = "SemiCondensed"
+
+#[font.bold]
+#family = "Misc Fixed"
+#style = "Bold SemiCondensed"
+
+# -----
+
+[font]
+size = 11
 
 [font.normal]
-family = "Misc Fixed"
-style = "SemiCondensed"
+family = "DejaVu Sans Mono"
 
-[font.bold]
-family = "Misc Fixed"
-style = "Bold SemiCondensed"
+# -----
+#[font]
+#size = 11
+#[font.normal]
+#family = "Terminus"
 
-#[font.glyph_offset]
-#x = 0
-#y = 0
-#[font.offset]
-#x = 0
-#y = 0
 
 [keyboard]
 bindings = [
@@ -67,7 +76,7 @@ bindings = [
 ]
 
 [selection]
-semantic_escape_chars = ",;│`|:\"' ()[]{}<>\t*/=-.%@"
+semantic_escape_chars = ",;│`|:\"' ()[]{}<>\t*/=-.%@─&"
 #save_to_clipboard = true
 
 
