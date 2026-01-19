@@ -65,7 +65,7 @@ alias -g S="|& sort"
 alias -g V="|& vim -"
 alias -g X="|& sed -z 's/\n*\$//' | sed 's|^${HOME}|~|g' | xclip -f -selection primary | xclip -selection clipboard"
 alias -g G='; ntfy send powa "done $?"'
-alias -g N='; notify-send -u critical "done $?"'
+alias -g N='; notify-send -h "string:sound-name:bell" -u critical "done $?"'
 alias -s txt=vim
 
 function R {
