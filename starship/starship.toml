@@ -1,0 +1,118 @@
+# Get editor completions based on the config schema
+"$schema" = 'https://starship.rs/config-schema.json'
+
+# Inserts a blank line between shell prompts
+add_newline = false
+
+format = """
+$username\
+$hostname\
+$time\
+$localip\
+$shlvl\
+$kubernetes\
+$git_branch\
+$git_commit\
+$git_state\
+$git_metrics\
+$git_status\
+$package\
+$python\
+$rust\
+$aws\
+$direnv\
+$env_var\
+$custom\
+$sudo\
+$cmd_duration\
+$status\
+$line_break\
+$directory\
+$jobs\
+$character"""
+
+# Replace the '❯' symbol in the prompt with '➜'
+[character] # The name of the module we are configuring is 'character'
+success_symbol = '%'
+error_symbol = "[%](bold red)"
+
+## Disable the package module, hiding it from the prompt completely
+#[package]
+#disabled = true
+
+[aws]
+disabled = true
+
+[shlvl]
+disabled = false
+threshold = 3
+
+#[localip]
+#ssh_only = false
+#disabled = false
+
+[jobs]
+number_threshold = 1
+
+[kubernetes]
+disabled = true
+format = '[\($symbol$context( \($namespace\))\)]($style) '
+
+[directory]
+truncation_length = 0
+truncate_to_repo = false
+style = 'bright-green'
+
+[time]
+disabled = false
+format = "[$time]($style) "
+style = "white"
+
+[direnv]
+disabled = true
+format = '[$symbol$loaded$allowed]($style) '
+allowed_msg = ""
+loaded_msg = ""
+
+#[env_var.SHELL]
+#variable = 'SHELL'
+#default = 'unknown shell'
+#style = "fg:white"
+#[env_var.USER]
+#default = 'unknown user'
+#style = "fg:white"
+
+[sudo]
+disabled = true
+format = '[$symbol]($style)'
+
+[python]
+disabled = true
+[username]
+show_always = true
+format = '[█▓▒░$user]($style)'
+style_user = 'bold inverted bright-green'
+[hostname]
+ssh_only = false
+format = '[@$hostname$ssh_symbol░▒▓█]($style)'
+style = 'bold inverted bright-green'
+[battery]
+disabled = true
+[status]
+disabled = false
+[netns]
+disabled = true
+
+[git_commit]
+tag_disabled = false
+tag_symbol = '#'
+style = 'purple'
+format = '[$hash$tag]($style)'
+
+[git_status]
+#diverged = '⇡⇣'
+diverged = '⇕⇡${ahead_count}⇣${behind_count}'
+ahead = '⇡${count}'
+behind = '⇣${count}'
+[package]
+format = '[$symbol$version]($style) '

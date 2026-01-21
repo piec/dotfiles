@@ -46,3 +46,4 @@ ln -s ~/dotfiles/redshift/redshift.conf ~/.config/
 
 ln -s ~/dotfiles/i3 ~/.config/
 ln -s ~/dotfiles/i3status-rust/ ~/.config/
+ln -s ~/dotfiles/starship/starship.toml ~/.config/
